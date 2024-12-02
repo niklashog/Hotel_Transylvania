@@ -10,31 +10,18 @@ namespace Hotel_Transylvania.Factories
 {
     public class GuestsFactory
     {
-        //public static IContainer _guestsContainer;
+        public static void GuestsContainer(ContainerBuilder builder)
+        {
+            builder.RegisterType<GuestsMenu>().As<IGuestsMenu>();
+            builder.RegisterType<DeactivateGuest>().As<IDeactivateGuest>();
+            builder.RegisterType<ReactivateGuest>().As<IReactivateGuest>();
+            builder.RegisterType<RegisterGuest>().As<IRegisterGuest>();
+            builder.RegisterType<ShowAllGuests>().As<IShowAllGuests>();
+            builder.RegisterType<ShowInactiveGuests>().As<IShowInactiveGuests>();
+            builder.RegisterType<UpdateGuest>().As<IUpdateGuest>();
 
-        //public static void BuildGuestsContainer()
-        //{
-        //    var guestsBuilder = new ContainerBuilder();
-
-        //    //Menu
-        //    guestsBuilder.RegisterType<GuestsMenu>().As<IGuestsMenu>();
-        //    guestsBuilder.RegisterType<DeactivateGuest>().As<IDeactivateGuest>();
-        //    guestsBuilder.RegisterType<ReactivateGuest>().As<IReactivateGuest>();
-        //    guestsBuilder.RegisterType<RegisterGuest>().As<IRegisterGuest>();
-        //    guestsBuilder.RegisterType<ShowAllGuests>().As<IShowAllGuests>();
-        //    guestsBuilder.RegisterType<ShowInactiveGuests>().As<IShowInactiveGuests>();
-        //    guestsBuilder.RegisterType<UpdateGuest>().As<IUpdateGuest>();
-
-        //    guestsBuilder.RegisterType<NavigateGuestsMenu>().As<INavigateGuestsMenu>();
-        //    guestsBuilder.RegisterType<ExecuteGuestsMenu>().As<IExecuteGuestsMenu>();
-
-        //    _guestsContainer = guestsBuilder.Build();
-        //}
-
-        //public static T ResolveGuests<T>()
-        //{
-        //    return _guestsContainer.Resolve<T>();
-
-        //}
+            builder.RegisterType<NavigateGuestsMenu>().As<INavigateGuestsMenu>();
+            builder.RegisterType<ExecuteGuestsMenu>().As<IExecuteGuestsMenu>();
+        }
     }
 }

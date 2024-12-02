@@ -1,6 +1,4 @@
-﻿using Hotel_Transylvania.Interfaces;
-
-namespace Hotel_Transylvania.Graphics
+﻿namespace Hotel_Transylvania.Graphics
 {
     public static class DisplayLogo
     {

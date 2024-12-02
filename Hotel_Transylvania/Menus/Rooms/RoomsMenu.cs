@@ -17,9 +17,9 @@ namespace Hotel_Transylvania.Menus.Rooms
     {
         public void Execute()
         {
-            var executeMenuOption = ClassFactory.Resolve<IExecuteRoomsMenu>();
-            var menuNavigation = ClassFactory.Resolve<INavigateRoomsMenu>();
-            var menuHighlight = ClassFactory.Resolve<IMenuHighlight>();
+            var executeMenuOption = MainFactory.Resolve<IExecuteRoomsMenu>();
+            var menuNavigation = MainFactory.Resolve<INavigateRoomsMenu>();
+            var menuHighlight = MainFactory.Resolve<IMenuHighlight>();
 
             Console.CursorVisible = false;
             string[] menuItems = {

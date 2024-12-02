@@ -1,6 +1,5 @@
 ﻿using Hotel_Transylvania.Factories;
 using Hotel_Transylvania.Interfaces;
-using Autofac;
 
 namespace Hotel_Transylvania
 {
@@ -8,12 +7,9 @@ namespace Hotel_Transylvania
     {
         static void Main(string[] args)
         {
-            ClassFactory.BuildContainer();
-            //GuestsFactory.BuildGuestsContainer();
-            //ReservationsFactory.BuildReservationsContainer();
-            //RoomsFactory.BuildRoomsContainer();
+            MainFactory.BuildContainer();
 
-            var app = ClassFactory.Resolve<IApplication>();
+            var app = MainFactory.Resolve<IApplication>();
             app.Run();
         }
     }
