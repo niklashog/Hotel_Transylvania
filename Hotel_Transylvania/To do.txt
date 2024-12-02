@@ -1,0 +1,31 @@
+﻿WORK ITEMS
+
+- Menus
+	Rensa upp så att alla NAvigate- och Execute-interfaces bara blir action interfaces
+	som ärver ifrån "IExecuteMenus" och "INavigateMenus". Inte DRY att ha en per meny.
+
+- Guest
+Id
+Name
+Telephone
+E-mail
+History?
+
+- Room
+1-2 Beds
+0-2 Extra beds
+
+- Reservation
+Size of group/party ?
+Singles, couples?
+
+Log
+	2024-12-02
+	Alla menyer fungerar.
+	2024-11-30
+	Ordnar menyer för Guests
+	2024-11-29
+	Ordnar menyer för Rooms
+	2024-11-25
+		Börjar skapa menyerna.
+		Lägger in placeholder-alternativ.
