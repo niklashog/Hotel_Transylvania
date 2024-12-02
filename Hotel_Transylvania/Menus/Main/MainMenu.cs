@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Hotel_Transylvania.Menus
+namespace Hotel_Transylvania.Menus.Main
 {
     public class MainMenu(
         INavigateMainMenu menuNavigation,

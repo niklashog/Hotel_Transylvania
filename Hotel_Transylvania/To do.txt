@@ -1,8 +1,8 @@
-﻿WORK ITEMS
+﻿### WORK ITEMS
 
-- Menus
-	Rensa upp så att alla NAvigate- och Execute-interfaces bara blir action interfaces
-	som ärver ifrån "IExecuteMenus" och "INavigateMenus". Inte DRY att ha en per meny.
+
+
+### Notes for self
 
 - Guest
 Id
@@ -19,13 +19,16 @@ History?
 Size of group/party ?
 Singles, couples?
 
-Log
-	2024-12-02
-	Alla menyer fungerar.
-	2024-11-30
-	Ordnar menyer för Guests
-	2024-11-29
-	Ordnar menyer för Rooms
-	2024-11-25
-		Börjar skapa menyerna.
-		Lägger in placeholder-alternativ.
+
+### LOG
+
+2024-12-02
+  Ordnar klasser och interfaces för Reservations. Alla menyer fungerar nu.
+  Lägger in så bannern ligger kvar i alla menyer.
+2024-11-30
+  Ordnar klasser och interfaces för Guests. Guests-menyn fungerar nu.
+2024-11-29
+  Ordnar klasser och interfaces för Rooms. Rooms-menyn fungerar nu.
+2024-11-25
+  Börjar skapa menyerna.
+  Många menyer har bara placeholder-rubriker som ej går att klicka sig in på.

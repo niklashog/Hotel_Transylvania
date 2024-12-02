@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Hotel_Transylvania.Menus
+namespace Hotel_Transylvania.Menus.MenuNavigation
 {
     public class NavigateReservationsMenu(
         IExecuteReservationsMenu executeMenuOption) : INavigateReservationsMenu
@@ -17,11 +17,11 @@ namespace Hotel_Transylvania.Menus
             switch (key)
             {
                 case ConsoleKey.UpArrow:
-                    selectedIndex = (selectedIndex == 0) ? menuItems.Length - 1 : selectedIndex - 1;
+                    selectedIndex = selectedIndex == 0 ? menuItems.Length - 1 : selectedIndex - 1;
                     break;
 
                 case ConsoleKey.DownArrow:
-                    selectedIndex = (selectedIndex == menuItems.Length - 1) ? 0 : selectedIndex + 1;
+                    selectedIndex = selectedIndex == menuItems.Length - 1 ? 0 : selectedIndex + 1;
                     break;
                 case ConsoleKey.Enter:
                     executeMenuOption.Execute(

@@ -1,44 +1,47 @@
-﻿using Autofac.Core;
-using Hotel_Transylvania.Interfaces;
-using Hotel_Transylvania.Menus.Rooms;
+﻿using Hotel_Transylvania.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Hotel_Transylvania.Menus
+namespace Hotel_Transylvania.Menus.MenuExecution
 {
-    public class ExecuteRoomsMenu(
-    IDeactivateRoom deactivateRoom,
-    IReactivateRoom reactivateRoom,
-    IShowAllRooms showAllRooms,
-    IShowInactiveRooms showInactiveRooms,
-    IUpdateRoom updateRoom,
-    IMainMenu mainMenu) : IExecuteRoomsMenu
+    public class ExecuteGuestsMenu(
+    IDeactivateGuest deactivateGuest,
+    IReactivateGuest reactivateGuest,
+    IRegisterGuest registerGuest,
+    IShowAllGuests showAllGuests,
+    IShowInactiveGuests showInactiveGuests,
+    IUpdateGuest updateGuest,
+    IMainMenu mainMenu) : IExecuteGuestsMenu
     {
         public void Execute(int index, ref bool isRunning)
         {
             switch (index)
             {
                 case 0:
-                    showAllRooms.Execute();
+                    registerGuest.Execute();
                     break;
                 case 1:
-                    updateRoom.Execute();
+                    updateGuest.Execute();
                     break;
                 case 2:
-                    deactivateRoom.Execute();
+                    showAllGuests.Execute();
                     break;
                 case 3:
-                    reactivateRoom.Execute();
+                    deactivateGuest.Execute();
                     break;
                 case 4:
-                    showInactiveRooms.Execute();
+                    reactivateGuest.Execute();
                     break;
                 case 5:
+                    showInactiveGuests.Execute();
+                    break;
+                case 6:
                     mainMenu.Execute();
                     break;
+
                 default:
                     Console.WriteLine("Felaktigt val.");
                     break;

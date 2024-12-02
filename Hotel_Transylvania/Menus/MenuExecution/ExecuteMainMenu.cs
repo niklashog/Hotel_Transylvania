@@ -7,7 +7,7 @@ using Hotel_Transylvania.Factories;
 using Hotel_Transylvania.Interfaces;
 
 
-namespace Hotel_Transylvania.Menus
+namespace Hotel_Transylvania.Menus.MenuExecution
 {
     public class ExecuteMainMenu(
         IRoomsMenu rooms,

@@ -1,28 +1,28 @@
-﻿using Hotel_Transylvania.Factories;
-using Hotel_Transylvania.Graphics;
-using Hotel_Transylvania.Interfaces;
-using System;
+﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Hotel_Transylvania.Factories;
+using Hotel_Transylvania.Graphics;
+using Hotel_Transylvania.Interfaces;
 
-namespace Hotel_Transylvania.Menus
+namespace Hotel_Transylvania.Menus.Rooms
 {
-    public class GuestsMenu : IGuestsMenu
+    public class RoomsMenu : IRoomsMenu
     {
         public void Execute()
         {
-            var executeMenuOption = ClassFactory.Resolve<IExecuteGuestsMenu>();
-            var menuNavigation = ClassFactory.Resolve<INavigateGuestsMenu>();
+            var executeMenuOption = ClassFactory.Resolve<IExecuteRoomsMenu>();
+            var menuNavigation = ClassFactory.Resolve<INavigateRoomsMenu>();
             var menuHighlight = ClassFactory.Resolve<IMenuHighlight>();
 
             Console.CursorVisible = false;
             string[] menuItems = {
-                "Register new guest", "Update guest information",
-                "Show all guests", "Deactivate guest",
-                "Reactivate  guest", "Show all inactive guests",
-                "Back to main menu" };
+                "Show all rooms", "Update a room",
+                "Deactivate a room", "Reactivate a room",
+                "Show inactive rooms", "Back to main menu" };
 
             int selectedIndex = 0;
             bool isRunning = true;

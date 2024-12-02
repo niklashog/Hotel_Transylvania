@@ -1,9 +1,12 @@
 ﻿using Hotel_Transylvania.Interfaces;
 using Autofac;
-using Hotel_Transylvania.Menus;
 using Hotel_Transylvania.Menus.Rooms;
 using Hotel_Transylvania.Menus.Guests;
 using Hotel_Transylvania.Menus.Reservations;
+using Hotel_Transylvania.Menus.Main;
+using Hotel_Transylvania.Menus.MenuExecution;
+using Hotel_Transylvania.Menus.MenuNavigation;
+using Hotel_Transylvania.Menus.MenuServices;
 
 namespace Hotel_Transylvania.Factories
 {

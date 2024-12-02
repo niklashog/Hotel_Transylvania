@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Hotel_Transylvania.Menus
+namespace Hotel_Transylvania.Menus.MenuExecution
 {
     public class ExecuteReservationsMenu(
     INewReservation newReservation,

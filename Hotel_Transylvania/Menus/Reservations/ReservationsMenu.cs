@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Hotel_Transylvania.Menus
+namespace Hotel_Transylvania.Menus.Reservations
 {
     public class ReservationsMenu : IReservationsMenu
     {
@@ -18,9 +18,9 @@ namespace Hotel_Transylvania.Menus
             var menuHighlight = ClassFactory.Resolve<IMenuHighlight>();
 
             Console.CursorVisible = false;
-            string[] menuItems = { 
+            string[] menuItems = {
                 "New reservation", "Change a reservation",
-                "Cancel a reservation", "Show all reservations", 
+                "Cancel a reservation", "Show all reservations",
                 "Show cancelled reservations", "Back to main menu" };
 
             int selectedIndex = 0;
