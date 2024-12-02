@@ -1,5 +1,5 @@
 ﻿using Hotel_Transylvania.Graphics;
-using Hotel_Transylvania.Interfaces;
+using Hotel_Transylvania.Interfaces.MenuInterfaces.GuestsInterfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;

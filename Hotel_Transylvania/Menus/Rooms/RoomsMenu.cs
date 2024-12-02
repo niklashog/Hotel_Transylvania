@@ -6,7 +6,10 @@ using System.Text;
 using System.Threading.Tasks;
 using Hotel_Transylvania.Factories;
 using Hotel_Transylvania.Graphics;
-using Hotel_Transylvania.Interfaces;
+using Hotel_Transylvania.Interfaces.MenuInterfaces.MenuExecutionInterfaces;
+using Hotel_Transylvania.Interfaces.MenuInterfaces.MenuNavigationInterfaces;
+using Hotel_Transylvania.Interfaces.MenuInterfaces.MenuServicesInterfaces;
+using Hotel_Transylvania.Interfaces.MenuInterfaces.RoomsInterfaces;
 
 namespace Hotel_Transylvania.Menus.Rooms
 {

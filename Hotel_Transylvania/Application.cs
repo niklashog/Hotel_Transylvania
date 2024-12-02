@@ -1,4 +1,5 @@
 ﻿using Hotel_Transylvania.Interfaces;
+using Hotel_Transylvania.Interfaces.MenuInterfaces.MainMenuInterfaces;
 using Hotel_Transylvania.Menus;
 
 namespace Hotel_Transylvania

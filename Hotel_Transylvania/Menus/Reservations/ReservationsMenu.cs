@@ -1,6 +1,9 @@
 ﻿using Hotel_Transylvania.Factories;
 using Hotel_Transylvania.Graphics;
-using Hotel_Transylvania.Interfaces;
+using Hotel_Transylvania.Interfaces.MenuInterfaces.MenuExecutionInterfaces;
+using Hotel_Transylvania.Interfaces.MenuInterfaces.MenuNavigationInterfaces;
+using Hotel_Transylvania.Interfaces.MenuInterfaces.MenuServicesInterfaces;
+using Hotel_Transylvania.Interfaces.MenuInterfaces.ReservationsInterfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;

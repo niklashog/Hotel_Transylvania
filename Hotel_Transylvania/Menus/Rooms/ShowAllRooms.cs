@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Hotel_Transylvania.Graphics;
-using Hotel_Transylvania.Interfaces;
+using Hotel_Transylvania.Interfaces.MenuInterfaces.RoomsInterfaces;
 
 
 namespace Hotel_Transylvania.Menus.Rooms

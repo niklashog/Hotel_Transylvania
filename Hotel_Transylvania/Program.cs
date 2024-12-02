@@ -9,6 +9,10 @@ namespace Hotel_Transylvania
         static void Main(string[] args)
         {
             ClassFactory.BuildContainer();
+            //GuestsFactory.BuildGuestsContainer();
+            //ReservationsFactory.BuildReservationsContainer();
+            //RoomsFactory.BuildRoomsContainer();
+
             var app = ClassFactory.Resolve<IApplication>();
             app.Run();
         }
