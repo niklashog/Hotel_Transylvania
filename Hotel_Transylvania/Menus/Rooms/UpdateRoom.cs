@@ -1,4 +1,5 @@
-﻿using Hotel_Transylvania.Interfaces;
+﻿using Hotel_Transylvania.Graphics;
+using Hotel_Transylvania.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,6 +13,7 @@ namespace Hotel_Transylvania.Menus.Rooms
         public void Execute()
         {
             Console.Clear();
+            DisplayLogo.Paint();
             Console.WriteLine("I UPDATE ROOM");
             Console.ReadKey();
 
