@@ -17,7 +17,7 @@ namespace Hotel_Transylvania.Calendars
             var calendarContent = new StringWriter();
 
             // Kalenderhuvud
-            calendarContent.WriteLine($"[Yellow]{selectedDate:MMMM} {checkInOrCheckOut}[/]".ToUpper());
+            calendarContent.WriteLine($"[Yellow]{selectedDate:MMMM yyyy}[/]".ToUpper());
             calendarContent.WriteLine("Mån  Tis  Ons  Tor  Fre  Lör  Sön");
             calendarContent.WriteLine("[Yellow]─────────────────────────────────[/]");
 
@@ -57,7 +57,7 @@ namespace Hotel_Transylvania.Calendars
             {
                 Border = BoxBorder.Square,
                 BorderStyle = new Style(Color.Yellow),
-                Header = new PanelHeader(($"[Yellow]{selectedDate:yyyy}[/]"), Justify.Center)
+                Header = new PanelHeader(($"[White]{checkInOrCheckOut.ToUpper()}[/]"), Justify.Center)
             };
 
             AnsiConsole.Write(panel);
