@@ -1,23 +1,61 @@
 ﻿### WORK ITEMS
+-	Kolla kraven på Hotellappen och synka så mycket som möjligt gentemot menyerna
+-	Saknar möjligheten att lägga till nya rum.
+-	RegisterNewRoom.cs - Metod på annan plats för att styra möjlighet till extra sängar
+	samt eventuellt antal.
+-	När jag uppmanar att klicka Enter för att spara så vill jag även ge alternativet att
+	klicka backspace för att "backa utan att spara".
+
+### CLEANUP
+-	Städa bort isRunning från Execution och Navigation.
+
+### NOTES
+-	Reservation
+-	Size of group/party ?
+-	Singles, couples?
 
 
+## KRAV
+•	(C) Lägg till en ny entitet
+•	(R) Se en list över de befintliga entiteter som finns i databasen
+•	(U) Uppdatera en befintlig entitet
+•	(D) Radera en befintlig entitet
 
-### Notes for self
+1:	(G) ER diagram ska ha alla entiteter som behövs för att hotellappen ska 
+	fungera enligt appens beskrivning. 
+2:	(G) Skapa MS-SQL syntaxer som kan utföra ’Select’, ’Where’, ’Order By’ uppgifter mot din databas.
+3:	(VG) Beskriv i ett dokument vad du har gjort för att garantera att dina tabeller möter 3NF:s krav.
+4:	(VG) Skapa MS-SQL syntaxer som kan utföra ’Joins’, ’Group By’ och minst en ’Subquery’ mot din databas
 
-- Guest
-Id
-Name
-Telephone
-E-mail
-History?
+•	Kommunikationen med databasen skall ske med Entity Framework Core. 
+•	Code First inclusive appsettings.json
+•	Databas i MS-SQL Server.
 
-- Room
-1-2 Beds
-0-2 Extra beds
 
-- Reservation
-Size of group/party ?
-Singles, couples?
+ROOM
+•	Det skall gå att registrera ett rum och rummets uppgifter skall kunna ändras. 
+•	Applikationen skall hantera ett antal rum. 
+•	Ett rum ska kunna vara enkelrum eller dubbelrum.
+•	För dubbelrum ska det finnas möjlighet till att sätta in extrasängar (1 eller 2 beroende på rummets storlek).
+
+GUEST
+•	Det skall gå att registrera en kund och kundens uppgifter skall kunna ändras. 
+•	Seed minst 4 rum
+•	Seed minst 4 gäster
+
+RESERVATION
+•	Användaren måste välja datum då rummet ska bokas.
+•	Ett rum kan bokas av en kund för en eller flera nätter. 
+
+
+Redovisning: Totalt finns det 5 saker som ska lämnas in:
+1.	(G) ER Diagram över din database
+2.	(VG) Ett dokument som beskriver hur du följt 3NF i dina tabeller
+3.	(G) En .sql fil med dina SQL Select osv. syntaxer
+4.	(VG) En .sql fil med dina SQL Join osv. syntaxer
+5.	(G) En .NET Core console Hotell app
+
+
 
 
 ### LOG

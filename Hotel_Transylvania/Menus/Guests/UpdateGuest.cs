@@ -9,7 +9,8 @@ namespace Hotel_Transylvania.Menus.Guests
         {
             Console.Clear();
             DisplayLogo.Paint();
-            Console.WriteLine("I UPDATE GUEST");
+            Console.WriteLine("I UPDATE GUEST BUT" +
+                "I AM UNDER CONSTRUCTION");
             Console.ReadKey();
         }
     }

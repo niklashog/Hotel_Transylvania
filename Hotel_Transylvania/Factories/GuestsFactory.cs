@@ -1,4 +1,5 @@
 ﻿using Autofac;
+using Hotel_Transylvania.Interfaces;
 using Hotel_Transylvania.Interfaces.MenuInterfaces.GuestsInterfaces;
 using Hotel_Transylvania.Interfaces.MenuInterfaces.MenuExecutionInterfaces;
 using Hotel_Transylvania.Interfaces.MenuInterfaces.MenuNavigationInterfaces;
@@ -12,11 +13,13 @@ namespace Hotel_Transylvania.Factories
     {
         public static void GuestsContainer(ContainerBuilder builder)
         {
+            builder.RegisterType<Guest>().As<IGuest>();
+
             builder.RegisterType<GuestsMenu>().As<IGuestsMenu>();
             builder.RegisterType<DeactivateGuest>().As<IDeactivateGuest>();
             builder.RegisterType<ReactivateGuest>().As<IReactivateGuest>();
             builder.RegisterType<RegisterGuest>().As<IRegisterGuest>();
-            builder.RegisterType<ShowAllGuests>().As<IShowAllGuests>();
+            builder.RegisterType<ShowActiveGuests>().As<IShowActiveGuests>();
             builder.RegisterType<ShowInactiveGuests>().As<IShowInactiveGuests>();
             builder.RegisterType<UpdateGuest>().As<IUpdateGuest>();
 

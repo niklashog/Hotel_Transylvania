@@ -8,9 +8,10 @@ namespace Hotel_Transylvania.Menus.MenuExecution
     public class ExecuteRoomsMenu(
     IDeactivateRoom deactivateRoom,
     IReactivateRoom reactivateRoom,
-    IShowAllRooms showAllRooms,
+    IShowActiveRooms showAllRooms,
     IShowInactiveRooms showInactiveRooms,
     IUpdateRoom updateRoom,
+    IRegisterNewRoom registerNewRoom,
     IMainMenu mainMenu) : IExecuteRoomsMenu
     {
         public void Execute(int index, ref bool isRunning)
@@ -33,6 +34,9 @@ namespace Hotel_Transylvania.Menus.MenuExecution
                     showInactiveRooms.Execute();
                     break;
                 case 5:
+                    registerNewRoom.Execute();
+                    break;
+                case 6:
                     mainMenu.Execute();
                     break;
                 default:

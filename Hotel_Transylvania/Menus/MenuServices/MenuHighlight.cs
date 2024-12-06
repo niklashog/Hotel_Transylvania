@@ -11,7 +11,7 @@ namespace Hotel_Transylvania.Menus.MenuServices
                 if (i == selectedIndex)
                 {
                     Console.ForegroundColor = ConsoleColor.Yellow;
-                    Console.WriteLine($"<·> {menuItems[i]}");
+                    Console.WriteLine($"·> {menuItems[i]}");
                     Console.ResetColor();
                 }
 

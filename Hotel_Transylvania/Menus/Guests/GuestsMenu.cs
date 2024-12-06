@@ -23,8 +23,8 @@ namespace Hotel_Transylvania.Menus.Guests
             Console.CursorVisible = false;
             string[] menuItems = {
                 "Register new guest", "Update guest information",
-                "Show all guests", "Deactivate guest",
-                "Reactivate  guest", "Show all inactive guests",
+                "Show active guests", "Deactivate guest",
+                "Reactivate guest", "Show inactive guests",
                 "Back to main menu" };
 
             int selectedIndex = 0;

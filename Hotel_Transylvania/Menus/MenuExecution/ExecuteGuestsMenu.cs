@@ -8,7 +8,7 @@ namespace Hotel_Transylvania.Menus.MenuExecution
     IDeactivateGuest deactivateGuest,
     IReactivateGuest reactivateGuest,
     IRegisterGuest registerGuest,
-    IShowAllGuests showAllGuests,
+    IShowActiveGuests showAllGuests,
     IShowInactiveGuests showInactiveGuests,
     IUpdateGuest updateGuest,
     IMainMenu mainMenu) : IExecuteGuestsMenu

@@ -1,4 +1,5 @@
 ﻿using Autofac;
+using Hotel_Transylvania.Interfaces;
 using Hotel_Transylvania.Interfaces.MenuInterfaces.MenuExecutionInterfaces;
 using Hotel_Transylvania.Interfaces.MenuInterfaces.MenuNavigationInterfaces;
 using Hotel_Transylvania.Interfaces.MenuInterfaces.ReservationsInterfaces;
@@ -12,6 +13,8 @@ namespace Hotel_Transylvania.Factories
     {
         public static void ReservationsContainer(ContainerBuilder builder)
         {
+            builder.RegisterType<Reservation>().As<IReservation>();
+
             builder.RegisterType<ReservationsMenu>().As<IReservationsMenu>();
             builder.RegisterType<CancelledReservations>().As<ICancelledReservations>();
             builder.RegisterType<CancelReservation>().As<ICancelReservation>();

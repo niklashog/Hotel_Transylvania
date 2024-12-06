@@ -23,9 +23,10 @@ namespace Hotel_Transylvania.Menus.Rooms
 
             Console.CursorVisible = false;
             string[] menuItems = {
-                "Show all rooms", "Update a room",
+                "Show active rooms", "Update a room",
                 "Deactivate a room", "Reactivate a room",
-                "Show inactive rooms", "Back to main menu" };
+                "Show inactive rooms", "Register new room",
+                "Back to main menu" };
 
             int selectedIndex = 0;
             bool isRunning = true;

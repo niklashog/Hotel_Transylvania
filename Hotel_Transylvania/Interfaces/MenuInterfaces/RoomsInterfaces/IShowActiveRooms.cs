@@ -1,6 +1,6 @@
 ﻿namespace Hotel_Transylvania.Interfaces.MenuInterfaces.RoomsInterfaces
 {
-    public interface IShowAllRooms : IExecute
+    public interface IShowActiveRooms : IExecute
     {
     }
 }
