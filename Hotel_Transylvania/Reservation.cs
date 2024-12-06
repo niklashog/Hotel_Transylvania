@@ -13,5 +13,6 @@ namespace Hotel_Transylvania
         public DateTime CheckoutDate { get; set; }
         public DateTime TimeOfReservation { get; set; } = DateTime.Now;
         public bool IsReservationActive { get; set; } = true;
+        public static List<IReservation> ListOfAllReservations { get; set; } = new List<IReservation>();
     }
 }

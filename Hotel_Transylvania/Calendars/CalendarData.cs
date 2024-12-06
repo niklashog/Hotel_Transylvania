@@ -57,7 +57,7 @@ namespace Hotel_Transylvania.Calendars
             {
                 Border = BoxBorder.Square,
                 BorderStyle = new Style(Color.Yellow),
-                Header = new PanelHeader(($"[White]{checkInOrCheckOut.ToUpper()}[/]"), Justify.Center)
+                Header = new PanelHeader(($"[Yellow]{checkInOrCheckOut.ToUpper()}[/]"), Justify.Center)
             };
 
             AnsiConsole.Write(panel);

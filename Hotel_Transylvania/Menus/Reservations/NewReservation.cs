@@ -11,10 +11,8 @@ namespace Hotel_Transylvania.Menus.Reservations
         {
             Console.Clear();
             DisplayLogo.Paint();
-            var checkInPromt = " CheckIn-Date ";
-            var checkInDate = calendar.CalendarNavigate(checkInPromt);
-            var checkOutPromt = " CheckOut-Date ";
-            var checkOutDate = calendar.CalendarNavigate(checkOutPromt);
+            var checkInDate = calendar.CalendarNavigate("CheckIn─Date");
+            var checkOutDate = calendar.CalendarNavigate("CheckOut─Date");
             Console.WriteLine($"Confirm reservation from {checkInDate} to {checkOutDate}?");
             Console.ReadKey();
         }

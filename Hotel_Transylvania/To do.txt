@@ -4,6 +4,7 @@
 -	När jag uppmanar att klicka Enter för att spara så vill jag även ge alternativet att
 	klicka backspace för att "backa utan att spara".
 -	Bugg att jag inte kan boka korrekt under 2025.
+-	En kalender per rum. 
 
 ### CLEANUP
 -	Städa bort isRunning från Execution och Navigation.
