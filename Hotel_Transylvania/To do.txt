@@ -1,10 +1,9 @@
 ﻿### WORK ITEMS
--	Kolla kraven på Hotellappen och synka så mycket som möjligt gentemot menyerna
--	Saknar möjligheten att lägga till nya rum.
 -	RegisterNewRoom.cs - Metod på annan plats för att styra möjlighet till extra sängar
 	samt eventuellt antal.
 -	När jag uppmanar att klicka Enter för att spara så vill jag även ge alternativet att
 	klicka backspace för att "backa utan att spara".
+-	Bugg att jag inte kan boka korrekt under 2025.
 
 ### CLEANUP
 -	Städa bort isRunning från Execution och Navigation.

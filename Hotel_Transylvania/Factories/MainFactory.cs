@@ -8,6 +8,7 @@ using Hotel_Transylvania.Interfaces.MenuInterfaces.MenuExecutionInterfaces;
 using Hotel_Transylvania.Interfaces.MenuInterfaces.MenuNavigationInterfaces;
 using Hotel_Transylvania.Interfaces.MenuInterfaces.MainMenuInterfaces;
 using Hotel_Transylvania.Interfaces.MenuInterfaces.MenuServicesInterfaces;
+using Hotel_Transylvania.Calendars;
 
 namespace Hotel_Transylvania.Factories
 {
@@ -31,6 +32,9 @@ namespace Hotel_Transylvania.Factories
             builder.RegisterType<MenuHighlight>().As<IMenuHighlight>();
             builder.RegisterType<PrintInactiveGuests>().As<IPrintInactiveGuests>();
             builder.RegisterType<PrintActiveGuests>().As<IPrintActiveGuests>();
+
+            builder.RegisterType<CalendarData>().As<ICalendarData>();
+            builder.RegisterType<CalendarNavigation>().As<ICalendarNavigation>();
 
 
             _container = builder.Build();
