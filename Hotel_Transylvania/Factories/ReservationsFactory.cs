@@ -1,11 +1,16 @@
 ﻿using Autofac;
-using Hotel_Transylvania.Interfaces;
 using Hotel_Transylvania.Interfaces.MenuInterfaces.MenuExecutionInterfaces;
 using Hotel_Transylvania.Interfaces.MenuInterfaces.MenuNavigationInterfaces;
 using Hotel_Transylvania.Interfaces.MenuInterfaces.ReservationsInterfaces;
+using Hotel_Transylvania.Interfaces.ModelsInterfaces;
 using Hotel_Transylvania.Menus.MenuExecution;
 using Hotel_Transylvania.Menus.MenuNavigation;
 using Hotel_Transylvania.Menus.Reservations;
+using Hotel_Transylvania.Models;
+using Hotel_Transylvania.Services;
+using Hotel_Transylvania.Interfaces.ServicesInterfaces;
+using Hotel_Transylvania.RealMenus;
+using Hotel_Transylvania.Interfaces.MenuInterfaces;
 
 namespace Hotel_Transylvania.Factories
 {
@@ -19,11 +24,13 @@ namespace Hotel_Transylvania.Factories
             builder.RegisterType<CancelledReservations>().As<ICancelledReservations>();
             builder.RegisterType<CancelReservation>().As<ICancelReservation>();
             builder.RegisterType<ChangeReservation>().As<IChangeReservation>();
-            builder.RegisterType<NewReservation>().As<INewReservation>();
+            builder.RegisterType<ReservationMenu>().As<INewReservation>();
             builder.RegisterType<ShowReservations>().As<IShowReservations>();
 
             builder.RegisterType<NavigateReservationsMenu>().As<INavigateReservationsMenu>();
             builder.RegisterType<ExecuteReservationsMenu>().As<IExecuteReservationsMenu>();
+
+            builder.RegisterType<ReservationService>().As<IReservationService>();
         }
     }
 }

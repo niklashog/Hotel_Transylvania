@@ -1,10 +1,20 @@
 ﻿### WORK ITEMS
+-	Vilka DataInitializers ska jag behålla? Listorna eller klasserna?
+-	Ändra min dbContext så att jag kör den i Services. Skriv om mina nuvarande menyer till Controllers.
+
+
+
+-	En till inparameter på Calendern så att jag Checkout date kräver ett datum innan det först valda.
+-	Använda propertyn i Reservations.
+-	Behålla room type? Ta bort helt? Enum?
+
 -	RegisterNewRoom.cs - Metod på annan plats för att styra möjlighet till extra sängar
 	samt eventuellt antal.
 -	När jag uppmanar att klicka Enter för att spara så vill jag även ge alternativet att
 	klicka backspace för att "backa utan att spara".
--	Bugg att jag inte kan boka korrekt under 2025.
 -	En kalender per rum. 
+
+-	Behöver jag verkligen IPaint när jag har IExecute??
 
 ### CLEANUP
 -	Städa bort isRunning från Execution och Navigation.
@@ -60,13 +70,18 @@ Redovisning: Totalt finns det 5 saker som ska lämnas in:
 
 ### LOG
 
+
+
+2024-12-10, 2024-12-11, 2024-12-12
+-	Fake Db (the struggles)
+
 2024-12-02
-  Ordnar klasser och interfaces för Reservations. Alla menyer fungerar nu.
-  Lägger in så bannern ligger kvar i alla menyer.
+-	Ordnar klasser och interfaces för Reservations. Alla menyer fungerar nu.
+-	Lägger in så bannern ligger kvar i alla menyer.
 2024-11-30
-  Ordnar klasser och interfaces för Guests. Guests-menyn fungerar nu.
+-	Ordnar klasser och interfaces för Guests. Guests-menyn fungerar nu.
 2024-11-29
-  Ordnar klasser och interfaces för Rooms. Rooms-menyn fungerar nu.
+-	Ordnar klasser och interfaces för Rooms. Rooms-menyn fungerar nu.
 2024-11-25
-  Börjar skapa menyerna.
-  Många menyer har bara placeholder-rubriker som ej går att klicka sig in på.
+-	Börjar skapa menyerna.
+-	Många menyer har bara placeholder-rubriker som ej går att klicka sig in på.

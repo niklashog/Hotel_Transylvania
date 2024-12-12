@@ -1,11 +1,16 @@
 ﻿using Autofac;
-using Hotel_Transylvania.Interfaces;
 using Hotel_Transylvania.Interfaces.MenuInterfaces.MenuExecutionInterfaces;
 using Hotel_Transylvania.Interfaces.MenuInterfaces.MenuNavigationInterfaces;
 using Hotel_Transylvania.Interfaces.MenuInterfaces.RoomsInterfaces;
+using Hotel_Transylvania.Interfaces.ModelsInterfaces;
 using Hotel_Transylvania.Menus.MenuExecution;
 using Hotel_Transylvania.Menus.MenuNavigation;
 using Hotel_Transylvania.Menus.Rooms;
+using Hotel_Transylvania.Models;
+using Hotel_Transylvania.Services;
+using Hotel_Transylvania.Interfaces.ServicesInterfaces;
+using Hotel_Transylvania.RealMenus;
+using Hotel_Transylvania.Interfaces.MenuInterfaces;
 
 namespace Hotel_Transylvania.Factories
 {
@@ -25,6 +30,8 @@ namespace Hotel_Transylvania.Factories
 
             builder.RegisterType<NavigateRoomsMenu>().As<INavigateRoomsMenu>();
             builder.RegisterType<ExecuteRoomsMenu>().As<IExecuteRoomsMenu>();
+
+            builder.RegisterType<RoomService>().As<IRoomService>();
         }
     }
 }

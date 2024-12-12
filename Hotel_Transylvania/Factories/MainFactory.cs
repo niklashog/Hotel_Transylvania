@@ -1,14 +1,19 @@
 ﻿using Autofac;
 using Hotel_Transylvania.Interfaces;
-using Hotel_Transylvania.Menus.Main;
 using Hotel_Transylvania.Menus.MenuExecution;
 using Hotel_Transylvania.Menus.MenuNavigation;
-using Hotel_Transylvania.Menus.MenuServices;
 using Hotel_Transylvania.Interfaces.MenuInterfaces.MenuExecutionInterfaces;
 using Hotel_Transylvania.Interfaces.MenuInterfaces.MenuNavigationInterfaces;
-using Hotel_Transylvania.Interfaces.MenuInterfaces.MainMenuInterfaces;
-using Hotel_Transylvania.Interfaces.MenuInterfaces.MenuServicesInterfaces;
 using Hotel_Transylvania.Calendars;
+using Hotel_Transylvania.Interfaces.FakeDatabase;
+using Hotel_Transylvania.Services;
+using Hotel_Transylvania.Interfaces.CalendarsInterfaces;
+using Hotel_Transylvania.Interfaces.MenuInterfaces.GuestsInterfaces;
+using Hotel_Transylvania.RealMenus;
+using Hotel_Transylvania.Interfaces.MenuInterfaces;
+using Hotel_Transylvania.Interfaces.DisplayInterfaces;
+using Hotel_Transylvania.Display;
+using Hotel_Transylvania.Interfaces.ServicesInterfaces;
 
 namespace Hotel_Transylvania.Factories
 {
@@ -23,19 +28,20 @@ namespace Hotel_Transylvania.Factories
             GuestsFactory.GuestsContainer(builder);
             ReservationsFactory.ReservationsContainer(builder);
             RoomsFactory.RoomsContainer(builder);
+            DbContextFactory.DbContextContainer(builder);
+
+            builder.RegisterType<Application>().As<IApplication>();
 
             builder.RegisterType<MainMenu>().As<IMainMenu>();
+            builder.RegisterType<MenuHighlight>().As<IMenuHighlight>();
             builder.RegisterType<NavigateMainMenu>().As<INavigateMainMenu>();
             builder.RegisterType<ExecuteMainMenu>().As<IExecuteMainMenu>();
 
-            builder.RegisterType<Application>().As<IApplication>();
-            builder.RegisterType<MenuHighlight>().As<IMenuHighlight>();
-            builder.RegisterType<PrintInactiveGuests>().As<IPrintInactiveGuests>();
-            builder.RegisterType<PrintActiveGuests>().As<IPrintActiveGuests>();
+            builder.RegisterType<DisplayInactiveGuests>().As<IDisplayInactiveGuests>();
+            builder.RegisterType<DisplayActiveGuests>().As<IDisplayActiveGuests>();
 
             builder.RegisterType<CalendarData>().As<ICalendarData>();
             builder.RegisterType<CalendarNavigation>().As<ICalendarNavigation>();
-
 
             _container = builder.Build();
         }
