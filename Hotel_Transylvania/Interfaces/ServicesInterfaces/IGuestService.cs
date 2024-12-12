@@ -14,10 +14,12 @@ namespace Hotel_Transylvania.Interfaces.ServicesInterfaces
         public IEnumerable<IGuest> GetAllGuests();
         public void DisplayActiveGuests(int x, int y);
         public void DisplayInctiveGuests(int x, int y);
-
+        public void DisplaySingleActiveGuest(int guestId, int x, int y);
         public int CountAllGuests();
-        public void RemoveGuest(int guestToDelete);
+
         public void ReActivateGuest(int guestToReactivate);
+        public void UpdateGuestDetails(int guestIdInput, string[] updatedGuestDetails);
+        public void RemoveGuest(int guestToDelete);
 
 
     }

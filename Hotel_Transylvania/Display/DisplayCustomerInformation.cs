@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Hotel_Transylvania.Models;
 using Hotel_Transylvania.Interfaces;
+using Hotel_Transylvania.Interfaces.ModelsInterfaces;
 
 namespace Hotel_Transylvania.Display
 {
@@ -40,38 +41,39 @@ namespace Hotel_Transylvania.Display
         //    }
         //}
 
-        //public static void ShowAllCustomersSpectre(List<Customer> myCustomers)
-        //{
-        //    var table = new Spectre.Console.Table();
-        //    table.Border = Spectre.Console.TableBorder.Double;
-        //    table.AddColumn("[bold white on green]Ordernummer[/]");
-        //    table.AddColumn("[blue]Namn[/]");
-        //    table.AddColumn("[blue]Datum[/]");
-        //    table.AddColumn("[blue]Produkter[/]");
-        //    table.AddColumn("[blue]Total kostnad[/]");
-        //    table.AddColumn("[blue]Förfallodatum[/]");
-
-        //    foreach (var customer in myCustomers)
+        //    public static void ShowAllCustomersSpectre(List<IGuest> myGuest)
         //    {
-        //        foreach (var order in customer.Orders)
-        //        {
-        //            var productNames = string
-        //                .Join(", ", order.Items
-        //                .Select(i => i.ProductName));
+        //        var table = new Spectre.Console.Table();
+        //        table.Border = Spectre.Console.TableBorder.Double;
+        //        table.AddColumn("[bold white on green]Ordernummer[/]");
+        //        table.AddColumn("[blue]Namn[/]");
+        //        table.AddColumn("[blue]Datum[/]");
+        //        table.AddColumn("[blue]Produkter[/]");
+        //        table.AddColumn("[blue]Total kostnad[/]");
+        //        table.AddColumn("[blue]Förfallodatum[/]");
 
-        //            table.AddRow(
-        //                order.OrderId.ToString(),
-        //                customer.GetFullName(),
-        //                order.OrderDate.ToString("yyyy-MM-dd"),
-        //                productNames,
-        //                $"{order.CalculateTotal()} kr",
-        //                order.Invoice.DueDate.ToString("yyyy-MM-dd")
-        //            );
+        //        foreach (var guest in myGuest)
+        //        {
+        //            foreach (var order in guest.Reservation)
+        //            {
+        //                var productNames = string
+        //                    .Join(", ", order.Items
+        //                    .Select(i => i.ProductName));
+
+        //                table.AddRow(
+        //                    order.OrderId.ToString(),
+        //                    guest.GetFullName(),
+        //                    order.OrderDate.ToString("yyyy-MM-dd"),
+        //                    productNames,
+        //                    $"{order.CalculateTotal()} kr",
+        //                    order.Invoice.DueDate.ToString("yyyy-MM-dd")
+        //                );
+        //            }
         //        }
+
+        //        Spectre.Console.AnsiConsole.Write(table);
         //    }
 
-        //    Spectre.Console.AnsiConsole.Write(table);
         //}
-
     }
 }

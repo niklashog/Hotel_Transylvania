@@ -1,9 +1,4 @@
 ﻿### WORK ITEMS
--	Vilka DataInitializers ska jag behålla? Listorna eller klasserna?
--	Ändra min dbContext så att jag kör den i Services. Skriv om mina nuvarande menyer till Controllers.
-
-
-
 -	En till inparameter på Calendern så att jag Checkout date kräver ett datum innan det först valda.
 -	Använda propertyn i Reservations.
 -	Behålla room type? Ta bort helt? Enum?
@@ -12,7 +7,7 @@
 	samt eventuellt antal.
 -	När jag uppmanar att klicka Enter för att spara så vill jag även ge alternativet att
 	klicka backspace för att "backa utan att spara".
--	En kalender per rum. 
+-	En kalender per rum?
 
 -	Behöver jag verkligen IPaint när jag har IExecute??
 
