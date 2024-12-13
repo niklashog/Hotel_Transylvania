@@ -5,7 +5,7 @@ namespace Hotel_Transylvania.Models
     public class Guest : IGuest
     {
         public int GuestID { get; set; }
-        public int NextGuestID { get; set; } = 1;
+        public int? ReservationID { get; set; }
         public string FirstName { get; set; }
         public string Surname { get; set; }
         public string Email { get; set; }
