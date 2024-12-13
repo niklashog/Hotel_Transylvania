@@ -1,4 +1,4 @@
-﻿namespace Hotel_Transylvania.Interfaces.ServicesInterfaces
+﻿namespace Hotel_Transylvania.Interfaces.MenuInterfaces.MenuNavigationInterfaces
 {
     public interface IMenuHighlight
     {

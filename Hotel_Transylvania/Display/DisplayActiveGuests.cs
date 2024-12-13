@@ -15,16 +15,16 @@ namespace Hotel_Transylvania.Display
     {
         public void ExecuteXY(int x, int y)
         {
-            //var activeGuests = guestService.GetAllGuests()
-            //.Where(g => g.IsGuestActive == true)
-            //.ToList();
+            var activeGuests = guestService.GetAllGuests()
+            .Where(g => g.IsGuestActive == true)
+            .ToList();
 
-            //activeGuests
-            //.ForEach(g =>
-            //{
-            //    Console.SetCursorPosition(x, y++);
-            //    Console.WriteLine($"Guest ID: {g.GuestID}, Name: {g.FirstName} {g.Surname}");
-            //});
+            activeGuests
+            .ForEach(g =>
+            {
+                Console.SetCursorPosition(x, y++);
+                Console.WriteLine($"Guest ID: {g.GuestID}, Name: {g.FirstName} {g.Surname}");
+            });
         }
     }
 }

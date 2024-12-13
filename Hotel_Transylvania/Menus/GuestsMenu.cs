@@ -9,9 +9,8 @@ using System.Text;
 using System.Threading.Tasks;
 using Hotel_Transylvania.Display;
 using Hotel_Transylvania.Interfaces.MenuInterfaces;
-using Hotel_Transylvania.Interfaces.ServicesInterfaces;
 
-namespace Hotel_Transylvania.RealMenus
+namespace Hotel_Transylvania.Menus
 {
     public class GuestsMenu : IGuestsMenu
     {

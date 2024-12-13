@@ -1,60 +1,47 @@
 ﻿using Hotel_Transylvania.Display;
 using Hotel_Transylvania.Interfaces.MenuInterfaces.RoomsInterfaces;
+using Hotel_Transylvania.Interfaces.ServicesInterfaces;
 using Hotel_Transylvania.Models;
+using Hotel_Transylvania.Services;
 
 namespace Hotel_Transylvania.Menus.Rooms
 {
-    public class ReactivateRoom : IReactivateRoom
+    public class ReactivateRoom(
+        IRoomService roomService) : IReactivateRoom
     {
         public void Execute()
         {
             Console.Clear();
             DisplayLogo.Paint();
 
-            var numberOfInactiveRooms = Room.ListOfRooms
+            if (roomService.GetAllRooms()
                 .Where(g => g.IsRoomActive == false)
-                .Count();
-
-            if (numberOfInactiveRooms >= 1)
+                .ToList()
+                .Count >= 1)
             {
-                Console.WriteLine("Chose a room to reactivate..");
-
-                int x = 40;
-                int y = 9;
-
-                Room.ListOfRooms
-                    .Where(r => r.IsRoomActive == false)
-                    .ToList()
-                    .ForEach(r =>
-                    {
-                        Console.SetCursorPosition(x, y++);
-                        Console.WriteLine($"Room ID: {r.RoomID}, Name: {r.RoomType} {r.RoomSize}");
-                    });
-
+                var xcoord = 45;
+                var ycoord = 9;
+                roomService.DisplayInactiveRooms(xcoord, ycoord);
 
                 Console.CursorVisible = true;
                 Console.SetCursorPosition(0, 9);
-                Console.WriteLine("Enter RoomID of the room you want to reactivate..");
-                Console.Write("RoomID: ");
+                Console.WriteLine("Make choice by Room number..");
+                Console.Write("Room to reactivate: ");
                 var roomToReactivate = int.Parse(Console.ReadLine());
                 Console.CursorVisible = false;
                 Console.Write("\nPress 'Enter' to save..");
-                Console.ReadKey();
 
-                Room.ListOfRooms
-                    .First(r => r.RoomID == roomToReactivate)
-                    .IsRoomActive = true;
+                Console.ReadKey();
+                roomService.ReActivateRoom(roomToReactivate);
+
             }
             else
             {
-                Console.WriteLine("There are no inactive guests in the system." +
+                Console.WriteLine("There are no inactive rooms in the system." +
                     "\nPress any key to go back.");
-                Console.WriteLine(numberOfInactiveRooms);
                 Console.ReadKey();
                 return;
             }
-
-            Console.ReadKey();
         }
     }
 }

@@ -9,9 +9,8 @@ using Hotel_Transylvania.Factories;
 using Hotel_Transylvania.Interfaces.MenuInterfaces;
 using Hotel_Transylvania.Interfaces.MenuInterfaces.MenuExecutionInterfaces;
 using Hotel_Transylvania.Interfaces.MenuInterfaces.MenuNavigationInterfaces;
-using Hotel_Transylvania.Interfaces.ServicesInterfaces;
 
-namespace Hotel_Transylvania.RealMenus
+namespace Hotel_Transylvania.Menus
 {
     public class RoomsMenu : IRoomsMenu
     {

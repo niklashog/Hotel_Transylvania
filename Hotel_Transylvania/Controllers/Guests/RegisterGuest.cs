@@ -32,13 +32,16 @@ namespace Hotel_Transylvania.Menus.Guests
             Console.CursorVisible = false;
             Console.Write("\nPress 'Enter' to save..");
             Console.ReadKey();
+
+            //Den här koden måste läggas i Service.
+            //Jag får inte göra en uträkning här.
             int guestCount = guestService.GetAllGuests().Count();
-            var guestId = ++guestCount;
+            var setGuestId = ++guestCount;
             Console.WriteLine(guestCount);
 
             var newGuest = new Guest
             {
-                GuestID = guestId,
+                GuestID = setGuestId,
                 FirstName = firstName,
                 Surname = surname,
                 Email = email,

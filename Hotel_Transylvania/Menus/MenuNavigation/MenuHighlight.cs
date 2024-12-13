@@ -1,6 +1,6 @@
-﻿using Hotel_Transylvania.Interfaces.ServicesInterfaces;
+﻿using Hotel_Transylvania.Interfaces.MenuInterfaces.MenuNavigationInterfaces;
 
-namespace Hotel_Transylvania.Services
+namespace Hotel_Transylvania.Menus.MenuNavigation
 {
     public class MenuHighlight : IMenuHighlight
     {

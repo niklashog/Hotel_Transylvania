@@ -16,7 +16,6 @@ namespace Hotel_Transylvania.Interfaces.ModelsInterfaces
         public string Phone { get; set; }
         public int ReservationHistory { get; set; }
         public bool IsGuestActive { get; set; }
-
-        public static List<IReservation> ListOfAllReservations { get; set; } = new List<IReservation>();
+        public List<IReservation> GuestReservations { get; set; }
     }
 }

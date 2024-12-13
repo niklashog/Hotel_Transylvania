@@ -5,15 +5,11 @@ using Hotel_Transylvania.Menus.MenuNavigation;
 using Hotel_Transylvania.Interfaces.MenuInterfaces.MenuExecutionInterfaces;
 using Hotel_Transylvania.Interfaces.MenuInterfaces.MenuNavigationInterfaces;
 using Hotel_Transylvania.Calendars;
-using Hotel_Transylvania.Interfaces.FakeDatabase;
-using Hotel_Transylvania.Services;
 using Hotel_Transylvania.Interfaces.CalendarsInterfaces;
-using Hotel_Transylvania.Interfaces.MenuInterfaces.GuestsInterfaces;
-using Hotel_Transylvania.RealMenus;
 using Hotel_Transylvania.Interfaces.MenuInterfaces;
 using Hotel_Transylvania.Interfaces.DisplayInterfaces;
 using Hotel_Transylvania.Display;
-using Hotel_Transylvania.Interfaces.ServicesInterfaces;
+using Hotel_Transylvania.Menus;
 
 namespace Hotel_Transylvania.Factories
 {
@@ -39,9 +35,6 @@ namespace Hotel_Transylvania.Factories
 
             builder.RegisterType<DisplayInactiveGuests>().As<IDisplayInactiveGuests>();
             builder.RegisterType<DisplayActiveGuests>().As<IDisplayActiveGuests>();
-
-            builder.RegisterType<CalendarData>().As<ICalendarData>();
-            builder.RegisterType<CalendarNavigation>().As<ICalendarNavigation>();
 
             _container = builder.Build();
         }

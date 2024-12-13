@@ -141,8 +141,6 @@ namespace Hotel_Transylvania.Data
                 ReservationID = 1,
                 RoomID = 301,
                 GuestID = 1,
-                SizeOfParty = 2,
-                NumberOfRooms = 1,
                 NumberOfAdditionalBeds = 0,
                 CheckinDate = DateTime.Today.Date,
                 CheckoutDate = DateTime.Now.Date.AddDays(+2),

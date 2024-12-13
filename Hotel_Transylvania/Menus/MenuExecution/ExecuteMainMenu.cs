@@ -3,12 +3,13 @@ using Hotel_Transylvania.Interfaces.MenuInterfaces.MenuExecutionInterfaces;
 using Hotel_Transylvania.Interfaces.MenuInterfaces.ReservationsInterfaces;
 
 
+
 namespace Hotel_Transylvania.Menus.MenuExecution
 {
     public class ExecuteMainMenu(
         IRoomsMenu rooms,
         IGuestsMenu guests,
-        IReservationsMenu bookings) : IExecuteMainMenu
+        IReservationsMenu reservations) : IExecuteMainMenu
     {
 
         public void Execute(int index, ref bool isRunning)
@@ -22,7 +23,7 @@ namespace Hotel_Transylvania.Menus.MenuExecution
                     guests.Execute();
                     break;
                 case 2:
-                    bookings.Execute();
+                    reservations.Execute();
                     break;
                 case 3:
                     Environment.Exit(0);

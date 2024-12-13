@@ -3,14 +3,13 @@ using Hotel_Transylvania.Factories;
 using Hotel_Transylvania.Interfaces.MenuInterfaces.MenuExecutionInterfaces;
 using Hotel_Transylvania.Interfaces.MenuInterfaces.MenuNavigationInterfaces;
 using Hotel_Transylvania.Interfaces.MenuInterfaces.ReservationsInterfaces;
-using Hotel_Transylvania.Interfaces.ServicesInterfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Hotel_Transylvania.Menus.Reservations
+namespace Hotel_Transylvania.Interfaces.MenuInterfaces
 {
     public class ReservationsMenu : IReservationsMenu
     {

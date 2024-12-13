@@ -11,7 +11,6 @@ using Hotel_Transylvania.Interfaces.DisplayInterfaces;
 namespace Hotel_Transylvania.Menus.Guests
 {
     public class ReactivateGuest(
-        IDisplayInactiveGuests displayInactiveGuests,
         IGuestService guestService) : IReactivateGuest
     {
         public void Execute()

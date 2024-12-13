@@ -9,8 +9,10 @@ using Hotel_Transylvania.Menus.Reservations;
 using Hotel_Transylvania.Models;
 using Hotel_Transylvania.Services;
 using Hotel_Transylvania.Interfaces.ServicesInterfaces;
-using Hotel_Transylvania.RealMenus;
+using Hotel_Transylvania.Menus;
 using Hotel_Transylvania.Interfaces.MenuInterfaces;
+using Hotel_Transylvania.Calendars;
+using Hotel_Transylvania.Interfaces.CalendarsInterfaces;
 
 namespace Hotel_Transylvania.Factories
 {
@@ -31,6 +33,9 @@ namespace Hotel_Transylvania.Factories
             builder.RegisterType<ExecuteReservationsMenu>().As<IExecuteReservationsMenu>();
 
             builder.RegisterType<ReservationService>().As<IReservationService>();
+
+            builder.RegisterType<CalendarData>().As<ICalendarData>();
+            builder.RegisterType<CalendarNavigation>().As<ICalendarNavigation>();
         }
     }
 }

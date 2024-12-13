@@ -1,21 +1,21 @@
 ﻿using Hotel_Transylvania.Display;
 using Hotel_Transylvania.Interfaces.MenuInterfaces.RoomsInterfaces;
+using Hotel_Transylvania.Interfaces.ServicesInterfaces;
 using Hotel_Transylvania.Models;
+using Hotel_Transylvania.Services;
 
 namespace Hotel_Transylvania.Menus.Rooms
 {
-    public class ShowInactiveRooms : IShowInactiveRooms
+    public class ShowInactiveRooms(
+        IRoomService roomService) : IShowInactiveRooms
     {
         public void Execute()
         {
             Console.Clear();
             DisplayLogo.Paint();
-            Console.WriteLine("All inactive rooms:");
-
-            Room.ListOfRooms
-                .Where(g => g.IsRoomActive == false)
-                .ToList()
-                .ForEach((g => Console.WriteLine($"Room #: {g.RoomID} Type: {g.RoomType} Size: {g.RoomSize}m²")));
+            var xcoord = 2;
+            var ycoord = 9;
+            roomService.DisplayInactiveRooms(xcoord, ycoord);
 
             Console.ReadKey();
         }

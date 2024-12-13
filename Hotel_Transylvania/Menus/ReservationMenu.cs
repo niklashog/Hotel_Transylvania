@@ -2,7 +2,7 @@
 using Hotel_Transylvania.Interfaces.CalendarsInterfaces;
 using Hotel_Transylvania.Interfaces.MenuInterfaces;
 
-namespace Hotel_Transylvania.RealMenus
+namespace Hotel_Transylvania.Menus
 {
     public class ReservationMenu(
         ICalendarNavigation calendar) : INewReservation

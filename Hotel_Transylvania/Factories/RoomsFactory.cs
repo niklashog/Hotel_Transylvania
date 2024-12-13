@@ -9,7 +9,7 @@ using Hotel_Transylvania.Menus.Rooms;
 using Hotel_Transylvania.Models;
 using Hotel_Transylvania.Services;
 using Hotel_Transylvania.Interfaces.ServicesInterfaces;
-using Hotel_Transylvania.RealMenus;
+using Hotel_Transylvania.Menus;
 using Hotel_Transylvania.Interfaces.MenuInterfaces;
 
 namespace Hotel_Transylvania.Factories

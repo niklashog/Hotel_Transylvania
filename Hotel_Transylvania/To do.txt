@@ -1,30 +1,21 @@
 ﻿### WORK ITEMS
--	En till inparameter på Calendern så att jag Checkout date kräver ett datum innan det först valda.
--	Använda propertyn i Reservations.
 -	Behålla room type? Ta bort helt? Enum?
+-	Kan bara delete guest om ingen reservation är aktiv.
 
--	RegisterNewRoom.cs - Metod på annan plats för att styra möjlighet till extra sängar
-	samt eventuellt antal.
 -	När jag uppmanar att klicka Enter för att spara så vill jag även ge alternativet att
 	klicka backspace för att "backa utan att spara".
--	En kalender per rum?
 
 -	Behöver jag verkligen IPaint när jag har IExecute??
 
 ### CLEANUP
 -	Städa bort isRunning från Execution och Navigation.
 
-### NOTES
--	Reservation
--	Size of group/party ?
--	Singles, couples?
-
 
 ## KRAV
-•	(C) Lägg till en ny entitet
-•	(R) Se en list över de befintliga entiteter som finns i databasen
-•	(U) Uppdatera en befintlig entitet
-•	(D) Radera en befintlig entitet
+[•]	(C) Lägg till en ny entitet
+[•]	(R) Se en list över de befintliga entiteter som finns i databasen
+[•]	(U) Uppdatera en befintlig entitet
+[•]	(D) Radera en befintlig entitet
 
 1:	(G) ER diagram ska ha alla entiteter som behövs för att hotellappen ska 
 	fungera enligt appens beskrivning. 
@@ -32,33 +23,33 @@
 3:	(VG) Beskriv i ett dokument vad du har gjort för att garantera att dina tabeller möter 3NF:s krav.
 4:	(VG) Skapa MS-SQL syntaxer som kan utföra ’Joins’, ’Group By’ och minst en ’Subquery’ mot din databas
 
-•	Kommunikationen med databasen skall ske med Entity Framework Core. 
-•	Code First inclusive appsettings.json
-•	Databas i MS-SQL Server.
+[]	Kommunikationen med databasen skall ske med Entity Framework Core. 
+[]	Code First inclusive appsettings.json
+[]	Databas i MS-SQL Server.
 
 
 ROOM
-•	Det skall gå att registrera ett rum och rummets uppgifter skall kunna ändras. 
-•	Applikationen skall hantera ett antal rum. 
-•	Ett rum ska kunna vara enkelrum eller dubbelrum.
-•	För dubbelrum ska det finnas möjlighet till att sätta in extrasängar (1 eller 2 beroende på rummets storlek).
+[•]	Det skall gå att registrera ett rum och rummets uppgifter skall kunna ändras. 
+[•]	Applikationen skall hantera ett antal rum. 
+[•]	Ett rum ska kunna vara enkelrum eller dubbelrum.
+[•]	För dubbelrum ska det finnas möjlighet till att sätta in extrasängar (1 eller 2 beroende på rummets storlek).
 
 GUEST
-•	Det skall gå att registrera en kund och kundens uppgifter skall kunna ändras. 
-•	Seed minst 4 rum
-•	Seed minst 4 gäster
+[•]	Det skall gå att registrera en kund och kundens uppgifter skall kunna ändras. 
+[•]	Seed minst 4 rum
+[•]	Seed minst 4 gäster
 
 RESERVATION
-•	Användaren måste välja datum då rummet ska bokas.
-•	Ett rum kan bokas av en kund för en eller flera nätter. 
+[]	Användaren måste välja datum då rummet ska bokas.
+[]	Ett rum kan bokas av en kund för en eller flera nätter. 
 
 
 Redovisning: Totalt finns det 5 saker som ska lämnas in:
-1.	(G) ER Diagram över din database
-2.	(VG) Ett dokument som beskriver hur du följt 3NF i dina tabeller
-3.	(G) En .sql fil med dina SQL Select osv. syntaxer
-4.	(VG) En .sql fil med dina SQL Join osv. syntaxer
-5.	(G) En .NET Core console Hotell app
+1.[]	(G) ER Diagram över din database
+2.[]	(VG) Ett dokument som beskriver hur du följt 3NF i dina tabeller
+3.[]	(G) En .sql fil med dina SQL Select osv. syntaxer
+4.[]	(VG) En .sql fil med dina SQL Join osv. syntaxer
+5.[]	(G) En .NET Core console Hotell app
 
 
 
@@ -66,9 +57,24 @@ Redovisning: Totalt finns det 5 saker som ska lämnas in:
 ### LOG
 
 
+2924.12.13
+-	Skriver klar all CRUD för Rooms.
+-	Lägger till Lista med Reservations på Guest. För jag tror att dit jag ska CRUDDA reservations.
 
-2024-12-10, 2024-12-11, 2024-12-12
--	Fake Db (the struggles)
+2024-12-12
+-	Lägger till Services för Guest, Reservation och Room.
+-	Bryter ut menyklasserna för MainMenu, Guest, Reservation och Room från övriga menyklasser. 
+	From nu kallar jag enbart dessa för mina menyer.
+-	Döper om resterande "menyer" till Controllers, då det faktiskt är vad dem är.
+
+-	Jobbet ovanför är lösningen för att ÄNTLIGEN få Create, Read och Delete för Guest att fungera mot FakeDb. 
+-	Skriver metoden för att uppdatera en Guest. CRUD mot Guest är nu klar. Fucking magic.
+
+2024-12-10, 2024-12-11, 
+-	Refactoring till FakeDataBase (the struggles)
+
+2024-12-03-2024-12-09
+-	Bygger Create, Read, Delete mot vanlig lista.
 
 2024-12-02
 -	Ordnar klasser och interfaces för Reservations. Alla menyer fungerar nu.

@@ -1,4 +1,5 @@
 ﻿using Hotel_Transylvania.Interfaces.CalendarsInterfaces;
+using Hotel_Transylvania.Interfaces.MenuInterfaces;
 using Spectre.Console;
 using System;
 using System.Collections.Generic;
@@ -14,7 +15,6 @@ namespace Hotel_Transylvania.Calendars
     {
         public DateTime CalendarNavigate(string checkInOrCheckOut)
         {
-            // Startdatum (början av månaden)
             var currentDate = DateTime.Now;
             var selectedDate = new DateTime(currentDate.Year, currentDate.Month, currentDate.Day);
 
@@ -23,7 +23,6 @@ namespace Hotel_Transylvania.Calendars
                 Console.Clear();
                 calendarData.RenderCalendar(selectedDate, checkInOrCheckOut);
 
-                // Läsa användarens tangent
                 var key = Console.ReadKey(true).Key;
 
                 switch (key)
@@ -45,18 +44,16 @@ namespace Hotel_Transylvania.Calendars
                         {
                             AnsiConsole.MarkupLine($"\nDu valde: [Yellow]{selectedDate:yyyy-MM-dd}[/]");
                             Console.ReadKey();
-                            return selectedDate; // Avslutar loopen
+                            return selectedDate;
                         }
                         else
                         {
                             Console.WriteLine("Bokningar kan endast göras från dagens datum och framåt. Försök igen.");
                             Console.ReadKey();
                             break;
-                            //return; // Avslutar loopen
                         }
                     case ConsoleKey.Escape:
                         break;
-                        //return; // Avbryter valet
                 }
             }
         }
