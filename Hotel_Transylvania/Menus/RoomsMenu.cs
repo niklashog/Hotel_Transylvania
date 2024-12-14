@@ -28,9 +28,8 @@ namespace Hotel_Transylvania.Menus
                 "Back to main menu" };
 
             int selectedIndex = 0;
-            bool isRunning = true;
 
-            while (isRunning)
+            while (true)
             {
                 Console.Clear();
                 DisplayLogo.Paint();
@@ -38,7 +37,7 @@ namespace Hotel_Transylvania.Menus
                 menuHighlight.MenuHighlighter(menuItems, ref selectedIndex);
                 menuNavigation.MenuNavigator(menuItems, ref selectedIndex);
             }
-            Console.ReadKey();
+            //Console.ReadKey();
         }
     }
 }

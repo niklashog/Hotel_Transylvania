@@ -35,7 +35,7 @@ namespace Hotel_Transylvania.Menus.MenuExecution
                     mainMenu.Execute();
                     break;
                 default:
-                    Console.WriteLine("Felaktigt val.");
+                    Console.WriteLine("Invalid choice.");
                     break;
             }
         }

@@ -11,7 +11,6 @@ namespace Hotel_Transylvania.Menus.MenuExecution
         IGuestsMenu guests,
         IReservationsMenu reservations) : IExecuteMainMenu
     {
-
         public void Execute(int index)
         {
             switch (index)
@@ -29,7 +28,7 @@ namespace Hotel_Transylvania.Menus.MenuExecution
                     Environment.Exit(0);
                     break;
                 default:
-                    Console.WriteLine("Felaktigt val.");
+                    Console.WriteLine("Invalid choice.");
                     break;
             }
         }

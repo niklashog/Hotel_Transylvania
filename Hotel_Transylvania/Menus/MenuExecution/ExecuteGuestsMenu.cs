@@ -15,8 +15,6 @@ namespace Hotel_Transylvania.Menus.MenuExecution
     {
         public void Execute(int index)
         {
-
-
             switch (index)
             {
                 case 0:
@@ -42,7 +40,7 @@ namespace Hotel_Transylvania.Menus.MenuExecution
                     break;
 
                 default:
-                    Console.WriteLine("Felaktigt val.");
+                    Console.WriteLine("Invalid choice.");
                     break;
             }
         }
