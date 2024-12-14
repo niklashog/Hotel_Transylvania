@@ -12,7 +12,7 @@ namespace Hotel_Transylvania.Menus.MenuExecution
         IReservationsMenu reservations) : IExecuteMainMenu
     {
 
-        public void Execute(int index, ref bool isRunning)
+        public void Execute(int index)
         {
             switch (index)
             {

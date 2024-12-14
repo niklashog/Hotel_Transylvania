@@ -7,7 +7,7 @@ namespace Hotel_Transylvania.Menus.MenuNavigation
         IExecuteRoomsMenu executeMenuOption) : INavigateRoomsMenu
     {
 
-        public void MenuNavigator(string[] menuItems, ref bool isRunning, ref int selectedIndex)
+        public void MenuNavigator(string[] menuItems, ref int selectedIndex)
         {
             var key = Console.ReadKey(true).Key;
             switch (key)
@@ -21,8 +21,7 @@ namespace Hotel_Transylvania.Menus.MenuNavigation
                     break;
                 case ConsoleKey.Enter:
                     executeMenuOption.Execute(
-                        selectedIndex,
-                        ref isRunning);
+                        selectedIndex);
                     break;
             }
         }

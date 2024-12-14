@@ -9,7 +9,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Hotel_Transylvania.Interfaces.MenuInterfaces
+namespace Hotel_Transylvania.Controllers.Reservations
 {
     public class ReservationsMenu : IReservationsMenu
     {
@@ -26,17 +26,16 @@ namespace Hotel_Transylvania.Interfaces.MenuInterfaces
                 "Show cancelled reservations", "Back to main menu" };
 
             int selectedIndex = 0;
-            bool isRunning = true;
 
-            while (isRunning)
+            while (true)
             {
                 Console.Clear();
                 DisplayLogo.Paint();
 
                 menuHighlight.MenuHighlighter(menuItems, ref selectedIndex);
-                menuNavigation.MenuNavigator(menuItems, ref isRunning, ref selectedIndex);
+                menuNavigation.MenuNavigator(menuItems, ref selectedIndex);
             }
-            Console.ReadKey();
+            //Console.ReadKey();
         }
     }
 }

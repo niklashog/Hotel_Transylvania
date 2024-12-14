@@ -28,17 +28,17 @@ namespace Hotel_Transylvania.Menus
                 "Back to main menu" };
 
             int selectedIndex = 0;
-            bool isRunning = true;
+            //bool isRunning = true;
 
-            while (isRunning)
+            while (true)
             {
                 Console.Clear();
                 DisplayLogo.Paint();
 
                 menuHighlight.MenuHighlighter(menuItems, ref selectedIndex);
-                menuNavigation.MenuNavigator(menuItems, ref isRunning, ref selectedIndex);
+                menuNavigation.MenuNavigator(menuItems, ref selectedIndex);
             }
-            Console.ReadKey();
+            //Console.ReadKey();
         }
     }
 }

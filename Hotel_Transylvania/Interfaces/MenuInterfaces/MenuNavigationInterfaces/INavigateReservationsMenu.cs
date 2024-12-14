@@ -2,6 +2,6 @@
 {
     public interface INavigateReservationsMenu
     {
-        public void MenuNavigator(string[] menuItems, ref bool isRunning, ref int selectedIndex);
+        public void MenuNavigator(string[] menuItems, ref int selectedIndex);
     }
 }

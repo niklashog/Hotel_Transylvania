@@ -13,7 +13,7 @@ namespace Hotel_Transylvania.Menus.MenuExecution
     IUpdateGuest updateGuest,
     IMainMenu mainMenu) : IExecuteGuestsMenu
     {
-        public void Execute(int index, ref bool isRunning)
+        public void Execute(int index)
         {
 
 

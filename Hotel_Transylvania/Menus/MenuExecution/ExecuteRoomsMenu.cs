@@ -14,7 +14,7 @@ namespace Hotel_Transylvania.Menus.MenuExecution
     IRegisterNewRoom registerNewRoom,
     IMainMenu mainMenu) : IExecuteRoomsMenu
     {
-        public void Execute(int index, ref bool isRunning)
+        public void Execute(int index)
         {
             switch (index)
             {

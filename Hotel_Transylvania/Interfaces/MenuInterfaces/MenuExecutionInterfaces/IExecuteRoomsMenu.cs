@@ -2,6 +2,6 @@
 {
     public interface IExecuteRoomsMenu
     {
-        public void Execute(int index, ref bool isRunning);
+        public void Execute(int index);
     }
 }
