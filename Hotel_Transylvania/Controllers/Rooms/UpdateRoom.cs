@@ -33,7 +33,7 @@ namespace Hotel_Transylvania.Menus.Rooms
             Console.Clear();
             DisplayLogo.Paint();
 
-            roomService.DisplaySingleActiveRoom(roomToUpdate, xcoord, ycoord);
+            roomService.DisplaySingleRoom(roomToUpdate, xcoord, ycoord);
             Console.CursorVisible = true;
             Console.SetCursorPosition(2, 8);
             Console.WriteLine("Enter room details..");

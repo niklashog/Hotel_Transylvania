@@ -31,14 +31,12 @@ namespace Hotel_Transylvania.Services
             }
             else if (newRoom.RoomSize >= 15 && newRoom.RoomSize <= 19)
             {
-                newRoom.HasAdditionalBedding = true;
                 newRoom.AdditionalBeddingNumber = 1;
                 Console.WriteLine("If requested by guest," +
                     "room can accomodate 1 additonal bed.");
             }
             else
             {
-                newRoom.HasAdditionalBedding = true;
                 newRoom.AdditionalBeddingNumber = 2;
                 Console.WriteLine("If requested by guest," +
                     "room can accomodate 2 additonal beds.");
@@ -61,7 +59,7 @@ namespace Hotel_Transylvania.Services
                 .ForEach(r =>
                 {
                     Console.SetCursorPosition(x, y++);
-                    Console.WriteLine($"Room number #{r.RoomID}, {r.RoomType}");
+                    Console.WriteLine($"# {r.RoomID}, {r.RoomType}, {r.RoomSize}m²");
                 });
         }
         public void DisplayInactiveRooms(int x, int y)
@@ -74,25 +72,35 @@ namespace Hotel_Transylvania.Services
             .ForEach(r =>
             {
                 Console.SetCursorPosition(x, y++);
-                Console.WriteLine($"Room number #{r.RoomID}, {r.RoomType}");
+                Console.WriteLine($"# {r.RoomID}, {r.RoomType}, {r.RoomSize}m²");
             });
         }
-        public void DisplaySingleActiveRoom(int roomId, int x, int y)
+        public void DisplaySingleRoom(int roomId, int x, int y)
         {
             var selectedRoom = _dbContext.Rooms
-            .First(r => r.IsRoomActive == true && r.RoomID == roomId);
+            .First(r => r.RoomID == roomId);
 
+            var roomStatus = "not set";
+
+            if (selectedRoom.IsRoomActive)
+            {
+                roomStatus = "Yes";
+            }
+            else
+            {
+                roomStatus = "No";
+            }
 
             Console.SetCursorPosition(x, y);
-            Console.WriteLine($"Room:\t\t#{selectedRoom.RoomID}");
+            Console.WriteLine($"#{selectedRoom.RoomID}");
             Console.SetCursorPosition(x, y + 1);
-            Console.WriteLine($"Room Type:\t{selectedRoom.RoomType}");
+            Console.WriteLine($"Type: {selectedRoom.RoomType}");
             Console.SetCursorPosition(x, y + 2);
-            Console.WriteLine($"Additional beds available:\t{selectedRoom.HasAdditionalBedding}");
+            Console.WriteLine($"Size: {selectedRoom.RoomSize}m²");
             Console.SetCursorPosition(x, y + 3);
-            Console.WriteLine($"Maximum number of additional beds:\t\t{selectedRoom.AdditionalBeddingNumber}");
+            Console.WriteLine($"Max number of extra beds: {selectedRoom.AdditionalBeddingNumber}");
             Console.SetCursorPosition(x, y + 4);
-            Console.WriteLine($"Room active status:\t{selectedRoom.IsRoomActive}");
+            Console.WriteLine($"Room active: {roomStatus}");
         }
         public int CountAllRooms()
         {
@@ -108,11 +116,10 @@ namespace Hotel_Transylvania.Services
             roomToUpdate.RoomType = updatedRoomDetails.RoomType;
             roomToUpdate.RoomSize = updatedRoomDetails.RoomSize;
 
-            if (roomToUpdate.RoomSize <= 14 || roomToUpdate.RoomType == "Single")
+            if (roomToUpdate.RoomSize <= 14)
             {
-                Console.WriteLine("Important note. Per guest security reasons," +
-                    "this room is too small to accomodate extra beds.");
-                roomToUpdate.HasAdditionalBedding = false;
+                Console.WriteLine("This room is too small to accomodate extra beds.");
+
                 roomToUpdate.AdditionalBeddingNumber = 0;
             }
             else if (roomToUpdate.RoomSize >= 15 && roomToUpdate.RoomSize <= 19)
@@ -120,7 +127,6 @@ namespace Hotel_Transylvania.Services
                 Console.WriteLine("If requested by guest," +
                     "room can accomodate 1 additonal bed.");
 
-                roomToUpdate.HasAdditionalBedding = true;
                 roomToUpdate.AdditionalBeddingNumber = 1;
             }
             else
@@ -128,7 +134,6 @@ namespace Hotel_Transylvania.Services
                 Console.WriteLine("If requested by guest," +
                     "room can accomodate 2 additonal beds.");
 
-                roomToUpdate.HasAdditionalBedding = true;
                 roomToUpdate.AdditionalBeddingNumber = 2;
             }
         }

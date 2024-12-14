@@ -12,7 +12,6 @@ namespace Hotel_Transylvania.Interfaces.ModelsInterfaces
         public int ReservationID { get; set; }
         public string RoomType { get; set; }
         public int RoomSize { get; set; }
-        public bool HasAdditionalBedding { get; set; }
         public int AdditionalBeddingNumber { get; set; }
         public bool IsRoomActive { get; set; }
 

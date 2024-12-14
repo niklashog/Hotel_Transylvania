@@ -6,6 +6,9 @@
 	klicka backspace för att "backa utan att spara".
 
 -	Behöver jag verkligen IPaint när jag har IExecute??
+-	Fel indentering på update room.
+-	Visar inte storlek på rummet.
+-	Flytta CalendarNavigation och CalendarData till MenuNavigation & MenuExecution.
 
 ### CLEANUP
 -	Städa bort isRunning från Execution och Navigation.

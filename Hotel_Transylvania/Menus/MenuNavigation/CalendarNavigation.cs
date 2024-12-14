@@ -8,14 +8,14 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Hotel_Transylvania.Calendars
+namespace Hotel_Transylvania.Menus.MenuNavigation
 {
     public class CalendarNavigation(
         ICalendarData calendarData) : ICalendarNavigation
     {
-        public DateTime CalendarNavigate(string checkInOrCheckOut)
+        public DateTime CalendarNavigate(string checkInOrCheckOut, DateTime allowedDate)
         {
-            var currentDate = DateTime.Now;
+            var currentDate = allowedDate;
             var selectedDate = new DateTime(currentDate.Year, currentDate.Month, currentDate.Day);
 
             while (true)
@@ -42,13 +42,13 @@ namespace Hotel_Transylvania.Calendars
                     case ConsoleKey.Enter:
                         if (selectedDate.Date >= currentDate.Date)
                         {
-                            AnsiConsole.MarkupLine($"\nDu valde: [Yellow]{selectedDate:yyyy-MM-dd}[/]");
+                            AnsiConsole.MarkupLine($"\nSelected date: [Yellow]{selectedDate:yyyy-MM-dd}[/]");
                             Console.ReadKey();
                             return selectedDate;
                         }
                         else
                         {
-                            Console.WriteLine("Bokningar kan endast göras från dagens datum och framåt. Försök igen.");
+                            Console.WriteLine("Bookings can only be made from today's date and forward. Try again.");
                             Console.ReadKey();
                             break;
                         }

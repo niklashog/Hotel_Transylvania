@@ -1,5 +1,5 @@
-﻿using Hotel_Transylvania.Display;
-using Hotel_Transylvania.Interfaces.CalendarsInterfaces;
+﻿using Hotel_Transylvania.Interfaces.CalendarsInterfaces;
+using Hotel_Transylvania.Interfaces.ServicesInterfaces;
 using Spectre.Console;
 using System;
 using System.Collections.Generic;
@@ -7,9 +7,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Hotel_Transylvania.Calendars
+namespace Hotel_Transylvania.Display
 {
-    public class CalendarData : ICalendarData
+    public class DisplayCalendar : ICalendarData
     {
         public void RenderCalendar(DateTime selectedDate, string checkInOrCheckOut)
         {
@@ -17,13 +17,13 @@ namespace Hotel_Transylvania.Calendars
             var calendarContent = new StringWriter();
 
             calendarContent.WriteLine($"[Yellow]{selectedDate:MMMM yyyy}[/]".ToUpper());
-            calendarContent.WriteLine("Mån  Tis  Ons  Tor  Fre  Lör  Sön");
+            calendarContent.WriteLine("Mon  Tue  Wed  Thu  Fri  Sat  Sun");
             calendarContent.WriteLine("[Yellow]─────────────────────────────────[/]");
 
             DateTime firstDayOfMonth = new DateTime(selectedDate.Year, selectedDate.Month, 1);
             int daysInMonth = DateTime.DaysInMonth(selectedDate.Year, selectedDate.Month);
             int startDay = (int)firstDayOfMonth.DayOfWeek;
-            startDay = (startDay == 0) ? 6 : startDay - 1;
+            startDay = startDay == 0 ? 6 : startDay - 1;
 
             for (int i = 0; i < startDay; i++)
             {
@@ -51,12 +51,12 @@ namespace Hotel_Transylvania.Calendars
             {
                 Border = BoxBorder.Square,
                 BorderStyle = new Style(Color.Yellow),
-                Header = new PanelHeader(($"[Yellow]{checkInOrCheckOut.ToUpper()}[/]"), Justify.Center)
+                Header = new PanelHeader($"[Yellow]{checkInOrCheckOut.ToUpper()}[/]", Justify.Center)
             };
 
             AnsiConsole.Write(panel);
             Console.WriteLine();
-            AnsiConsole.MarkupLine("\nAnvänd piltangenter [Yellow]\u25C4 \u25B2 \u25BA \u25BC[/] för att \nnavigera och [Yellow]Enter[/] för att välja.");
+            AnsiConsole.MarkupLine("\nUse arrow keys [Yellow]\u25C4 \u25B2 \u25BA \u25BC[/] to navigate \nand use [Yellow]Enter[/] to confirm date.");
         }
     }
 }

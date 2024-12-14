@@ -80,7 +80,6 @@ namespace Hotel_Transylvania.Data
                 RoomID = 101,
                 RoomType = "Single",
                 RoomSize = 8,
-                HasAdditionalBedding = false,
                 AdditionalBeddingNumber = 0,
             };
             var room102 = new Room
@@ -88,7 +87,6 @@ namespace Hotel_Transylvania.Data
                 RoomID = 102,
                 RoomType = "Single",
                 RoomSize = 13,
-                HasAdditionalBedding = true,
                 AdditionalBeddingNumber = 1,
             };
             var room103 = new Room
@@ -96,7 +94,6 @@ namespace Hotel_Transylvania.Data
                 RoomID = 103,
                 RoomType = "Double",
                 RoomSize = 19,
-                HasAdditionalBedding = true,
                 AdditionalBeddingNumber = 1,
             };
             var room201 = new Room
@@ -104,7 +101,6 @@ namespace Hotel_Transylvania.Data
                 RoomID = 201,
                 RoomType = "Double",
                 RoomSize = 19,
-                HasAdditionalBedding = true,
                 AdditionalBeddingNumber = 1,
             };
             var room202 = new Room
@@ -112,7 +108,6 @@ namespace Hotel_Transylvania.Data
                 RoomID = 202,
                 RoomType = "Double",
                 RoomSize = 21,
-                HasAdditionalBedding = true,
                 AdditionalBeddingNumber = 2,
             };
             var room301 = new Room
@@ -120,7 +115,6 @@ namespace Hotel_Transylvania.Data
                 RoomID = 301,
                 RoomType = "KingSize",
                 RoomSize = 32,
-                HasAdditionalBedding = true,
                 AdditionalBeddingNumber = 2,
             };
 

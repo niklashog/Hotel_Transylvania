@@ -1,6 +1,8 @@
 ﻿using Hotel_Transylvania.Display;
 using Hotel_Transylvania.Interfaces.CalendarsInterfaces;
 using Hotel_Transylvania.Interfaces.MenuInterfaces;
+using Spectre.Console;
+using System.Diagnostics.CodeAnalysis;
 
 namespace Hotel_Transylvania.Menus
 {
@@ -11,9 +13,14 @@ namespace Hotel_Transylvania.Menus
         {
             Console.Clear();
             DisplayLogo.Paint();
-            var checkInDate = calendar.CalendarNavigate("CheckIn─Date");
-            var checkOutDate = calendar.CalendarNavigate("CheckOut─Date");
-            Console.WriteLine($"Confirm reservation from {checkInDate} to {checkOutDate}?");
+            var currentDate = DateTime.Now.Date;
+            var checkInDate = calendar.CalendarNavigate("CheckIn─Date", currentDate);
+            var checkOutDate = calendar.CalendarNavigate("CheckOut─Date", checkInDate);
+
+            Console.WriteLine(
+                $"Confirm reservation from " +
+                $"{checkInDate.Year}-{checkInDate.Month}-{checkInDate.Day} to " +
+                $"{checkOutDate.Year}-{checkOutDate.Month}-{checkOutDate.Day}?");
             Console.ReadKey();
         }
     }
