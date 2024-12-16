@@ -37,7 +37,6 @@ namespace Hotel_Transylvania.Menus
                 menuHighlight.MenuHighlighter(menuItems, ref selectedIndex);
                 menuNavigation.MenuNavigator(menuItems, ref selectedIndex);
             }
-            //Console.ReadKey();
         }
     }
 }

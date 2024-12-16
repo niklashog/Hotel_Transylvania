@@ -59,7 +59,7 @@ namespace Hotel_Transylvania.Services
                 .ForEach(r =>
                 {
                     Console.SetCursorPosition(x, y++);
-                    Console.WriteLine($"# {r.RoomID}, {r.RoomType}, {r.RoomSize}m²");
+                    Console.WriteLine($"# {r.RoomNumber}, {r.RoomType}, {r.RoomSize}m²");
                 });
         }
         public void GetInactiveRooms(int x, int y)
@@ -72,13 +72,13 @@ namespace Hotel_Transylvania.Services
             .ForEach(r =>
             {
                 Console.SetCursorPosition(x, y++);
-                Console.WriteLine($"# {r.RoomID}, {r.RoomType}, {r.RoomSize}m²");
+                Console.WriteLine($"# {r.RoomNumber}, {r.RoomType}, {r.RoomSize}m²");
             });
         }
         public void DisplaySingleRoom(int roomId, int x, int y)
         {
             var selectedRoom = _dbContext.Rooms
-            .First(r => r.RoomID == roomId);
+            .First(r => r.RoomNumber == roomId);
 
             var roomStatus = "not set";
 
@@ -92,7 +92,7 @@ namespace Hotel_Transylvania.Services
             }
 
             Console.SetCursorPosition(x, y);
-            Console.WriteLine($"#{selectedRoom.RoomID}");
+            Console.WriteLine($"#{selectedRoom.RoomNumber}");
             Console.SetCursorPosition(x, y + 1);
             Console.WriteLine($"Type: {selectedRoom.RoomType}");
             Console.SetCursorPosition(x, y + 2);
@@ -110,9 +110,9 @@ namespace Hotel_Transylvania.Services
         public void UpdateRoomDetails(int roomIdInput, Room updatedRoomDetails)
         {
             var roomToUpdate = _dbContext.Rooms
-                .Find(r => r.RoomID == roomIdInput);
+                .Find(r => r.RoomNumber == roomIdInput);
 
-            roomToUpdate.RoomID = updatedRoomDetails.RoomID;
+            roomToUpdate.RoomNumber = updatedRoomDetails.RoomNumber;
             roomToUpdate.RoomType = updatedRoomDetails.RoomType;
             roomToUpdate.RoomSize = updatedRoomDetails.RoomSize;
 
@@ -141,7 +141,7 @@ namespace Hotel_Transylvania.Services
         public void RemoveRoom(int roomToDelete)
         {
             var room = _dbContext.Rooms
-                .Find(r => r.RoomID == roomToDelete);
+                .Find(r => r.RoomNumber == roomToDelete);
 
             if (room != null)
             {
@@ -155,7 +155,7 @@ namespace Hotel_Transylvania.Services
         public void ReActivateRoom(int roomToReactivate)
         {
             _dbContext.Rooms
-                .First(g => g.RoomID == roomToReactivate)
+                .First(g => g.RoomNumber == roomToReactivate)
                 .IsRoomActive = true;
         }
     }

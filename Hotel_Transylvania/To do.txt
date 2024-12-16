@@ -11,6 +11,7 @@
 ### CLEANUP
 -	Städa bort isRunning från Execution och Navigation.
 -	Felhantering.
+-	Ändra så increment inte är automatisk på Room Number.
 
 
 ## KRAV
@@ -18,6 +19,7 @@
 [•]	(R) Se en list över de befintliga entiteter som finns i databasen
 [•]	(U) Uppdatera en befintlig entitet
 [•]	(D) Radera en befintlig entitet
+		[•] Går ej att radera en kund med aktiv bokning.
 
 1:	(G) ER diagram ska ha alla entiteter som behövs för att hotellappen ska 
 	fungera enligt appens beskrivning. 

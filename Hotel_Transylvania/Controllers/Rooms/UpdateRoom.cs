@@ -56,7 +56,7 @@ namespace Hotel_Transylvania.Menus.Rooms
 
             var updatedRoomDetails = new Room 
             {
-                RoomID = roomId,
+                RoomNumber = roomId,
                 RoomType = roomType,
                 RoomSize = roomSize,
             };

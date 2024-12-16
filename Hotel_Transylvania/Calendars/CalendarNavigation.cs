@@ -8,14 +8,14 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Hotel_Transylvania.Menus.MenuNavigation
+namespace Hotel_Transylvania.Calendars
 {
     public class CalendarNavigation(
         ICalendarData calendarData) : ICalendarNavigation
     {
-        public DateTime CalendarNavigate(string checkInOrCheckOut, DateTime allowedDate)
+        public DateTime CalendarNavigate(string checkInOrCheckOut, DateTime dateFrom)
         {
-            var currentDate = allowedDate;
+            var currentDate = dateFrom;
             var selectedDate = new DateTime(currentDate.Year, currentDate.Month, currentDate.Day);
 
             while (true)

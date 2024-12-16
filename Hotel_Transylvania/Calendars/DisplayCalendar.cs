@@ -1,4 +1,5 @@
-﻿using Hotel_Transylvania.Interfaces.CalendarsInterfaces;
+﻿using Hotel_Transylvania.Display;
+using Hotel_Transylvania.Interfaces.CalendarsInterfaces;
 using Hotel_Transylvania.Interfaces.ServicesInterfaces;
 using Spectre.Console;
 using System;
@@ -7,7 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Hotel_Transylvania.Display
+namespace Hotel_Transylvania.Calendars
 {
     public class DisplayCalendar : ICalendarData
     {

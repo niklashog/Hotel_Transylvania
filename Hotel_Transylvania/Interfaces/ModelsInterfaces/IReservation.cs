@@ -9,7 +9,7 @@ namespace Hotel_Transylvania.Interfaces.ModelsInterfaces
     public interface IReservation
     {
         public int ReservationID { get; set; }
-        public int RoomID { get; set; }
+        public int RoomNumber { get; set; }
         public int GuestID { get; set; }
         public int NumberOfAdditionalBeds { get; set; }
         public DateTime CheckinDate { get; set; }

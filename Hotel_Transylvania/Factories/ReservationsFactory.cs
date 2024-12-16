@@ -12,8 +12,9 @@ using Hotel_Transylvania.Interfaces.ServicesInterfaces;
 using Hotel_Transylvania.Menus;
 using Hotel_Transylvania.Interfaces.MenuInterfaces;
 using Hotel_Transylvania.Interfaces.CalendarsInterfaces;
-using Hotel_Transylvania.Display;
 using Hotel_Transylvania.Controllers.Reservations;
+using Hotel_Transylvania.Calendars;
+using Hotel_Transylvania.Interfaces.ControllerInterfaces.ReservationsInterfaces;
 
 namespace Hotel_Transylvania.Factories
 {
@@ -24,10 +25,10 @@ namespace Hotel_Transylvania.Factories
             builder.RegisterType<Reservation>().As<IReservation>();
 
             builder.RegisterType<ReservationsMenu>().As<IReservationsMenu>();
-            builder.RegisterType<CancelledReservations>().As<ICancelledReservations>();
+            builder.RegisterType<AddReservation>().As<IAddReservation>();
             builder.RegisterType<CancelReservation>().As<ICancelReservation>();
             builder.RegisterType<ChangeReservation>().As<IChangeReservation>();
-            builder.RegisterType<ReservationMenu>().As<INewReservation>();
+            builder.RegisterType<ReservationMenu>().As<IReservationMenu>();
             builder.RegisterType<ShowReservations>().As<IShowReservations>();
 
             builder.RegisterType<NavigateReservationsMenu>().As<INavigateReservationsMenu>();

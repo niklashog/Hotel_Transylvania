@@ -26,7 +26,7 @@ namespace Hotel_Transylvania.Menus.Rooms
             Console.WriteLine("Specify details of new room..");
             
             Console.Write("Room Number: ");
-            newRoom.RoomID = int.Parse(Console.ReadLine());
+            newRoom.RoomNumber = int.Parse(Console.ReadLine());
             Console.Write("Room type (Single, Double, Kingsize): ");
             newRoom.RoomType = Console.ReadLine();
             Console.Write("Room size (m²):");

@@ -1,15 +1,15 @@
-﻿using Hotel_Transylvania.Interfaces.MenuInterfaces;
+﻿using Hotel_Transylvania.Interfaces.ControllerInterfaces.ReservationsInterfaces;
+using Hotel_Transylvania.Interfaces.MenuInterfaces;
 using Hotel_Transylvania.Interfaces.MenuInterfaces.MenuExecutionInterfaces;
 using Hotel_Transylvania.Interfaces.MenuInterfaces.ReservationsInterfaces;
 
 namespace Hotel_Transylvania.Menus.MenuExecution
 {
     public class ExecuteReservationsMenu(
-    INewReservation newReservation,
+    IAddReservation addReservation,
     IChangeReservation changeReservation,
-    ICancelledReservations cancelReservation,
+    ICancelReservation cancelReservation,
     IShowReservations showReservations,
-    ICancelledReservations cancelledReservations,
     IMainMenu mainMenu) : IExecuteReservationsMenu
     {
         public void Execute(int index)
@@ -17,21 +17,18 @@ namespace Hotel_Transylvania.Menus.MenuExecution
             switch (index)
             {
                 case 0:
-                    newReservation.Execute();
+                    addReservation.Execute();
                     break;
                 case 1:
                     changeReservation.Execute();
                     break;
                 case 2:
-                    cancelReservation.Execute();
-                    break;
-                case 3:
                     showReservations.Execute();
                     break;
-                case 4:
-                    cancelledReservations.Execute();
+                case 3:
+                    cancelReservation.Execute();
                     break;
-                case 5:
+                case 4:
                     mainMenu.Execute();
                     break;
                 default:

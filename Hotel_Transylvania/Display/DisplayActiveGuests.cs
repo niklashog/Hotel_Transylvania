@@ -10,26 +10,25 @@ using System.Threading.Tasks;
 
 namespace Hotel_Transylvania.Display
 {
-    public class DisplayActiveGuests(
-        IGuestService guestService) : IDisplayActiveGuests
+    public class DisplayActiveGuests : IDisplayActiveGuests
     {
         public void ExecuteXY(int x, int y)
         {
-            var activeGuests = guestService.GetAllGuests()
-            .Where(g => g.IsGuestActive == true)
-            .ToList();
+            //var activeGuests = guestService.GetAllGuests()
+            //.Where(g => g.IsGuestActive == true)
+            //.ToList();
 
-            activeGuests
-            .ForEach(g =>
-            {
-                var reservation = g.Reservations.FirstOrDefault();
+            //activeGuests
+            //.ForEach(g =>
+            //{
+            //    var reservation = g.Reservations.FirstOrDefault();
 
-                Console.SetCursorPosition(x, y++);
-                if (reservation != null)
-                    Console.WriteLine($"Guest ID: {g.GuestID}, Name: {g.FirstName} {g.Surname} Reservation: {reservation.RoomID}");
-                else
-                    Console.WriteLine($"Guest ID: {g.GuestID}, Name: {g.FirstName} {g.Surname} Reservation: None.");
-            });
+            //    Console.SetCursorPosition(x, y++);
+            //    if (reservation != null)
+            //        Console.WriteLine($"Guest ID: {g.GuestID}, Name: {g.FirstName} {g.Surname} Reservation: {reservation.RoomNumber}");
+            //    else
+            //        Console.WriteLine($"Guest ID: {g.GuestID}, Name: {g.FirstName} {g.Surname} Reservation: None.");
+            //});
         }
     }
 }

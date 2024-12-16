@@ -13,7 +13,7 @@ namespace Hotel_Transylvania.Models
 
     public class Room : IRoom
     {
-        public int RoomID { get; set; }
+        public int RoomNumber { get; set; }
         public int ReservationID { get; set; }
         public string RoomType { get; set; }
         public int RoomSize { get; set; }

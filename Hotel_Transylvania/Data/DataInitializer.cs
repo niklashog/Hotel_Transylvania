@@ -23,7 +23,6 @@ namespace Hotel_Transylvania.Data
 
             SeedGuests();
             SeedRooms();
-            //SeedReservations();
 
             return _dbContext;
         }
@@ -42,7 +41,7 @@ namespace Hotel_Transylvania.Data
                     new Reservation
                     {
                         ReservationID = 1,
-                        RoomID = 102,
+                        RoomNumber = 101,
                         GuestID = 1,
                         NumberOfAdditionalBeds = 0,
                         CheckinDate = DateTime.Now,
@@ -53,7 +52,7 @@ namespace Hotel_Transylvania.Data
                     new Reservation
                     {
                         ReservationID = 2,
-                        RoomID = 102,
+                        RoomNumber = 101,
                         GuestID = 1,
                         NumberOfAdditionalBeds = 0,
                         CheckinDate = DateTime.Now.Date.AddDays(+21),
@@ -102,42 +101,42 @@ namespace Hotel_Transylvania.Data
         {
             var room101 = new Room
             {
-                RoomID = 101,
+                RoomNumber = 101,
                 RoomType = "Single",
                 RoomSize = 8,
                 AdditionalBeddingNumber = 0,
             };
             var room102 = new Room
             {
-                RoomID = 102,
+                RoomNumber = 102,
                 RoomType = "Single",
                 RoomSize = 13,
                 AdditionalBeddingNumber = 1,
             };
             var room103 = new Room
             {
-                RoomID = 103,
+                RoomNumber = 103,
                 RoomType = "Double",
                 RoomSize = 19,
                 AdditionalBeddingNumber = 1,
             };
             var room201 = new Room
             {
-                RoomID = 201,
+                RoomNumber = 201,
                 RoomType = "Double",
                 RoomSize = 19,
                 AdditionalBeddingNumber = 1,
             };
             var room202 = new Room
             {
-                RoomID = 202,
+                RoomNumber = 202,
                 RoomType = "Double",
                 RoomSize = 21,
                 AdditionalBeddingNumber = 2,
             };
             var room301 = new Room
             {
-                RoomID = 301,
+                RoomNumber = 301,
                 RoomType = "Suite",
                 RoomSize = 32,
                 AdditionalBeddingNumber = 2,
@@ -149,24 +148,6 @@ namespace Hotel_Transylvania.Data
             _dbContext.Rooms.Add(room201);
             _dbContext.Rooms.Add(room202);
             _dbContext.Rooms.Add(room301);
-
-            return _dbContext;
-        }
-
-        private ApplicationDbContext_FAKE SeedReservations()
-        {
-            var reservation1 = new Reservation
-            {
-                ReservationID = 1,
-                RoomID = 301,
-                GuestID = 1,
-                NumberOfAdditionalBeds = 0,
-                CheckinDate = DateTime.Today.Date,
-                CheckoutDate = DateTime.Now.Date.AddDays(+2),
-                TimeOfReservation = DateTime.Now.Date.AddDays(-30),
-                IsReservationActive = true
-            };
-            _dbContext.ReservationsOld.Add(reservation1);
 
             return _dbContext;
         }
