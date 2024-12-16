@@ -13,8 +13,8 @@ namespace Hotel_Transylvania.Interfaces.ServicesInterfaces
         public void AddRoom(IRoom room);
 
         public IEnumerable<IRoom> GetAllRooms();
-        public void DisplayActiveRooms(int x, int y);
-        public void DisplayInactiveRooms(int x, int y);
+        public void GetActiveRooms(int x, int y);
+        public void GetInactiveRooms(int x, int y);
         public void DisplaySingleRoom(int roomId, int x, int y);
         public int CountAllRooms();
         public void UpdateRoomDetails(int roomIdInput, Room updatedRoomDetails);

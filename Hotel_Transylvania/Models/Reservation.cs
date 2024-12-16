@@ -11,6 +11,7 @@ namespace Hotel_Transylvania.Models
         public DateTime CheckinDate { get; set; }
         public DateTime CheckoutDate { get; set; }
         public DateTime TimeOfReservation { get; set; } = DateTime.Now;
-        public bool IsReservationActive { get; set; } = true;        
+        public bool IsReservationActive { get; set; } = true;
+        public List<Room> RoomsBooked { get; set; } = new List<Room>();
     }
 }

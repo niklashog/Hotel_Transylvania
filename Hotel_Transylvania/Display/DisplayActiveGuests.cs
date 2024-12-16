@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace Hotel_Transylvania.Display
 {
-    internal class DisplayActiveGuests(
+    public class DisplayActiveGuests(
         IGuestService guestService) : IDisplayActiveGuests
     {
         public void ExecuteXY(int x, int y)
@@ -22,8 +22,13 @@ namespace Hotel_Transylvania.Display
             activeGuests
             .ForEach(g =>
             {
+                var reservation = g.Reservations.FirstOrDefault();
+
                 Console.SetCursorPosition(x, y++);
-                Console.WriteLine($"Guest ID: {g.GuestID}, Name: {g.FirstName} {g.Surname}");
+                if (reservation != null)
+                    Console.WriteLine($"Guest ID: {g.GuestID}, Name: {g.FirstName} {g.Surname} Reservation: {reservation.RoomID}");
+                else
+                    Console.WriteLine($"Guest ID: {g.GuestID}, Name: {g.FirstName} {g.Surname} Reservation: None.");
             });
         }
     }

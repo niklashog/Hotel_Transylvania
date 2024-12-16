@@ -49,7 +49,7 @@ namespace Hotel_Transylvania.Services
         {
             return _dbContext.Rooms;
         }
-        public void DisplayActiveRooms(int x, int y)
+        public void GetActiveRooms(int x, int y)
         {
             var activeRooms= _dbContext.Rooms
                 .Where(r => r.IsRoomActive)
@@ -62,7 +62,7 @@ namespace Hotel_Transylvania.Services
                     Console.WriteLine($"# {r.RoomID}, {r.RoomType}, {r.RoomSize}m²");
                 });
         }
-        public void DisplayInactiveRooms(int x, int y)
+        public void GetInactiveRooms(int x, int y)
         {
             var inactiveRooms = _dbContext.Rooms
             .Where(r => r.IsRoomActive == false)

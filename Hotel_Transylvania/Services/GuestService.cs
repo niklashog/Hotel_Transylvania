@@ -2,6 +2,7 @@
 using Hotel_Transylvania.Interfaces.MenuInterfaces.GuestsInterfaces;
 using Hotel_Transylvania.Interfaces.ModelsInterfaces;
 using Hotel_Transylvania.Interfaces.ServicesInterfaces;
+using Hotel_Transylvania.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -28,7 +29,7 @@ namespace Hotel_Transylvania.Services
         {
             return _dbContext.Guests;
         }
-        public void DisplayActiveGuests(int x, int y)
+        public void GetActiveGuests(int x, int y)
         {
             var activeGuests = _dbContext.Guests
                 .Where(g => g.IsGuestActive)
@@ -37,11 +38,21 @@ namespace Hotel_Transylvania.Services
             activeGuests
                 .ForEach(g =>
                 {
+                    var reservation = g.Reservations.FirstOrDefault();
+
                     Console.SetCursorPosition(x, y++);
-                    Console.WriteLine($"Guest ID: {g.GuestID}, Name: {g.FirstName} {g.Surname}");
+                    if (reservation != null)
+                        Console.WriteLine($"* Guest ID: {g.GuestID}, Name: {g.FirstName} {g.Surname}");
+                    else
+                        Console.WriteLine($"Guest ID: {g.GuestID}, Name: {g.FirstName} {g.Surname}");
                 });
+
+            Console.ForegroundColor = ConsoleColor.DarkGray;
+            Console.SetCursorPosition(x, y);
+            Console.WriteLine("\n\n* Guest has active reservation");
+            Console.ForegroundColor = ConsoleColor.White;
         }
-        public void DisplayInctiveGuests(int x, int y)
+        public void GetInctiveGuests(int x, int y)
         {
             var inactiveGuests = _dbContext.Guests
             .Where(g => g.IsGuestActive == false)
@@ -54,20 +65,23 @@ namespace Hotel_Transylvania.Services
                 Console.WriteLine($"Guest ID: {g.GuestID}, Name: {g.FirstName} {g.Surname}");
             });
         }
-        public void DisplaySingleActiveGuest(int guestId, int x, int y)
+        public void GetSingleActiveGuest(int guestId, int x, int y)
         {
             var selectedGuest = _dbContext.Guests
-            .First(g => g.IsGuestActive == true && g.GuestID == guestId);
-            
+            .First(g => g.GuestID == guestId);
+            var selectedGuestReservations = selectedGuest.Reservations.ToList();
+
             Console.SetCursorPosition(x, y);
-            Console.WriteLine($"Guest ID:\t\t#{selectedGuest.GuestID}");
-            Console.SetCursorPosition(x, y+1);
-            Console.WriteLine($"First Name:\t{selectedGuest.FirstName}");
-            Console.SetCursorPosition(x, y+2);
-            Console.WriteLine($"Surname:\t\t{selectedGuest.Surname}");
-            Console.SetCursorPosition(x, y+3);
-            Console.WriteLine($"E-mail:\t\t{selectedGuest.Email}");
-            Console.SetCursorPosition(x, y+4);
+            Console.WriteLine($"Guest ID:\t\t#{selectedGuest.IsGuestActive}");
+            Console.SetCursorPosition(x, y + 1);
+            Console.WriteLine($"First Name:\t{selectedGuest.GuestID}");
+            Console.SetCursorPosition(x, y + 2);
+            Console.WriteLine($"Surname:\t\t{selectedGuest.FirstName}");
+            Console.SetCursorPosition(x, y + 3);
+            Console.WriteLine($"E-mail:\t\t{selectedGuest.Surname}");
+            Console.SetCursorPosition(x, y + 4);
+            Console.WriteLine($"Phone number:\t{selectedGuest.Email}");
+            Console.SetCursorPosition(x, y + 5);
             Console.WriteLine($"Phone number:\t{selectedGuest.Phone}");
         }
         public int CountAllGuests()
@@ -75,15 +89,15 @@ namespace Hotel_Transylvania.Services
             return _dbContext.Guests.Count();
         }
 
-        public void UpdateGuestDetails(int guestIdInput, string[] updatedGuestDetails)
+        public void UpdateGuestDetails(int guestToEdit, string[] editedGuestDetails)
         {
             var guestToUpdate = _dbContext.Guests
-                .Find(g => g.GuestID == guestIdInput);
+                .Find(g => g.GuestID == guestToEdit);
 
-            guestToUpdate.FirstName = updatedGuestDetails[0];
-            guestToUpdate.Surname = updatedGuestDetails[1];
-            guestToUpdate.Email = updatedGuestDetails[2];
-            guestToUpdate.Phone = updatedGuestDetails[3];
+            guestToUpdate.FirstName = editedGuestDetails[0];
+            guestToUpdate.Surname = editedGuestDetails[1];
+            guestToUpdate.Email = editedGuestDetails[2];
+            guestToUpdate.Phone = editedGuestDetails[3];
         }
 
 
@@ -92,14 +106,26 @@ namespace Hotel_Transylvania.Services
             var guest = _dbContext.Guests
                 .Find(g => g.GuestID == guestToDelete);
 
-            if (guest != null)
-            {
-                guest.IsGuestActive = false;
-            }
-            else
+            if (guest == null)
             {
                 Console.WriteLine("No guest found with that ID.");
             }
+            else
+            {
+                if (guest.Reservations.Count < 1)
+                {
+                    guest.IsGuestActive = false;
+                    Console.WriteLine("Guest deleted. Press 'Enter' to continue.");
+                    Console.ReadKey();
+                }
+                else
+                {
+                    Console.WriteLine("Active reservation found. Try again when");
+                    Console.WriteLine("reservations have been removed. ");
+                    Console.ReadKey();
+                }
+            }
+
         }
         public void ReActivateGuest(int guestToReactivate)
         {

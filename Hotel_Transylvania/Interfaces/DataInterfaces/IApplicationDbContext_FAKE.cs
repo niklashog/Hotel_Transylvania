@@ -11,7 +11,7 @@ namespace Hotel_Transylvania.Interfaces.FakeDatabase
     public interface IApplicationDbContext_FAKE
     {
         public List<IGuest> Guests { get; set; }
-        public List<IReservation> Reservations { get; set; }
+        public List<IReservation> ReservationsOld { get; set; }
         public List<IRoom> Rooms { get; set; }
                 //public Guest Guests { get; set; }
         //public Reservation Reservations { get; set; }

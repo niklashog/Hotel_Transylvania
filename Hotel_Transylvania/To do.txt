@@ -1,17 +1,16 @@
 ﻿### WORK ITEMS
--	Behålla room type? Ta bort helt? Enum?
+-	RoomType måste vara Enum!
 -	Kan bara delete guest om ingen reservation är aktiv.
 
 -	När jag uppmanar att klicka Enter för att spara så vill jag även ge alternativet att
 	klicka backspace för att "backa utan att spara".
 
 -	Behöver jag verkligen IPaint när jag har IExecute??
--	Fel indentering på update room.
--	Visar inte storlek på rummet.
 -	Flytta CalendarNavigation och CalendarData till MenuNavigation & MenuExecution.
 
 ### CLEANUP
 -	Städa bort isRunning från Execution och Navigation.
+-	Felhantering.
 
 
 ## KRAV
@@ -59,8 +58,9 @@ Redovisning: Totalt finns det 5 saker som ska lämnas in:
 
 ### LOG
 
+2024-12-16 Denna är rätt.
 
-2924.12.13
+2024.12.13
 -	Skriver klar all CRUD för Rooms.
 -	Lägger till Lista med Reservations på Guest. För jag tror att dit jag ska CRUDDA reservations.
 

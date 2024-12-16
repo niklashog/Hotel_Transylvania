@@ -25,7 +25,7 @@ namespace Hotel_Transylvania.Menus.Guests
             {
                 var xcoord = 45;
                 var ycoord = 9;
-                guestService.DisplayInctiveGuests(xcoord, ycoord);
+                guestService.GetInctiveGuests(xcoord, ycoord);
 
                 Console.CursorVisible = true;
                 Console.SetCursorPosition(0, 9);

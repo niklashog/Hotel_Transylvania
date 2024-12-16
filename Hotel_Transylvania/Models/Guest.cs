@@ -12,7 +12,9 @@ namespace Hotel_Transylvania.Models
         public string Phone { get; set; }
         public int ReservationHistory { get; set; }
         public bool IsGuestActive { get; set; } = true;
-        public List<IReservation> GuestReservations { get; set; } = new List<IReservation>();
+        public List<Reservation>? Reservations { get; set; } = new List<Reservation>();
+
+        //public List<IReservation> GuestReservations { get; set; } = new List<IReservation>();
 
     }
 }

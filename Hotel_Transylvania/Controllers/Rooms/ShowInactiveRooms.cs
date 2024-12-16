@@ -15,7 +15,7 @@ namespace Hotel_Transylvania.Menus.Rooms
             DisplayLogo.Paint();
             var xcoord = 2;
             var ycoord = 9;
-            roomService.DisplayInactiveRooms(xcoord, ycoord);
+            roomService.GetInactiveRooms(xcoord, ycoord);
 
             Console.ReadKey();
         }

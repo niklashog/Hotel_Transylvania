@@ -21,7 +21,7 @@ namespace Hotel_Transylvania.Menus.Rooms
             {
                 var xcoord = 45;
                 var ycoord = 9;
-                roomService.DisplayInactiveRooms(xcoord, ycoord);
+                roomService.GetInactiveRooms(xcoord, ycoord);
 
                 Console.CursorVisible = true;
                 Console.SetCursorPosition(0, 9);

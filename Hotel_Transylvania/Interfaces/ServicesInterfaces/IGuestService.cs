@@ -12,9 +12,9 @@ namespace Hotel_Transylvania.Interfaces.ServicesInterfaces
     {
         public void AddGuest(IGuest guest);
         public IEnumerable<IGuest> GetAllGuests();
-        public void DisplayActiveGuests(int x, int y);
-        public void DisplayInctiveGuests(int x, int y);
-        public void DisplaySingleActiveGuest(int guestId, int x, int y);
+        public void GetActiveGuests(int x, int y);
+        public void GetInctiveGuests(int x, int y);
+        public void GetSingleActiveGuest(int guestId, int x, int y);
         public int CountAllGuests();
 
         public void ReActivateGuest(int guestToReactivate);

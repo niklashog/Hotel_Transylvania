@@ -14,7 +14,6 @@
 
   <ItemGroup>
     <Folder Include="Interfaces\DTOInterfaces\" />
-    <Folder Include="Settings\" />
   </ItemGroup>
 
 </Project>

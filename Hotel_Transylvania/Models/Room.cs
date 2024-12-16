@@ -8,7 +8,7 @@ namespace Hotel_Transylvania.Models
     {
         Single,
         Double,
-        KingSize,
+        Suite
     }
 
     public class Room : IRoom

@@ -17,7 +17,7 @@ namespace Hotel_Transylvania.Menus.Guests
 
             var xcoord = 45;
             var ycoord = 8;
-            guestService.DisplayActiveGuests(xcoord, ycoord);
+            guestService.GetActiveGuests(xcoord, ycoord);
 
             Console.CursorVisible = true;
             Console.SetCursorPosition(2, 8);
@@ -33,7 +33,7 @@ namespace Hotel_Transylvania.Menus.Guests
             Console.Clear();
             DisplayLogo.Paint();
 
-            guestService.DisplaySingleActiveGuest(guestToUpdate, xcoord, ycoord);
+            guestService.GetSingleActiveGuest(guestToUpdate, xcoord, ycoord);
             Console.CursorVisible = true;
             Console.SetCursorPosition(2, 8);
             Console.WriteLine("Enter guest details..");

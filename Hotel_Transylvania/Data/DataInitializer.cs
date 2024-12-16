@@ -23,7 +23,7 @@ namespace Hotel_Transylvania.Data
 
             SeedGuests();
             SeedRooms();
-            SeedReservations();
+            //SeedReservations();
 
             return _dbContext;
         }
@@ -36,14 +36,39 @@ namespace Hotel_Transylvania.Data
                 FirstName = "Anna",
                 Surname = "Svensson",
                 Email = "anna.svensson@example.com",
-                Phone = "0701234567"
+                Phone = "0701234567",
+                Reservations = new List<Reservation>
+                {
+                    new Reservation
+                    {
+                        ReservationID = 1,
+                        RoomID = 102,
+                        GuestID = 1,
+                        NumberOfAdditionalBeds = 0,
+                        CheckinDate = DateTime.Now,
+                        CheckoutDate = DateTime.Now.Date.AddDays(+2),
+                        TimeOfReservation = DateTime.Now.Date.AddDays(-30),
+                        IsReservationActive = true
+                    },
+                    new Reservation
+                    {
+                        ReservationID = 2,
+                        RoomID = 102,
+                        GuestID = 1,
+                        NumberOfAdditionalBeds = 0,
+                        CheckinDate = DateTime.Now.Date.AddDays(+21),
+                        CheckoutDate = DateTime.Now.Date.AddDays(+3),
+                        TimeOfReservation = DateTime.Now.Date.AddDays(-30),
+                        IsReservationActive = true
+                    }
+                }
             };
             var guest2 = new Guest
             {
                 GuestID = 2,
-                FirstName = "Kanneth",
-                Surname = "Andersson",
-                Email = "kenneth.andersson@legend.com",
+                FirstName = "Henrik",
+                Surname = "Larsson",
+                Email = "henke.larssa@legend.com",
                 Phone = "0707654321"
             };
             var guest3 = new Guest
@@ -51,7 +76,7 @@ namespace Hotel_Transylvania.Data
                 GuestID = 3,
                 FirstName = "Viktor",
                 Surname = "Gyökeres",
-                Email = "vigge.gook@hotmail.com",
+                Email = "victor.y.gok@hotmail.com",
                 Phone = "0705554443"
             };
             var guest4 = new Guest
@@ -59,7 +84,7 @@ namespace Hotel_Transylvania.Data
                 GuestID = 4,
                 FirstName = "Thomas",
                 Surname = "Brolin",
-                Email = "tompa.snurr@restaurant.com",
+                Email = "tompa.snurr@gest.nu",
                 Phone = "0701122333"
             };
 
@@ -113,7 +138,7 @@ namespace Hotel_Transylvania.Data
             var room301 = new Room
             {
                 RoomID = 301,
-                RoomType = "KingSize",
+                RoomType = "Suite",
                 RoomSize = 32,
                 AdditionalBeddingNumber = 2,
             };
@@ -141,7 +166,7 @@ namespace Hotel_Transylvania.Data
                 TimeOfReservation = DateTime.Now.Date.AddDays(-30),
                 IsReservationActive = true
             };
-            _dbContext.Reservations.Add(reservation1);
+            _dbContext.ReservationsOld.Add(reservation1);
 
             return _dbContext;
         }

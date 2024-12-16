@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Hotel_Transylvania.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -16,6 +17,7 @@ namespace Hotel_Transylvania.Interfaces.ModelsInterfaces
         public string Phone { get; set; }
         public int ReservationHistory { get; set; }
         public bool IsGuestActive { get; set; }
-        public List<IReservation> GuestReservations { get; set; }
+        public List<Reservation>? Reservations { get; set; }
+
     }
 }

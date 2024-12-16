@@ -12,7 +12,7 @@ namespace Hotel_Transylvania.Data
     public class ApplicationDbContext_FAKE : IApplicationDbContext_FAKE
     {
         public List<IGuest> Guests { get; set; } = [];
-        public List<IReservation> Reservations { get; set; } = [];
+        public List<IReservation> ReservationsOld { get; set; } = [];
         public List<IRoom> Rooms { get; set; } = [];
     }
 }
