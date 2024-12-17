@@ -2,7 +2,7 @@
 
 namespace Hotel_Transylvania.Interfaces.MenuInterfaces
 {
-    public interface IReservationMenu : IExecute
+    public interface IWrongReservationMenu : IExecute
     {
     }
 }

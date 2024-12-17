@@ -65,10 +65,11 @@ namespace Hotel_Transylvania.Controllers.Reservations
                 newReservation.NumberOfAdditionalBeds = 1;
             };
 
-            reservationService.AddReservation(guestIdToBook, newReservation);
-
+            //reservationService.AddReservation(guestIdToBook, newReservation);
             //guestService.UpdateGuestDetails(guestToUpdate, updatedGuestDetails);
-            Console.ReadKey();
+
+            guestService.AddReservation(guestIdToBook, newReservation);
+            Console.WriteLine("Reservation complete. Press any key to continue.");
         }
     }
 }

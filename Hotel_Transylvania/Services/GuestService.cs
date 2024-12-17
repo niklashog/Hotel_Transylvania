@@ -133,5 +133,16 @@ namespace Hotel_Transylvania.Services
                 .First(g => g.GuestID == guestToReactivate)
                 .IsGuestActive = true;
         }
+
+        public void AddReservation(int guestId, Reservation reservation)
+        {
+            // Nu har jag fått Guest ID och en Reservation.
+            // Metod som uppdaterar lista på Guest med Rumsnummer och datum.
+            // RoomService behöver metod GetFreeRooms.
+            var guestToUpdate = _dbContext.Guests
+                .Find(g => g.GuestID == guestId);
+
+            guestToUpdate.Reservations.Add(reservation);
+        }
     }
 }

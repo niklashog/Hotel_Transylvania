@@ -1,17 +1,15 @@
 ﻿using Hotel_Transylvania.Display;
 using Hotel_Transylvania.Factories;
+using Hotel_Transylvania.Interfaces.CalendarsInterfaces;
+using Hotel_Transylvania.Interfaces.MenuInterfaces;
 using Hotel_Transylvania.Interfaces.MenuInterfaces.MenuExecutionInterfaces;
 using Hotel_Transylvania.Interfaces.MenuInterfaces.MenuNavigationInterfaces;
-using Hotel_Transylvania.Interfaces.MenuInterfaces.ReservationsInterfaces;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Spectre.Console;
+using System.Diagnostics.CodeAnalysis;
 
-namespace Hotel_Transylvania.Controllers.Reservations
+namespace Hotel_Transylvania.Menus
 {
-    public class ReservationsMenu : IReservationsMenu
+    public class WrongReservationMenu
     {
         public void Execute()
         {
@@ -21,9 +19,9 @@ namespace Hotel_Transylvania.Controllers.Reservations
 
             Console.CursorVisible = false;
             string[] menuItems = {
-                "New reservation", "Change a reservation",
-                "Cancel a reservation", "Show all reservations",
-                "Show cancelled reservations", "Back to main menu" };
+                "Make new reservation", "Update reservation",
+                "Show active reservations", "Cancel reservation",
+                "Back to main menu" };
 
             int selectedIndex = 0;
 
@@ -35,7 +33,6 @@ namespace Hotel_Transylvania.Controllers.Reservations
                 menuHighlight.MenuHighlighter(menuItems, ref selectedIndex);
                 menuNavigation.MenuNavigator(menuItems, ref selectedIndex);
             }
-            //Console.ReadKey();
         }
     }
 }

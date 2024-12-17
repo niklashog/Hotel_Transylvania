@@ -16,6 +16,9 @@ namespace Hotel_Transylvania.Services
 
         public void AddReservation(int guestId, Reservation reservation)
         {
+            
+            
+            
             // Nu har jag fått Guest ID och en Reservation.
             // Metod som uppdaterar lista på Guest med Rumsnummer och datum.
             // RoomService behöver metod GetFreeRooms.
