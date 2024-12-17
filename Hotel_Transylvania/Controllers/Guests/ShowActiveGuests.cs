@@ -16,7 +16,7 @@ namespace Hotel_Transylvania.Menus.Guests
             DisplayLogo.Paint();
             var xcoord = 2;
             var ycoord = 9;
-            guestService.GetActiveGuests(xcoord, ycoord);
+            guestService.DisplayActiveGuests(xcoord, ycoord);
 
             Console.ReadKey();
         }

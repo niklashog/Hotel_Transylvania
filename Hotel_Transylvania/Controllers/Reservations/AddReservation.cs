@@ -26,7 +26,7 @@ namespace Hotel_Transylvania.Controllers.Reservations
 
             var xcoord = 45;
             var ycoord = 8;
-            guestService.GetActiveGuests(xcoord, ycoord);
+            guestService.DisplayActiveGuests(xcoord, ycoord);
 
             Console.CursorVisible = true;
             Console.SetCursorPosition(2, 8);

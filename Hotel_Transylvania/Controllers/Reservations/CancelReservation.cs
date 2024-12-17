@@ -5,13 +5,20 @@ using Hotel_Transylvania.Services;
 
 namespace Hotel_Transylvania.Menus.Reservations
 {
-    public class CancelReservation : ICancelReservation
+    public class CancelReservation(
+        IReservationService reservationService) : ICancelReservation
     {
         public void Execute()
         {
             Console.Clear();
             DisplayLogo.Paint();
-            Console.WriteLine("I CANCEL RESERVATIONS");
+            reservationService.ShowReservations();
+
+            Console.WriteLine("Type reservation id to remove");
+            var reservationIdToRemove = int.Parse(Console.ReadLine());
+
+            reservationService.RemoveReservation(reservationIdToRemove);
+
             Console.ReadKey();
         }
     }

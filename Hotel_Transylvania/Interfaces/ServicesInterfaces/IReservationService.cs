@@ -14,9 +14,9 @@ namespace Hotel_Transylvania.Interfaces.ServicesInterfaces
         public void AddReservation(int guestId, DateTime checkinDate, DateTime checkoutDate, int roomNumber);
         public int CountReservations();
         public void ShowReservations();
-        public void ShowReservation(IGuest guest);
+        public void ShowReservation();
         public void UpdateReservation(IGuest guest);
-        public void RemoveReservation(IGuest guest);
+        public void RemoveReservation(int id);
 
     }
 }

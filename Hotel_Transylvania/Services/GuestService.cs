@@ -33,7 +33,7 @@ namespace Hotel_Transylvania.Services
         {
             return _dbContext.Guests;
         }
-        public void GetActiveGuests(int x, int y)
+        public void DisplayActiveGuests(int x, int y)
         {
             var activeGuests = _dbContext.Guests
                 .Where(g => g.IsGuestActive)

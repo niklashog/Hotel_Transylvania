@@ -7,7 +7,6 @@ using Hotel_Transylvania.Interfaces.ServicesInterfaces;
 namespace Hotel_Transylvania.Menus.Reservations
 {
     public class ShowReservations(
-        IGuestService guestService,
         IReservationService reservationService) : IShowReservations
     {
         public void Execute()
