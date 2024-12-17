@@ -33,7 +33,7 @@ namespace Hotel_Transylvania.Menus.Guests
             Console.Clear();
             DisplayLogo.Paint();
 
-            guestService.GetSingleActiveGuest(guestToUpdate, xcoord, ycoord);
+            guestService.PrintGuestDetails(guestToUpdate, xcoord, ycoord);
             Console.CursorVisible = true;
             Console.SetCursorPosition(2, 8);
             Console.WriteLine("Enter guest details..");

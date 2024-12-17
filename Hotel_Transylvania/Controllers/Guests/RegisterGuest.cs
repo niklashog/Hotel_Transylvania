@@ -33,8 +33,6 @@ namespace Hotel_Transylvania.Menus.Guests
             Console.Write("\nPress 'Enter' to save..");
             Console.ReadKey();
 
-            //Den här koden måste läggas i Service.
-            //Jag får inte göra en uträkning här.
             int guestCount = guestService.GetAllGuests().Count();
             var setGuestId = ++guestCount;
             Console.WriteLine(guestCount);

@@ -12,17 +12,16 @@ namespace Hotel_Transylvania.Interfaces.ServicesInterfaces
     public interface IGuestService
     {
         public void AddGuest(IGuest guest);
+        public ApplicationDbContext_FAKE GetGuestDbContext();
         public IEnumerable<IGuest> GetAllGuests();
         public void GetActiveGuests(int x, int y);
         public void GetInctiveGuests(int x, int y);
-        public void GetSingleActiveGuest(int guestId, int x, int y);
+        public IGuest GetGuestById(int guestId, int x, int y);
+        public void PrintGuestDetails(int guestId, int x, int y);
         public int CountAllGuests();
 
         public void ReActivateGuest(int guestToReactivate);
         public void UpdateGuestDetails(int guestIdInput, string[] updatedGuestDetails);
         public void RemoveGuest(int guestToDelete);
-
-        public void AddReservation(int guestId, Reservation reservation);
-
     }
 }

@@ -24,6 +24,10 @@ namespace Hotel_Transylvania.Services
         {
             _dbContext.Guests.Add(guest);
         }
+        public ApplicationDbContext_FAKE GetGuestDbContext()
+        {
+            return _dbContext;
+        }
 
         public IEnumerable<IGuest> GetAllGuests()
         {
@@ -65,24 +69,37 @@ namespace Hotel_Transylvania.Services
                 Console.WriteLine($"Guest ID: {g.GuestID}, Name: {g.FirstName} {g.Surname}");
             });
         }
-        public void GetSingleActiveGuest(int guestId, int x, int y)
+        public void PrintGuestDetails(int guestId, int x, int y)
         {
             var selectedGuest = _dbContext.Guests
             .First(g => g.GuestID == guestId);
             var selectedGuestReservations = selectedGuest.Reservations.ToList();
 
+            string activeOrInactive;
+            if (selectedGuest.IsGuestActive)
+                activeOrInactive = "Active";
+            else
+                activeOrInactive = "Inactive";
+
             Console.SetCursorPosition(x, y);
-            Console.WriteLine($"Guest ID:\t\t#{selectedGuest.IsGuestActive}");
+            Console.WriteLine($"Guest ID:\t\t{selectedGuest.GuestID}");
             Console.SetCursorPosition(x, y + 1);
-            Console.WriteLine($"First Name:\t{selectedGuest.GuestID}");
+            Console.WriteLine($"Status:\t\t{activeOrInactive}");
             Console.SetCursorPosition(x, y + 2);
-            Console.WriteLine($"Surname:\t\t{selectedGuest.FirstName}");
+            Console.WriteLine($"First Name:\t{selectedGuest.FirstName}");
             Console.SetCursorPosition(x, y + 3);
-            Console.WriteLine($"E-mail:\t\t{selectedGuest.Surname}");
+            Console.WriteLine($"Surname:\t\t{selectedGuest.Surname}");
             Console.SetCursorPosition(x, y + 4);
-            Console.WriteLine($"Phone number:\t{selectedGuest.Email}");
+            Console.WriteLine($"E-mail:\t\t{selectedGuest.Email}");
             Console.SetCursorPosition(x, y + 5);
             Console.WriteLine($"Phone number:\t{selectedGuest.Phone}");
+        }
+        public IGuest GetGuestById(int guestId, int x, int y)
+        {
+            var selectedGuest = _dbContext.Guests
+            .First(g => g.GuestID == guestId);
+
+            return selectedGuest;
         }
         public int CountAllGuests()
         {
@@ -132,17 +149,6 @@ namespace Hotel_Transylvania.Services
             _dbContext.Guests
                 .First(g => g.GuestID == guestToReactivate)
                 .IsGuestActive = true;
-        }
-
-        public void AddReservation(int guestId, Reservation reservation)
-        {
-            // Nu har jag fått Guest ID och en Reservation.
-            // Metod som uppdaterar lista på Guest med Rumsnummer och datum.
-            // RoomService behöver metod GetFreeRooms.
-            var guestToUpdate = _dbContext.Guests
-                .Find(g => g.GuestID == guestId);
-
-            guestToUpdate.Reservations.Add(reservation);
         }
     }
 }

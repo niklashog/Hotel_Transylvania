@@ -36,7 +36,7 @@ namespace Hotel_Transylvania.Controllers.Reservations
             var guestIdToBook = Convert.ToInt32(Console.ReadLine());
 
             Console.CursorVisible = false;
-            Console.Write($"\nPress any key to chose dates for reservation:");
+            Console.Write($"\nPress any key to chose dates for reservation.");
             Console.ReadKey();
 
             Console.Clear();
@@ -45,31 +45,18 @@ namespace Hotel_Transylvania.Controllers.Reservations
             var checkInDate = calendar.CalendarNavigate("CheckIn─Date", currentDate);
             var checkOutDate = calendar.CalendarNavigate("CheckOut─Date", checkInDate);
 
+            Console.WriteLine("Which room do you want stay in?");
+            var roomNumberChoice = Convert.ToInt32(Console.ReadLine());
+
             Console.WriteLine(
                 $"Confirm reservation from " +
                 $"{checkInDate.Year}-{checkInDate.Month}-{checkInDate.Day} to " +
                 $"{checkOutDate.Year}-{checkOutDate.Month}-{checkOutDate.Day}?");
             Console.ReadKey();
 
-            //Metod som tar in checkInDate, checkOutDate och GuestID.
-            //Samt en ny reservation. Skicka hela reservationen?
-
-            var newReservation = new Reservation();
-            {
-                newReservation.GuestID = guestIdToBook;
-                newReservation.CheckinDate = checkInDate;
-                newReservation.CheckoutDate = checkOutDate;
-
-                newReservation.RoomNumber = 101;
-                newReservation.ReservationID = 3;
-                newReservation.NumberOfAdditionalBeds = 1;
-            };
-
-            //reservationService.AddReservation(guestIdToBook, newReservation);
-            //guestService.UpdateGuestDetails(guestToUpdate, updatedGuestDetails);
-
-            guestService.AddReservation(guestIdToBook, newReservation);
+            reservationService.AddReservation(guestIdToBook, checkInDate, checkOutDate, roomNumberChoice);
             Console.WriteLine("Reservation complete. Press any key to continue.");
+            Console.ReadKey();
         }
     }
 }

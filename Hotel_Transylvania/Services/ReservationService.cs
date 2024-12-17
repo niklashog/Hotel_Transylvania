@@ -10,21 +10,69 @@ using Hotel_Transylvania.Models;
 
 namespace Hotel_Transylvania.Services
 {
-    public class ReservationService : IReservationService
+    public class ReservationService(
+        IGuestService guestService) : IReservationService
     {
         private readonly ApplicationDbContext_FAKE _dbContext;
 
-        public void AddReservation(int guestId, Reservation reservation)
+        //Borde denna ligga i Rooms??
+        public IEnumerable<IRoom> GetAvailableRooms(DateTime checkinDate, DateTime checkoutDate)
         {
-            
-            
-            
-            // Nu har jag fått Guest ID och en Reservation.
-            // Metod som uppdaterar lista på Guest med Rumsnummer och datum.
-            // RoomService behöver metod GetFreeRooms.
+            var dbContext = guestService.GetGuestDbContext();
 
-            _dbContext.Reservations.Add(reservation);   //?????
+            var allRooms = dbContext.Rooms.ToList();
 
+            var overlappingDates = dbContext.Reservations
+                .Where(r => r.CheckinDate < checkoutDate && r.CheckoutDate > checkinDate)
+                .ToList();
+
+            var reservedRoomNumbers = overlappingDates
+                .Select(r => r.RoomNumber)
+                .Distinct()
+                .ToList();
+
+            var availableRooms = allRooms
+                .Where(r => !reservedRoomNumbers.Contains(r.RoomNumber))
+                .ToList();
+
+            return availableRooms;
         }
+
+        public void AddReservation(int guestId, DateTime checkinDate, DateTime checkoutDate, int roomNumber)
+        {
+            var dbContext = guestService.GetGuestDbContext();
+
+            if (!GetAvailableRooms(checkinDate, checkoutDate).Any(r => r.RoomNumber == roomNumber))
+            {
+                throw new Exception("Room is unavailable on the selected dates.");
+            }
+
+            // Funkar detta för reservation id?
+            var nextReservationId = CountReservations();
+
+            var reservation = new Reservation()
+            {
+                ReservationID = nextReservationId,
+                GuestID = guestId,
+                RoomNumber = roomNumber,
+                CheckinDate = checkinDate,
+                CheckoutDate = checkoutDate,
+                TimeOfReservation = DateTime.Now,
+                IsReservationActive = true
+            };
+
+            var guestToCheckin = dbContext.Guests
+            .Find(g => g.GuestID == guestId);
+
+            guestToCheckin.Reservations.Add(reservation);
+        }
+
+        public int CountReservations()
+        {
+            var dbContext = guestService.GetGuestDbContext();
+
+            return dbContext.Reservations.Count();
+        }
+
     }
 }
