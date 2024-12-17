@@ -56,7 +56,7 @@ namespace Hotel_Transylvania.Data
                         GuestID = 1,
                         NumberOfAdditionalBeds = 0,
                         CheckinDate = DateTime.Now.Date.AddDays(+21),
-                        CheckoutDate = DateTime.Now.Date.AddDays(+3),
+                        CheckoutDate = DateTime.Now.Date.AddDays(+23),
                         TimeOfReservation = DateTime.Now.Date.AddDays(-30),
                         IsReservationActive = true
                     }

@@ -1,15 +1,21 @@
 ﻿using Hotel_Transylvania.Display;
 using Hotel_Transylvania.Interfaces.MenuInterfaces.ReservationsInterfaces;
+using Hotel_Transylvania.Interfaces.ModelsInterfaces;
+using Hotel_Transylvania.Interfaces.ServicesInterfaces;
+
 
 namespace Hotel_Transylvania.Menus.Reservations
 {
-    public class ShowReservations : IShowReservations
+    public class ShowReservations(
+        IGuestService guestService,
+        IReservationService reservationService) : IShowReservations
     {
         public void Execute()
         {
             Console.Clear();
             DisplayLogo.Paint();
-            Console.WriteLine("I SHOW RESERVATIONS");
+            reservationService.ShowReservations();
+
             Console.ReadKey();
         }
     }

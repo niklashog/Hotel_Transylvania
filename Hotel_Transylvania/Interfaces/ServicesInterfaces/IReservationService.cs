@@ -13,6 +13,10 @@ namespace Hotel_Transylvania.Interfaces.ServicesInterfaces
         public IEnumerable<IRoom> GetAvailableRooms(DateTime checkinDate, DateTime checkoutDate);
         public void AddReservation(int guestId, DateTime checkinDate, DateTime checkoutDate, int roomNumber);
         public int CountReservations();
+        public void ShowReservations();
+        public void ShowReservation(IGuest guest);
+        public void UpdateReservation(IGuest guest);
+        public void RemoveReservation(IGuest guest);
 
     }
 }

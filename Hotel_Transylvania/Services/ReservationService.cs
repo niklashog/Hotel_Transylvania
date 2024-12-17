@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading.Channels;
 using System.Threading.Tasks;
 using Hotel_Transylvania.Data;
 using Hotel_Transylvania.Interfaces.ModelsInterfaces;
@@ -42,7 +43,8 @@ namespace Hotel_Transylvania.Services
         {
             var dbContext = guestService.GetGuestDbContext();
 
-            if (!GetAvailableRooms(checkinDate, checkoutDate).Any(r => r.RoomNumber == roomNumber))
+            if (!GetAvailableRooms(checkinDate, checkoutDate)
+                .Any(r => r.RoomNumber == roomNumber))
             {
                 throw new Exception("Room is unavailable on the selected dates.");
             }
@@ -50,9 +52,10 @@ namespace Hotel_Transylvania.Services
             // Funkar detta för reservation id?
             var nextReservationId = CountReservations();
 
+
             var reservation = new Reservation()
             {
-                ReservationID = nextReservationId,
+                ReservationID = ++nextReservationId,
                 GuestID = guestId,
                 RoomNumber = roomNumber,
                 CheckinDate = checkinDate,
@@ -72,6 +75,41 @@ namespace Hotel_Transylvania.Services
             var dbContext = guestService.GetGuestDbContext();
 
             return dbContext.Reservations.Count();
+        }
+        public void ShowReservations()
+        {
+            var dbContext = guestService.GetGuestDbContext();
+
+            Console.WriteLine($"Reservation\tRoom\tCheck-in Date\tCheck-Out Date\tGuest Id");
+            var guestsWithReservation = dbContext.Guests
+                .Where(g => g.Reservations.Count > 0)
+                .ToList();
+
+            guestsWithReservation
+                .ForEach(g =>
+                {
+                    g.Reservations
+                    .ForEach(r =>
+                    {
+                        Console.WriteLine($"{r.ReservationID}\t\t{r.RoomNumber}" +
+                            $"\t{r.CheckinDate:yyyy-MM-dd}\t{r.CheckoutDate:yyyy-MM-dd}" +
+                            $"\t{g.GuestID}");
+                    });
+
+                });
+        }
+        public void ShowReservation(IGuest guest)
+        {
+            var dbContext = guestService.GetGuestDbContext();
+        }
+
+        public void UpdateReservation(IGuest guest)
+        {
+            var dbContext = guestService.GetGuestDbContext();
+        }
+        public void RemoveReservation(IGuest guest)
+        {
+            var dbContext = guestService.GetGuestDbContext();
         }
 
     }
