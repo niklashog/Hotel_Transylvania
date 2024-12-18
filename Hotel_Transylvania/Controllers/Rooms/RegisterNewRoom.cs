@@ -1,7 +1,6 @@
 ﻿using Hotel_Transylvania.Display;
 using Hotel_Transylvania.Factories;
 using Hotel_Transylvania.Interfaces.MenuInterfaces.RoomsInterfaces;
-using Hotel_Transylvania.Interfaces.ModelsInterfaces;
 using Hotel_Transylvania.Interfaces.ServicesInterfaces;
 using Hotel_Transylvania.Models;
 using Hotel_Transylvania.Services;
@@ -18,7 +17,7 @@ namespace Hotel_Transylvania.Menus.Rooms
     {
         public void Execute()
         {
-            var newRoom = MainFactory.Resolve<IRoom>();
+            var newRoom = MainFactory.Resolve<Room>();
 
             Console.Clear();
             DisplayLogo.Paint();

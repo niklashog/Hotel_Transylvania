@@ -5,133 +5,146 @@ using System.Text;
 using System.Threading.Channels;
 using System.Threading.Tasks;
 using Hotel_Transylvania.Data;
-using Hotel_Transylvania.Interfaces.ModelsInterfaces;
 using Hotel_Transylvania.Interfaces.ServicesInterfaces;
 using Hotel_Transylvania.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace Hotel_Transylvania.Services
 {
-    public class ReservationService(
-        IGuestService guestService) : IReservationService
+    public class ReservationService : IReservationService
     {
-        private readonly ApplicationDbContext_FAKE _dbContext;
 
-        //Borde denna ligga i Rooms??
-        public IEnumerable<IRoom> GetAvailableRooms(DateTime checkinDate, DateTime checkoutDate)
+        public IEnumerable<Room> GetAvailableRooms(DateTime checkinDate, DateTime checkoutDate)
         {
-            var dbContext = guestService.GetGuestDbContext();
+            using (var dbContext = DataInitializer.GetDbContext())
+            {
+                var allRooms = dbContext
+                    .Rooms
+                    .ToList();
 
-            var allRooms = dbContext
-                .Rooms
-                .ToList();
+                var overlappingDates = dbContext
+                    .Reservations
+                    .Where(r => r.CheckinDate < checkoutDate && r.CheckoutDate > checkinDate)
+                    .ToList();
 
-            var overlappingDates = dbContext
-                .Reservations
-                .Where(r => r.CheckinDate < checkoutDate && r.CheckoutDate > checkinDate)
-                .ToList();
+                var reservedRoomNumbers = overlappingDates
+                    .Select(r => r.RoomNumber)
+                    .Distinct()
+                    .ToList();
 
-            var reservedRoomNumbers = overlappingDates
-                .Select(r => r.RoomNumber)
-                .Distinct()
-                .ToList();
+                var availableRooms = allRooms
+                    .Where(r => !reservedRoomNumbers
+                    .Contains(r.RoomNumber))
+                    .ToList();
 
-            var availableRooms = allRooms
-                .Where(r => !reservedRoomNumbers
-                .Contains(r.RoomNumber))
-                .ToList();
-
-            return availableRooms;
+                return availableRooms;
+            }
         }
 
         public void AddReservation(int guestId, DateTime checkinDate, DateTime checkoutDate, int roomNumber)
         {
-            var dbContext = guestService.GetGuestDbContext();
-
-            if (!GetAvailableRooms(checkinDate, checkoutDate)
-                .Any(r => r.RoomNumber == roomNumber))
+            using (var dbContext = DataInitializer.GetDbContext())
             {
-                throw new Exception("Room is unavailable on the selected dates.");
+                if (!GetAvailableRooms(checkinDate, checkoutDate)
+                    .Any(r => r.RoomNumber == roomNumber))
+                {
+                    throw new Exception("Room is unavailable on the selected dates. Try again.");
+                    //Console.WriteLine("Room unavailable on selected dates. Try again.");
+                }
+
+                var reservation = new Reservation()
+                {
+                    RoomNumber = roomNumber,
+                    CheckinDate = checkinDate,
+                    CheckoutDate = checkoutDate,
+                    TimeOfReservation = DateTime.Now,
+                    IsReservationActive = true
+                };
+
+                var guestToCheckin = dbContext.Guests
+                .FirstOrDefault(g => g.GuestId == guestId);
+                if (guestToCheckin == null)
+                {
+                    throw new Exception("Guest not found.");
+                }
+                else
+                {
+                    guestToCheckin.Reservations.Add(reservation);
+                }
+                dbContext.SaveChanges();
             }
-
-            // Funkar detta för reservation id?
-            var nextReservationId = CountReservations();
-
-
-            var reservation = new Reservation()
-            {
-                ReservationID = ++nextReservationId,
-                GuestID = guestId,
-                RoomNumber = roomNumber,
-                CheckinDate = checkinDate,
-                CheckoutDate = checkoutDate,
-                TimeOfReservation = DateTime.Now,
-                IsReservationActive = true
-            };
-
-            var guestToCheckin = dbContext.Guests
-            .Find(g => g.GuestID == guestId);
-
-            guestToCheckin.Reservations.Add(reservation);
         }
 
         public int CountReservations()
         {
-            var dbContext = guestService.GetGuestDbContext();
-
-            return dbContext.Reservations.Count();
+            using (var dbContext = DataInitializer.GetDbContext())
+            {
+                return dbContext.Reservations.Count();
+            }
         }
         public void ShowReservations()
         {
-            var dbContext = guestService.GetGuestDbContext();
+            using (var dbContext = DataInitializer.GetDbContext())
+            {
+                Console.WriteLine($"Reservation\tRoom\tCheck-in Date\tCheck-Out Date\tGuest Id");
 
-            Console.WriteLine($"Reservation\tRoom\tCheck-in Date\tCheck-Out Date\tGuest Id");
-            
-            var guestsWithReservation = dbContext.Guests
-                .Where(g => g.Reservations.Count > 0)
-                .ToList();
+                var guestsWithReservation = dbContext.Guests
+                    .Where(g => g.Reservations.Count > 0)
+                    .ToList();
 
-            guestsWithReservation
-                .ForEach(g =>
-                {
-                    g.Reservations
-                    .Where(r => r.IsReservationActive)
-                    .ToList()
-                    .ForEach(r =>
+                guestsWithReservation
+                    .ForEach(g =>
                     {
-                        Console.WriteLine($"{r.ReservationID}\t\t{r.RoomNumber}" +
-                            $"\t{r.CheckinDate:yyyy-MM-dd}\t{r.CheckoutDate:yyyy-MM-dd}" +
-                            $"\t{g.GuestID}");
+                        g.Reservations
+                        .Where(r => r.IsReservationActive)
+                        .ToList()
+                        .ForEach(r =>
+                        {
+                            Console.WriteLine($"{r.ReservationId}\t\t{r.RoomNumber}" +
+                                $"\t{r.CheckinDate:yyyy-MM-dd}\t{r.CheckoutDate:yyyy-MM-dd}" +
+                                $"\t{g.GuestId}");
+                        });
                     });
-                });
+            }
         }
         public void ShowReservation()
         {
-            var dbContext = guestService.GetGuestDbContext();
+            using (var dbContext = DataInitializer.GetDbContext())
+            {
+                
+            }
+            Console.WriteLine("I show reservations.");
         }
 
-        public void UpdateReservation(IGuest guest)
+        public void UpdateReservation(Guest guest)
         {
-            var dbContext = guestService.GetGuestDbContext();
+            using (var dbContext = DataInitializer.GetDbContext())
+            {
+                
+            }
+            Console.WriteLine("I update reservations");
         }
         public void RemoveReservation(int reservationToRemove)
         {
-            var dbContext = guestService.GetGuestDbContext();
+            using (var dbContext = DataInitializer.GetDbContext())
+            {
+                var guestsWithReservation = dbContext.Guests
+                    .Where(g => g.Reservations.Count > 0)
+                    .ToList();
 
-            var guestsWithReservation = dbContext.Guests
-                .Where(g => g.Reservations.Count > 0)
-                .ToList();
-
-            guestsWithReservation
-                .ForEach(g =>
-                {
-                    g.Reservations
-                    .Where(r => r.ReservationID == reservationToRemove)
-                    .ToList()
-                    .ForEach(r =>
+                guestsWithReservation
+                    .ForEach(g =>
                     {
-                        r.IsReservationActive = false;
+                        g.Reservations
+                        .Where(r => r.ReservationId == reservationToRemove)
+                        .ToList()
+                        .ForEach(r =>
+                        {
+                            r.IsReservationActive = false;
+                        });
                     });
-                });
+                dbContext.SaveChanges();
+            }
         }
     }
 }

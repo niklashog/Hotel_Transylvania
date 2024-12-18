@@ -1,7 +1,8 @@
 ﻿using Hotel_Transylvania.Data;
 using Hotel_Transylvania.Factories;
 using Hotel_Transylvania.Interfaces;
-using Hotel_Transylvania.Interfaces.FakeDatabase;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 
 namespace Hotel_Transylvania
 {
@@ -10,6 +11,11 @@ namespace Hotel_Transylvania
         static void Main(string[] args)
         {
             MainFactory.BuildContainer();
+
+            using (var dbContext = DataInitializer.GetDbContext())
+            {
+                dbContext.Database.Migrate();
+            }
 
             var app = MainFactory.Resolve<IApplication>();
             app.Run();

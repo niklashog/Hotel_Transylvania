@@ -1,7 +1,6 @@
 ﻿using Hotel_Transylvania.Data;
 using Hotel_Transylvania.Interfaces;
 using Hotel_Transylvania.Interfaces.DisplayInterfaces;
-using Hotel_Transylvania.Interfaces.FakeDatabase;
 using Hotel_Transylvania.Interfaces.ServicesInterfaces;
 using Hotel_Transylvania.Models;
 using Hotel_Transylvania.Services;
@@ -21,7 +20,7 @@ namespace Hotel_Transylvania.Display
             .ForEach(g =>
             {
                 Console.SetCursorPosition(x, y++);
-                Console.WriteLine($"Guest ID: {g.GuestID}, Name: {g.FirstName} {g.Surname}");
+                Console.WriteLine($"Guest ID: {g.GuestId}, Name: {g.FirstName} {g.Surname}");
             });
         }
     }

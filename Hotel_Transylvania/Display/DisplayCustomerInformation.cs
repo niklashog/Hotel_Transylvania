@@ -6,7 +6,6 @@ using System.Text;
 using System.Threading.Tasks;
 using Hotel_Transylvania.Models;
 using Hotel_Transylvania.Interfaces;
-using Hotel_Transylvania.Interfaces.ModelsInterfaces;
 
 namespace Hotel_Transylvania.Display
 {

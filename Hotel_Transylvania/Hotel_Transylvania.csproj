@@ -9,11 +9,24 @@
 
   <ItemGroup>
     <PackageReference Include="Autofac" Version="8.2.0" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="9.0.0" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="9.0.0">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="Microsoft.Extensions.Configuration.json" Version="9.0.0" />
     <PackageReference Include="Spectre.Console" Version="0.49.1" />
   </ItemGroup>
 
   <ItemGroup>
     <Folder Include="Interfaces\DTOInterfaces\" />
+    <Folder Include="Settings\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="appsettings.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
 
 </Project>

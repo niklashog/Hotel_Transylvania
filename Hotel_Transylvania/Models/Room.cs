@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using Hotel_Transylvania.Interfaces.ModelsInterfaces;
 
 namespace Hotel_Transylvania.Models
 {
@@ -11,10 +10,11 @@ namespace Hotel_Transylvania.Models
         Suite
     }
 
-    public class Room : IRoom
+    public class Room
     {
+        public int RoomId { get; set; }
         public int RoomNumber { get; set; }
-        public int ReservationID { get; set; }
+        public int ReservationId { get; set; }
         public string RoomType { get; set; }
         public int RoomSize { get; set; }
         public int AdditionalBeddingNumber { get; set; } = 0;

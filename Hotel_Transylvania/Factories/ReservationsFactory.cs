@@ -2,7 +2,6 @@
 using Hotel_Transylvania.Interfaces.MenuInterfaces.MenuExecutionInterfaces;
 using Hotel_Transylvania.Interfaces.MenuInterfaces.MenuNavigationInterfaces;
 using Hotel_Transylvania.Interfaces.MenuInterfaces.ReservationsInterfaces;
-using Hotel_Transylvania.Interfaces.ModelsInterfaces;
 using Hotel_Transylvania.Menus.MenuExecution;
 using Hotel_Transylvania.Menus.MenuNavigation;
 using Hotel_Transylvania.Menus.Reservations;
@@ -22,7 +21,7 @@ namespace Hotel_Transylvania.Factories
     {
         public static void ReservationsContainer(ContainerBuilder builder)
         {
-            builder.RegisterType<Reservation>().As<IReservation>();
+            builder.RegisterType<Reservation>().AsSelf();
 
             builder.RegisterType<ReservationsMenu>().As<IReservationsMenu>();
             builder.RegisterType<AddReservation>().As<IAddReservation>();

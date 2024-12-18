@@ -15,6 +15,18 @@
 -	Ändra så increment inte är automatisk på Room Number.
 
 
+Console-Command
+add-migration "Initial migration"
+
+
+Bortkommenterad kod
+Rad45 i RoomService
+
+18/12-24
+Jag har försökt fixa GuestService.  Eventuellt klar?!
+Fortsätt med Room och sedan Reservation.
+
+
 ## KRAV
 [•]	(C) Lägg till en ny entitet
 [•]	(R) Se en list över de befintliga entiteter som finns i databasen

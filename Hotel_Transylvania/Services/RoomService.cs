@@ -5,158 +5,183 @@ using System.Text;
 using System.Threading.Tasks;
 using Hotel_Transylvania.Data;
 using Hotel_Transylvania.Interfaces.MenuInterfaces.RoomsInterfaces;
-using Hotel_Transylvania.Interfaces.ModelsInterfaces;
 using Hotel_Transylvania.Interfaces.ServicesInterfaces;
 using Hotel_Transylvania.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace Hotel_Transylvania.Services
 {
     public class RoomService : IRoomService
     {
-        private readonly ApplicationDbContext_FAKE _dbContext;
-
-        public RoomService(ApplicationDbContext_FAKE dbContext)
+        public void AddRoom(Room room)
         {
-            _dbContext = dbContext ?? throw new ArgumentNullException(nameof(dbContext));
+            using (var dbContext = DataInitializer.GetDbContext())
+            {
+                var newRoom = room;
+
+                if (newRoom.RoomSize <= 14 || newRoom.RoomType == "Single")
+                {
+                    Console.WriteLine("Important note. Per guest security reasons," +
+                        "this room is too small to accomodate extra beds.");
+                }
+                else if (newRoom.RoomSize >= 15 && newRoom.RoomSize <= 19)
+                {
+                    newRoom.AdditionalBeddingNumber = 1;
+                    Console.WriteLine("If requested by guest," +
+                        "room can accomodate 1 additonal bed.");
+                }
+                else
+                {
+                    newRoom.AdditionalBeddingNumber = 2;
+                    Console.WriteLine("If requested by guest," +
+                        "room can accomodate 2 additonal beds.");
+                }
+
+                dbContext.Rooms.Add(room);
+                dbContext.SaveChanges();
+            }
         }
 
-        public void AddRoom(IRoom room)
+        public IEnumerable<Room> GetAllRooms()
         {
-            var newRoom = room;
-
-            if (newRoom.RoomSize <= 14 || newRoom.RoomType == "Single")
+            using (var dbContext = DataInitializer.GetDbContext())
             {
-                Console.WriteLine("Important note. Per guest security reasons," +
-                    "this room is too small to accomodate extra beds.");
+                return dbContext.Rooms;
             }
-            else if (newRoom.RoomSize >= 15 && newRoom.RoomSize <= 19)
-            {
-                newRoom.AdditionalBeddingNumber = 1;
-                Console.WriteLine("If requested by guest," +
-                    "room can accomodate 1 additonal bed.");
-            }
-            else
-            {
-                newRoom.AdditionalBeddingNumber = 2;
-                Console.WriteLine("If requested by guest," +
-                    "room can accomodate 2 additonal beds.");
-            }
-
-            _dbContext.Rooms.Add(room);
-        }
-
-        public IEnumerable<IRoom> GetAllRooms()
-        {
-            return _dbContext.Rooms;
         }
         public void GetActiveRooms(int x, int y)
         {
-            var activeRooms= _dbContext.Rooms
+            using (var dbContext = DataInitializer.GetDbContext())
+            {
+                var activeRooms = dbContext.Rooms
                 .Where(r => r.IsRoomActive)
                 .ToList();
 
-            activeRooms
+                activeRooms
+                    .ForEach(r =>
+                    {
+                        Console.SetCursorPosition(x, y++);
+                        Console.WriteLine($"# {r.RoomNumber}, {r.RoomType}, {r.RoomSize}m²");
+                    });
+            }
+        }
+        public void GetInactiveRooms(int x, int y)
+        {
+            using (var dbContext = DataInitializer.GetDbContext())
+            {
+                var inactiveRooms = dbContext.Rooms
+            .Where(r => r.IsRoomActive == false)
+            .ToList();
+
+                inactiveRooms
                 .ForEach(r =>
                 {
                     Console.SetCursorPosition(x, y++);
                     Console.WriteLine($"# {r.RoomNumber}, {r.RoomType}, {r.RoomSize}m²");
                 });
-        }
-        public void GetInactiveRooms(int x, int y)
-        {
-            var inactiveRooms = _dbContext.Rooms
-            .Where(r => r.IsRoomActive == false)
-            .ToList();
-
-            inactiveRooms
-            .ForEach(r =>
-            {
-                Console.SetCursorPosition(x, y++);
-                Console.WriteLine($"# {r.RoomNumber}, {r.RoomType}, {r.RoomSize}m²");
-            });
+            }
         }
         public void DisplaySingleRoom(int roomId, int x, int y)
         {
-            var selectedRoom = _dbContext.Rooms
+            using (var dbContext = DataInitializer.GetDbContext())
+            {
+                var selectedRoom = dbContext.Rooms
             .First(r => r.RoomNumber == roomId);
 
-            var roomStatus = "not set";
+                var roomStatus = "not set";
 
-            if (selectedRoom.IsRoomActive)
-            {
-                roomStatus = "Yes";
-            }
-            else
-            {
-                roomStatus = "No";
-            }
+                if (selectedRoom.IsRoomActive)
+                {
+                    roomStatus = "Yes";
+                }
+                else
+                {
+                    roomStatus = "No";
+                }
 
-            Console.SetCursorPosition(x, y);
-            Console.WriteLine($"#{selectedRoom.RoomNumber}");
-            Console.SetCursorPosition(x, y + 1);
-            Console.WriteLine($"Type: {selectedRoom.RoomType}");
-            Console.SetCursorPosition(x, y + 2);
-            Console.WriteLine($"Size: {selectedRoom.RoomSize}m²");
-            Console.SetCursorPosition(x, y + 3);
-            Console.WriteLine($"Max number of extra beds: {selectedRoom.AdditionalBeddingNumber}");
-            Console.SetCursorPosition(x, y + 4);
-            Console.WriteLine($"Room active: {roomStatus}");
+                Console.SetCursorPosition(x, y);
+                Console.WriteLine($"#{selectedRoom.RoomNumber}");
+                Console.SetCursorPosition(x, y + 1);
+                Console.WriteLine($"Type: {selectedRoom.RoomType}");
+                Console.SetCursorPosition(x, y + 2);
+                Console.WriteLine($"Size: {selectedRoom.RoomSize}m²");
+                Console.SetCursorPosition(x, y + 3);
+                Console.WriteLine($"Max number of extra beds: {selectedRoom.AdditionalBeddingNumber}");
+                Console.SetCursorPosition(x, y + 4);
+                Console.WriteLine($"Room active: {roomStatus}");
+            }
         }
         public int CountAllRooms()
         {
-            return _dbContext.Rooms.Count();
+            using (var dbContext = DataInitializer.GetDbContext())
+            {
+                return dbContext.Rooms.Count();
+            }
         }
 
         public void UpdateRoomDetails(int roomIdInput, Room updatedRoomDetails)
         {
-            var roomToUpdate = _dbContext.Rooms
-                .Find(r => r.RoomNumber == roomIdInput);
-
-            roomToUpdate.RoomNumber = updatedRoomDetails.RoomNumber;
-            roomToUpdate.RoomType = updatedRoomDetails.RoomType;
-            roomToUpdate.RoomSize = updatedRoomDetails.RoomSize;
-
-            if (roomToUpdate.RoomSize <= 14)
+            using (var dbContext = DataInitializer.GetDbContext())
             {
-                Console.WriteLine("This room is too small to accomodate extra beds.");
+                var roomToUpdate = dbContext.Rooms
+                .First(r => r.RoomNumber == roomIdInput);
 
-                roomToUpdate.AdditionalBeddingNumber = 0;
-            }
-            else if (roomToUpdate.RoomSize >= 15 && roomToUpdate.RoomSize <= 19)
-            {
-                Console.WriteLine("If requested by guest," +
-                    "room can accomodate 1 additonal bed.");
+                roomToUpdate.RoomNumber = updatedRoomDetails.RoomNumber;
+                roomToUpdate.RoomType = updatedRoomDetails.RoomType;
+                roomToUpdate.RoomSize = updatedRoomDetails.RoomSize;
 
-                roomToUpdate.AdditionalBeddingNumber = 1;
-            }
-            else
-            {
-                Console.WriteLine("If requested by guest," +
-                    "room can accomodate 2 additonal beds.");
+                if (roomToUpdate.RoomSize <= 14)
+                {
+                    Console.WriteLine("This room is too small to accomodate extra beds.");
 
-                roomToUpdate.AdditionalBeddingNumber = 2;
+                    roomToUpdate.AdditionalBeddingNumber = 0;
+                }
+                else if (roomToUpdate.RoomSize >= 15 && roomToUpdate.RoomSize <= 19)
+                {
+                    Console.WriteLine("If requested by guest," +
+                        "room can accomodate 1 additonal bed.");
+
+                    roomToUpdate.AdditionalBeddingNumber = 1;
+                }
+                else
+                {
+                    Console.WriteLine("If requested by guest," +
+                        "room can accomodate 2 additonal beds.");
+
+                    roomToUpdate.AdditionalBeddingNumber = 2;
+                }
+                dbContext.SaveChanges();
             }
         }
 
         public void RemoveRoom(int roomToDelete)
         {
-            var room = _dbContext.Rooms
-                .Find(r => r.RoomNumber == roomToDelete);
+            using (var dbContext = DataInitializer.GetDbContext())
+            {
+                var room = dbContext.Rooms
+                .First(r => r.RoomNumber == roomToDelete);
 
-            if (room != null)
-            {
-                room.IsRoomActive = false;
-            }
-            else
-            {
-                Console.WriteLine("No room found with that ID.");
+                if (room != null)
+                {
+                    room.IsRoomActive = false;
+                }
+                else
+                {
+                    Console.WriteLine("No room found with that ID.");
+                }
+                dbContext.SaveChanges();
             }
         }
         public void ReActivateRoom(int roomToReactivate)
         {
-            _dbContext.Rooms
+            using (var dbContext = DataInitializer.GetDbContext())
+            {
+                dbContext.Rooms
                 .First(g => g.RoomNumber == roomToReactivate)
                 .IsRoomActive = true;
+
+                dbContext.SaveChanges();
+            }
         }
     }
 }

@@ -1,9 +1,7 @@
 ﻿using Hotel_Transylvania.Factories;
 using Hotel_Transylvania.Interfaces.MenuInterfaces.GuestsInterfaces;
-using Hotel_Transylvania.Interfaces.ModelsInterfaces;
 using Hotel_Transylvania.Models;
 using Hotel_Transylvania.Data;
-using Hotel_Transylvania.Interfaces.FakeDatabase;
 using Hotel_Transylvania.Services;
 using Hotel_Transylvania.Interfaces.ServicesInterfaces;
 using Hotel_Transylvania.Display;
@@ -39,7 +37,7 @@ namespace Hotel_Transylvania.Menus.Guests
 
             var newGuest = new Guest
             {
-                GuestID = setGuestId,
+                GuestId = setGuestId,
                 FirstName = firstName,
                 Surname = surname,
                 Email = email,

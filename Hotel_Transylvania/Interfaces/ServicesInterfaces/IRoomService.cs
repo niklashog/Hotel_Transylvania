@@ -1,5 +1,4 @@
-﻿using Hotel_Transylvania.Interfaces.ModelsInterfaces;
-using Hotel_Transylvania.Models;
+﻿using Hotel_Transylvania.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,9 +9,9 @@ namespace Hotel_Transylvania.Interfaces.ServicesInterfaces
 {
     public interface IRoomService
     {
-        public void AddRoom(IRoom room);
+        public void AddRoom(Room room);
 
-        public IEnumerable<IRoom> GetAllRooms();
+        public IEnumerable<Room> GetAllRooms();
         public void GetActiveRooms(int x, int y);
         public void GetInactiveRooms(int x, int y);
         public void DisplaySingleRoom(int roomId, int x, int y);
