@@ -1,4 +1,5 @@
-﻿using Hotel_Transylvania.Display;
+﻿using Hotel_Transylvania.Data;
+using Hotel_Transylvania.Display;
 using Hotel_Transylvania.Factories;
 using Hotel_Transylvania.Interfaces.MenuInterfaces.RoomsInterfaces;
 using Hotel_Transylvania.Interfaces.ServicesInterfaces;
@@ -18,6 +19,7 @@ namespace Hotel_Transylvania.Menus.Rooms
         public void Execute()
         {
             var newRoom = MainFactory.Resolve<Room>();
+            var dbContext = ApplicationDbContext.GetDbContext();
 
             Console.Clear();
             DisplayLogo.Paint();
@@ -33,7 +35,7 @@ namespace Hotel_Transylvania.Menus.Rooms
 
             Console.CursorVisible = false;
             Console.Write("\nPress 'Enter' to save..");
-            roomService.AddRoom(newRoom);
+            roomService.AddRoom(dbContext, newRoom);
             Console.ReadKey();
         }
     }

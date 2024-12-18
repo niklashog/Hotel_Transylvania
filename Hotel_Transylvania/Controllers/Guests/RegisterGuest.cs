@@ -17,6 +17,9 @@ namespace Hotel_Transylvania.Menus.Guests
             Console.Clear();
             DisplayLogo.Paint();
 
+            var dbContext = ApplicationDbContext.GetDbContext();
+
+
             Console.CursorVisible = true;
             Console.WriteLine("Enter guest details..");
             Console.Write("First Name: ");
@@ -31,20 +34,20 @@ namespace Hotel_Transylvania.Menus.Guests
             Console.Write("\nPress 'Enter' to save..");
             Console.ReadKey();
 
-            int guestCount = guestService.GetAllGuests().Count();
+            int guestCount = guestService.GetAllGuests(dbContext).Count();
             var setGuestId = ++guestCount;
             Console.WriteLine(guestCount);
 
             var newGuest = new Guest
             {
-                GuestId = setGuestId,
+                Id = setGuestId,
                 FirstName = firstName,
                 Surname = surname,
                 Email = email,
                 Phone = phone,
             };
 
-            guestService.AddGuest(newGuest);
+            guestService.AddGuest(newGuest, dbContext);
             Console.ReadKey();
         }
     }

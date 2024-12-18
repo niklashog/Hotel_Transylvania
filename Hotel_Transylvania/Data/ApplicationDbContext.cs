@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Hotel_Transylvania.Models;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 
 namespace Hotel_Transylvania.Data
 {
@@ -26,6 +27,17 @@ namespace Hotel_Transylvania.Data
             {
                 optionsBuilder.UseSqlServer(@"Server=.;Database=BoolAndBreakfast;Trusted_Connection=True;TrustServerCertificate=true;");
             }
+        }
+        public static ApplicationDbContext GetDbContext()
+        {
+            var builder = new ConfigurationBuilder().AddJsonFile($"appsettings.json", true, true);
+            var config = builder.Build();
+
+            var options = new DbContextOptionsBuilder<ApplicationDbContext>();
+            var connectionString = config.GetConnectionString("DefaultConnection");
+            options.UseSqlServer(connectionString);
+
+            return new ApplicationDbContext(options.Options);
         }
     }
 }

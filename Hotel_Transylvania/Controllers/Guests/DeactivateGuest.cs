@@ -17,14 +17,17 @@ namespace Hotel_Transylvania.Menus.Guests
             Console.Clear();
             DisplayLogo.Paint();
 
-            if (guestService.GetAllGuests()
+            var dbContext = ApplicationDbContext.GetDbContext();
+
+
+            if (guestService.GetAllGuests(dbContext)
                 .Where(g => g.IsGuestActive)
                 .ToList()
                 .Count >= 1)
             {
                 var xcoord = 45;
                 var ycoord = 9;
-                guestService.DisplayActiveGuests(xcoord, ycoord);
+                guestService.DisplayActiveGuests(xcoord, ycoord, dbContext);
 
                 Console.CursorVisible = true;
                 Console.SetCursorPosition(0, 9);
@@ -35,7 +38,7 @@ namespace Hotel_Transylvania.Menus.Guests
                 Console.Write($"\nPress 'Enter' to deactivate guest {guestToDeactivate}..");
 
                 Console.ReadKey();
-                guestService.RemoveGuest(guestToDeactivate);
+                guestService.RemoveGuest(guestToDeactivate, dbContext);
             }
             else
             {

@@ -10,6 +10,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Hotel_Transylvania.Interfaces.ControllerInterfaces.ReservationsInterfaces;
+using Hotel_Transylvania.Data;
 
 namespace Hotel_Transylvania.Controllers.Reservations
 {
@@ -24,9 +25,11 @@ namespace Hotel_Transylvania.Controllers.Reservations
             Console.Clear();
             DisplayLogo.Paint();
 
+            var dbContext = ApplicationDbContext.GetDbContext();
+
             var xcoord = 45;
             var ycoord = 8;
-            guestService.DisplayActiveGuests(xcoord, ycoord);
+            guestService.DisplayActiveGuests(xcoord, ycoord, dbContext);
 
             Console.CursorVisible = true;
             Console.SetCursorPosition(2, 8);
@@ -54,7 +57,7 @@ namespace Hotel_Transylvania.Controllers.Reservations
                 $"{checkOutDate.Year}-{checkOutDate.Month}-{checkOutDate.Day}?");
             Console.ReadKey();
 
-            reservationService.AddReservation(guestIdToBook, checkInDate, checkOutDate, roomNumberChoice);
+            reservationService.AddReservation(guestIdToBook, checkInDate, checkOutDate, roomNumberChoice, dbContext);
             Console.WriteLine("Reservation complete. Press any key to continue.");
             Console.ReadKey();
         }

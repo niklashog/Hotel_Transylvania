@@ -13,26 +13,18 @@ namespace Hotel_Transylvania.Services
 {
     public class GuestService : IGuestService
     {
-        public void AddGuest(Guest guest)
+        public void AddGuest(Guest guest, ApplicationDbContext dbContext)
         {
-            using (var dbContext = DataInitializer.GetDbContext())
-            {
                 dbContext.Guests.Add(guest);
                 dbContext.SaveChanges();
-            }
         }
 
-        public IEnumerable<Guest> GetAllGuests()
+        public IEnumerable<Guest> GetAllGuests(ApplicationDbContext dbContext)
         {
-            using (var dbContext = DataInitializer.GetDbContext())
-            {
                 return dbContext.Guests;
-            }
         }
-        public void DisplayActiveGuests(int x, int y)
+        public void DisplayActiveGuests(int x, int y, ApplicationDbContext dbContext)
         {
-            using (var dbContext = DataInitializer.GetDbContext())
-            {
                 var activeGuests = dbContext.Guests
                 .Where(g => g.IsGuestActive)
                 .ToList();
@@ -44,21 +36,18 @@ namespace Hotel_Transylvania.Services
 
                         Console.SetCursorPosition(x, y++);
                         if (reservation != null)
-                            Console.WriteLine($"* Guest ID: {g.GuestId}, Name: {g.FirstName} {g.Surname}");
+                            Console.WriteLine($"* Guest ID: {g.Id}, Name: {g.FirstName} {g.Surname}");
                         else
-                            Console.WriteLine($"Guest ID: {g.GuestId}, Name: {g.FirstName} {g.Surname}");
+                            Console.WriteLine($"Guest ID: {g.Id}, Name: {g.FirstName} {g.Surname}");
                     });
 
                 Console.ForegroundColor = ConsoleColor.DarkGray;
                 Console.SetCursorPosition(x, y);
                 Console.WriteLine("\n\n* Guest has active reservation");
                 Console.ForegroundColor = ConsoleColor.White;
-            }
         }
-        public void GetInctiveGuests(int x, int y)
+        public void GetInctiveGuests(int x, int y, ApplicationDbContext dbContext)
         {
-            using (var dbContext = DataInitializer.GetDbContext())
-            {
                 var inactiveGuests = dbContext.Guests
             .Where(g => g.IsGuestActive == false)
             .ToList();
@@ -67,16 +56,13 @@ namespace Hotel_Transylvania.Services
                 .ForEach(g =>
                 {
                     Console.SetCursorPosition(x, y++);
-                    Console.WriteLine($"Guest ID: {g.GuestId}, Name: {g.FirstName} {g.Surname}");
+                    Console.WriteLine($"Guest ID: {g.Id}, Name: {g.FirstName} {g.Surname}");
                 });
-            }
         }
-        public void PrintGuestDetails(int guestId, int x, int y)
+        public void PrintGuestDetails(int guestId, int x, int y, ApplicationDbContext dbContext)
         {
-            using (var dbContext = DataInitializer.GetDbContext())
-            {
                 var selectedGuest = dbContext.Guests
-            .First(g => g.GuestId == guestId);
+            .First(g => g.Id == guestId);
                 var selectedGuestReservations = selectedGuest.Reservations.ToList();
 
                 string activeOrInactive;
@@ -86,7 +72,7 @@ namespace Hotel_Transylvania.Services
                     activeOrInactive = "Inactive";
 
                 Console.SetCursorPosition(x, y);
-                Console.WriteLine($"Guest ID:\t\t{selectedGuest.GuestId}");
+                Console.WriteLine($"Guest ID:\t\t{selectedGuest.Id}");
                 Console.SetCursorPosition(x, y + 1);
                 Console.WriteLine($"Status:\t\t{activeOrInactive}");
                 Console.SetCursorPosition(x, y + 2);
@@ -97,32 +83,23 @@ namespace Hotel_Transylvania.Services
                 Console.WriteLine($"E-mail:\t\t{selectedGuest.Email}");
                 Console.SetCursorPosition(x, y + 5);
                 Console.WriteLine($"Phone number:\t{selectedGuest.Phone}");
-            }
         }
-        public Guest GetGuestById(int guestId, int x, int y)
+        public Guest GetGuestById(int guestId, int x, int y, ApplicationDbContext dbContext)
         {
-            using (var dbContext = DataInitializer.GetDbContext())
-            {
                 var selectedGuest = dbContext.Guests
-            .First(g => g.GuestId == guestId);
+            .First(g => g.Id == guestId);
 
                 return selectedGuest;
-            }
         }
-        public int CountAllGuests()
+        public int CountAllGuests(ApplicationDbContext dbContext)
         {
-            using (var dbContext = DataInitializer.GetDbContext())
-            {
                 return dbContext.Guests.Count();
-            }
         }
 
-        public void UpdateGuestDetails(int guestToEdit, string[] editedGuestDetails)
+        public void UpdateGuestDetails(int guestToEdit, string[] editedGuestDetails, ApplicationDbContext dbContext)
         {
-            using (var dbContext = DataInitializer.GetDbContext())
-            {
                 var guestToUpdate = dbContext.Guests
-                .First(g => g.GuestId == guestToEdit);
+                .First(g => g.Id == guestToEdit);
 
                 guestToUpdate.FirstName = editedGuestDetails[0];
                 guestToUpdate.Surname = editedGuestDetails[1];
@@ -130,16 +107,13 @@ namespace Hotel_Transylvania.Services
                 guestToUpdate.Phone = editedGuestDetails[3];
 
                 dbContext.SaveChanges();
-            }
         }
 
 
-        public void RemoveGuest(int guestToDelete)
+        public void RemoveGuest(int guestToDelete, ApplicationDbContext dbContext)
         {
-            using (var dbContext = DataInitializer.GetDbContext())
-            {
                 var guest = dbContext.Guests
-                .First(g => g.GuestId == guestToDelete);
+                .First(g => g.Id == guestToDelete);
 
                 if (guest == null)
                 {
@@ -161,18 +135,13 @@ namespace Hotel_Transylvania.Services
                     }
                 }
                 dbContext.SaveChanges();
-            }
-
         }
-        public void ReActivateGuest(int guestToReactivate)
+        public void ReActivateGuest(int guestToReactivate, ApplicationDbContext dbContext)
         {
-            using (var dbContext = DataInitializer.GetDbContext())
-            {
                 dbContext.Guests
-                .First(g => g.GuestId == guestToReactivate)
+                .First(g => g.Id == guestToReactivate)
                 .IsGuestActive = true;
                 dbContext.SaveChanges();
-            }
         }
     }
 }

@@ -3,7 +3,7 @@ namespace Hotel_Transylvania.Models
 {
     public class Reservation
     {
-        public int ReservationId { get; set; }
+        public int Id { get; set; }
         public int RoomNumber { get; set; }
         public int GuestID { get; set; }
         public int NumberOfAdditionalBeds { get; set; }

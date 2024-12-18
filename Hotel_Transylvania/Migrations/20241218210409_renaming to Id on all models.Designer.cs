@@ -4,6 +4,7 @@ using Hotel_Transylvania.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Hotel_Transylvania.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20241218210409_renaming to Id on all models")]
+    partial class renamingtoIdonallmodels
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -45,7 +48,7 @@ namespace Hotel_Transylvania.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("ReservationHistory")
+                    b.Property<int>("ReservationHistory")
                         .HasColumnType("int");
 
                     b.Property<string>("Surname")
@@ -107,7 +110,7 @@ namespace Hotel_Transylvania.Migrations
                     b.Property<bool>("IsRoomActive")
                         .HasColumnType("bit");
 
-                    b.Property<int?>("ReservationId")
+                    b.Property<int>("ReservationId")
                         .HasColumnType("int");
 
                     b.Property<int>("RoomNumber")
@@ -140,7 +143,9 @@ namespace Hotel_Transylvania.Migrations
                 {
                     b.HasOne("Hotel_Transylvania.Models.Reservation", null)
                         .WithMany("Rooms")
-                        .HasForeignKey("ReservationId");
+                        .HasForeignKey("ReservationId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("Hotel_Transylvania.Models.Guest", b =>

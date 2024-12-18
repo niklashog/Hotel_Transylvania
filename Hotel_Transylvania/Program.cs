@@ -12,11 +12,6 @@ namespace Hotel_Transylvania
         {
             MainFactory.BuildContainer();
 
-            using (var dbContext = DataInitializer.GetDbContext())
-            {
-                dbContext.Database.Migrate();
-            }
-
             var app = MainFactory.Resolve<IApplication>();
             app.Run();
         }

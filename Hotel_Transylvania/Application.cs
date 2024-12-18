@@ -12,7 +12,8 @@ namespace Hotel_Transylvania
     {
         public void Run()
         {
-            DataInitializer.MigrateAndSeed();
+            var dbContext = ApplicationDbContext.GetDbContext();
+            DataInitializer.MigrateAndSeed(dbContext);
             mainMenu.Execute();
         }
     }

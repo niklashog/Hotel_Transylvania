@@ -6,6 +6,7 @@ using Hotel_Transylvania.Services;
 using Hotel_Transylvania.Interfaces.ServicesInterfaces;
 using Hotel_Transylvania.Display;
 using Hotel_Transylvania.Interfaces.DisplayInterfaces;
+using Hotel_Transylvania.Data;
 
 namespace Hotel_Transylvania.Menus.Guests
 {
@@ -17,14 +18,17 @@ namespace Hotel_Transylvania.Menus.Guests
             Console.Clear();
             DisplayLogo.Paint();
 
-            if (guestService.GetAllGuests()
+            var dbContext = ApplicationDbContext.GetDbContext();
+
+
+            if (guestService.GetAllGuests(dbContext)
                 .Where(g => g.IsGuestActive == false)
                 .ToList()
                 .Count >= 1)
             {
                 var xcoord = 45;
                 var ycoord = 9;
-                guestService.GetInctiveGuests(xcoord, ycoord);
+                guestService.GetInctiveGuests(xcoord, ycoord, dbContext);
 
                 Console.CursorVisible = true;
                 Console.SetCursorPosition(0, 9);
@@ -35,7 +39,7 @@ namespace Hotel_Transylvania.Menus.Guests
                 Console.Write("\nPress 'Enter' to save..");
 
                 Console.ReadKey();
-                guestService.ReActivateGuest(guestToReactivate);
+                guestService.ReActivateGuest(guestToReactivate, dbContext);
 
             }
             else

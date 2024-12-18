@@ -13,10 +13,8 @@ namespace Hotel_Transylvania.Services
 {
     public class RoomService : IRoomService
     {
-        public void AddRoom(Room room)
+        public void AddRoom(ApplicationDbContext dbContext, Room room)
         {
-            using (var dbContext = DataInitializer.GetDbContext())
-            {
                 var newRoom = room;
 
                 if (newRoom.RoomSize <= 14 || newRoom.RoomType == "Single")
@@ -39,20 +37,14 @@ namespace Hotel_Transylvania.Services
 
                 dbContext.Rooms.Add(room);
                 dbContext.SaveChanges();
-            }
         }
 
-        public IEnumerable<Room> GetAllRooms()
+        public IEnumerable<Room> GetAllRooms(ApplicationDbContext dbContext)
         {
-            using (var dbContext = DataInitializer.GetDbContext())
-            {
                 return dbContext.Rooms;
-            }
         }
-        public void GetActiveRooms(int x, int y)
+        public void GetActiveRooms(int x, int y, ApplicationDbContext dbContext)
         {
-            using (var dbContext = DataInitializer.GetDbContext())
-            {
                 var activeRooms = dbContext.Rooms
                 .Where(r => r.IsRoomActive)
                 .ToList();
@@ -63,15 +55,12 @@ namespace Hotel_Transylvania.Services
                         Console.SetCursorPosition(x, y++);
                         Console.WriteLine($"# {r.RoomNumber}, {r.RoomType}, {r.RoomSize}m²");
                     });
-            }
         }
-        public void GetInactiveRooms(int x, int y)
+        public void GetInactiveRooms(int x, int y, ApplicationDbContext dbContext)
         {
-            using (var dbContext = DataInitializer.GetDbContext())
-            {
                 var inactiveRooms = dbContext.Rooms
-            .Where(r => r.IsRoomActive == false)
-            .ToList();
+                .Where(r => r.IsRoomActive == false)
+                .ToList();
 
                 inactiveRooms
                 .ForEach(r =>
@@ -79,12 +68,9 @@ namespace Hotel_Transylvania.Services
                     Console.SetCursorPosition(x, y++);
                     Console.WriteLine($"# {r.RoomNumber}, {r.RoomType}, {r.RoomSize}m²");
                 });
-            }
         }
-        public void DisplaySingleRoom(int roomId, int x, int y)
+        public void DisplaySingleRoom(int roomId, int x, int y, ApplicationDbContext dbContext)
         {
-            using (var dbContext = DataInitializer.GetDbContext())
-            {
                 var selectedRoom = dbContext.Rooms
             .First(r => r.RoomNumber == roomId);
 
@@ -109,20 +95,14 @@ namespace Hotel_Transylvania.Services
                 Console.WriteLine($"Max number of extra beds: {selectedRoom.AdditionalBeddingNumber}");
                 Console.SetCursorPosition(x, y + 4);
                 Console.WriteLine($"Room active: {roomStatus}");
-            }
         }
-        public int CountAllRooms()
+        public int CountAllRooms(ApplicationDbContext dbContext)
         {
-            using (var dbContext = DataInitializer.GetDbContext())
-            {
                 return dbContext.Rooms.Count();
-            }
         }
 
-        public void UpdateRoomDetails(int roomIdInput, Room updatedRoomDetails)
+        public void UpdateRoomDetails(int roomIdInput, Room updatedRoomDetails, ApplicationDbContext dbContext)
         {
-            using (var dbContext = DataInitializer.GetDbContext())
-            {
                 var roomToUpdate = dbContext.Rooms
                 .First(r => r.RoomNumber == roomIdInput);
 
@@ -151,37 +131,36 @@ namespace Hotel_Transylvania.Services
                     roomToUpdate.AdditionalBeddingNumber = 2;
                 }
                 dbContext.SaveChanges();
-            }
         }
 
-        public void RemoveRoom(int roomToDelete)
+        public void RemoveRoom(int roomToDelete, ApplicationDbContext dbContext)
         {
-            using (var dbContext = DataInitializer.GetDbContext())
-            {
                 var room = dbContext.Rooms
-                .First(r => r.RoomNumber == roomToDelete);
+                .FirstOrDefault(r => r.RoomNumber == roomToDelete);
 
                 if (room != null)
                 {
                     room.IsRoomActive = false;
+                    dbContext.SaveChanges();
                 }
                 else
                 {
                     Console.WriteLine("No room found with that ID.");
                 }
-                dbContext.SaveChanges();
-            }
         }
-        public void ReActivateRoom(int roomToReactivate)
+        public void ReActivateRoom(int roomToReactivate, ApplicationDbContext dbContext)
         {
-            using (var dbContext = DataInitializer.GetDbContext())
-            {
-                dbContext.Rooms
-                .First(g => g.RoomNumber == roomToReactivate)
-                .IsRoomActive = true;
-
-                dbContext.SaveChanges();
-            }
+                var room = dbContext.Rooms
+                .FirstOrDefault(g => g.RoomNumber == roomToReactivate);
+                if (room != null)
+                {
+                    room.IsRoomActive = true;
+                    dbContext.SaveChanges();
+                }
+                else
+                {
+                    Console.WriteLine("No room found with that ID.");
+                }
         }
     }
 }

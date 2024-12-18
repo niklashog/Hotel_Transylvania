@@ -1,4 +1,5 @@
-﻿using Hotel_Transylvania.Display;
+﻿using Hotel_Transylvania.Data;
+using Hotel_Transylvania.Display;
 using Hotel_Transylvania.Interfaces.MenuInterfaces.RoomsInterfaces;
 using Hotel_Transylvania.Interfaces.ServicesInterfaces;
 using Hotel_Transylvania.Models;
@@ -13,9 +14,11 @@ namespace Hotel_Transylvania.Menus.Rooms
         {
             Console.Clear();
             DisplayLogo.Paint();
+            var dbContext = ApplicationDbContext.GetDbContext();
+
             var xcoord = 2;
             var ycoord = 9;
-            roomService.GetInactiveRooms(xcoord, ycoord);
+            roomService.GetInactiveRooms(xcoord, ycoord, dbContext);
 
             Console.ReadKey();
         }

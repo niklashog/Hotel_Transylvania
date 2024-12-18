@@ -10,15 +10,15 @@ namespace Hotel_Transylvania.Interfaces.ServicesInterfaces
 {
     public interface IGuestService
     {
-        public void AddGuest(Guest guest);
-        public IEnumerable<Guest> GetAllGuests();
-        public void DisplayActiveGuests(int x, int y);
-        public void GetInctiveGuests(int x, int y);
-        public Guest GetGuestById(int guestId, int x, int y);
-        public void PrintGuestDetails(int guestId, int x, int y);
-        public int CountAllGuests();
-        public void ReActivateGuest(int guestToReactivate);
-        public void UpdateGuestDetails(int guestIdInput, string[] updatedGuestDetails);
-        public void RemoveGuest(int guestToDelete);
+        public void AddGuest(Guest guest, ApplicationDbContext dbContext);
+        public IEnumerable<Guest> GetAllGuests(ApplicationDbContext dbContext);
+        public void DisplayActiveGuests(int x, int y, ApplicationDbContext dbContext);
+        public void GetInctiveGuests(int x, int y, ApplicationDbContext dbContext);
+        public Guest GetGuestById(int guestId, int x, int y, ApplicationDbContext dbContext);
+        public void PrintGuestDetails(int guestId, int x, int y, ApplicationDbContext dbContext);
+        public int CountAllGuests(ApplicationDbContext dbContext);
+        public void ReActivateGuest(int guestToReactivate, ApplicationDbContext dbContext);
+        public void UpdateGuestDetails(int guestIdInput, string[] updatedGuestDetails, ApplicationDbContext dbContext);
+        public void RemoveGuest(int guestToDelete, ApplicationDbContext dbContext);
     }
 }

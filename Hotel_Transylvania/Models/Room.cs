@@ -12,12 +12,12 @@ namespace Hotel_Transylvania.Models
 
     public class Room
     {
-        public int RoomId { get; set; }
+        public int Id { get; set; }
         public int RoomNumber { get; set; }
-        public int ReservationId { get; set; }
+        public int? ReservationId { get; set; }
         public string RoomType { get; set; }
         public int RoomSize { get; set; }
-        public int AdditionalBeddingNumber { get; set; } = 0;
+        public int AdditionalBeddingNumber { get; set; }
         public bool IsRoomActive { get; set; } = true;
     }
 }

@@ -3,6 +3,7 @@ using Hotel_Transylvania.Display;
 using Hotel_Transylvania.Models;
 using Hotel_Transylvania.Services;
 using Hotel_Transylvania.Interfaces.ServicesInterfaces;
+using Hotel_Transylvania.Data;
 
 namespace Hotel_Transylvania.Menus.Guests
 {
@@ -14,9 +15,11 @@ namespace Hotel_Transylvania.Menus.Guests
             Console.Clear();
             DisplayLogo.Paint();
 
+            var dbContext = ApplicationDbContext.GetDbContext();
+
             var xcoord = 45;
             var ycoord = 8;
-            guestService.DisplayActiveGuests(xcoord, ycoord);
+            guestService.DisplayActiveGuests(xcoord, ycoord, dbContext);
 
             Console.CursorVisible = true;
             Console.SetCursorPosition(2, 8);
@@ -32,7 +35,7 @@ namespace Hotel_Transylvania.Menus.Guests
             Console.Clear();
             DisplayLogo.Paint();
 
-            guestService.PrintGuestDetails(guestToUpdate, xcoord, ycoord);
+            guestService.PrintGuestDetails(guestToUpdate, xcoord, ycoord, dbContext);
             Console.CursorVisible = true;
             Console.SetCursorPosition(2, 8);
             Console.WriteLine("Enter guest details..");
@@ -61,7 +64,7 @@ namespace Hotel_Transylvania.Menus.Guests
                 phone,
             };
 
-            guestService.UpdateGuestDetails(guestToUpdate, updatedGuestDetails);
+            guestService.UpdateGuestDetails(guestToUpdate, updatedGuestDetails, dbContext);
             Console.ReadKey();
         }
     }

@@ -14,137 +14,114 @@ namespace Hotel_Transylvania.Services
     public class ReservationService : IReservationService
     {
 
-        public IEnumerable<Room> GetAvailableRooms(DateTime checkinDate, DateTime checkoutDate)
+        public IEnumerable<Room> GetAvailableRooms(DateTime checkinDate, DateTime checkoutDate, ApplicationDbContext dbContext)
         {
-            using (var dbContext = DataInitializer.GetDbContext())
-            {
-                var allRooms = dbContext
-                    .Rooms
-                    .ToList();
+            var allRooms = dbContext
+                .Rooms
+                .ToList();
 
-                var overlappingDates = dbContext
-                    .Reservations
-                    .Where(r => r.CheckinDate < checkoutDate && r.CheckoutDate > checkinDate)
-                    .ToList();
+            var overlappingDates = dbContext
+                .Reservations
+                .Where(r => r.CheckinDate < checkoutDate && r.CheckoutDate > checkinDate)
+                .ToList();
 
-                var reservedRoomNumbers = overlappingDates
-                    .Select(r => r.RoomNumber)
-                    .Distinct()
-                    .ToList();
+            var reservedRoomNumbers = overlappingDates
+                .Select(r => r.RoomNumber)
+                .Distinct()
+                .ToList();
 
-                var availableRooms = allRooms
-                    .Where(r => !reservedRoomNumbers
-                    .Contains(r.RoomNumber))
-                    .ToList();
+            var availableRooms = allRooms
+                .Where(r => !reservedRoomNumbers
+                .Contains(r.RoomNumber))
+                .ToList();
 
-                return availableRooms;
-            }
+            return availableRooms;
         }
 
-        public void AddReservation(int guestId, DateTime checkinDate, DateTime checkoutDate, int roomNumber)
+        public void AddReservation(int guestId, DateTime checkinDate, DateTime checkoutDate, int roomNumber, ApplicationDbContext dbContext)
         {
-            using (var dbContext = DataInitializer.GetDbContext())
+            if (!GetAvailableRooms(checkinDate, checkoutDate, dbContext)
+                .Any(r => r.RoomNumber == roomNumber))
             {
-                if (!GetAvailableRooms(checkinDate, checkoutDate)
-                    .Any(r => r.RoomNumber == roomNumber))
-                {
-                    throw new Exception("Room is unavailable on the selected dates. Try again.");
-                    //Console.WriteLine("Room unavailable on selected dates. Try again.");
-                }
-
-                var reservation = new Reservation()
-                {
-                    RoomNumber = roomNumber,
-                    CheckinDate = checkinDate,
-                    CheckoutDate = checkoutDate,
-                    TimeOfReservation = DateTime.Now,
-                    IsReservationActive = true
-                };
-
-                var guestToCheckin = dbContext.Guests
-                .FirstOrDefault(g => g.GuestId == guestId);
-                if (guestToCheckin == null)
-                {
-                    throw new Exception("Guest not found.");
-                }
-                else
-                {
-                    guestToCheckin.Reservations.Add(reservation);
-                }
-                dbContext.SaveChanges();
+                throw new Exception("Room is unavailable on the selected dates. Try again.");
+                //Console.WriteLine("Room unavailable on selected dates. Try again.");
             }
+
+            var reservation = new Reservation()
+            {
+                RoomNumber = roomNumber,
+                CheckinDate = checkinDate,
+                CheckoutDate = checkoutDate,
+                TimeOfReservation = DateTime.Now,
+                IsReservationActive = true
+            };
+
+            var guestToCheckin = dbContext.Guests
+            .FirstOrDefault(g => g.Id == guestId);
+            if (guestToCheckin == null)
+            {
+                throw new Exception("Guest not found.");
+            }
+            else
+            {
+                guestToCheckin.Reservations.Add(reservation);
+            }
+            dbContext.SaveChanges();
         }
 
-        public int CountReservations()
+        public int CountReservations(ApplicationDbContext dbContext)
         {
-            using (var dbContext = DataInitializer.GetDbContext())
-            {
-                return dbContext.Reservations.Count();
-            }
+            return dbContext.Reservations.Count();
         }
-        public void ShowReservations()
+        public void ShowReservations(ApplicationDbContext dbContext)
         {
-            using (var dbContext = DataInitializer.GetDbContext())
-            {
-                Console.WriteLine($"Reservation\tRoom\tCheck-in Date\tCheck-Out Date\tGuest Id");
+            Console.WriteLine($"Reservation\tRoom\tCheck-in Date\tCheck-Out Date\tGuest Id");
 
-                var guestsWithReservation = dbContext.Guests
-                    .Where(g => g.Reservations.Count > 0)
-                    .ToList();
+            var guestsWithReservation = dbContext.Guests
+                .Where(g => g.Reservations.Count > 0)
+                .ToList();
 
-                guestsWithReservation
-                    .ForEach(g =>
+            guestsWithReservation
+                .ForEach(g =>
+                {
+                    g.Reservations
+                    .Where(r => r.IsReservationActive)
+                    .ToList()
+                    .ForEach(r =>
                     {
-                        g.Reservations
-                        .Where(r => r.IsReservationActive)
-                        .ToList()
-                        .ForEach(r =>
-                        {
-                            Console.WriteLine($"{r.ReservationId}\t\t{r.RoomNumber}" +
-                                $"\t{r.CheckinDate:yyyy-MM-dd}\t{r.CheckoutDate:yyyy-MM-dd}" +
-                                $"\t{g.GuestId}");
-                        });
+                        Console.WriteLine($"{r.Id}\t\t{r.RoomNumber}" +
+                            $"\t{r.CheckinDate:yyyy-MM-dd}\t{r.CheckoutDate:yyyy-MM-dd}" +
+                            $"\t{g.Id}");
                     });
-            }
+                });
         }
-        public void ShowReservation()
+        public void ShowReservation(ApplicationDbContext dbContext)
         {
-            using (var dbContext = DataInitializer.GetDbContext())
-            {
-                
-            }
             Console.WriteLine("I show reservations.");
         }
 
-        public void UpdateReservation(Guest guest)
+        public void UpdateReservation(Guest guest, ApplicationDbContext dbContext)
         {
-            using (var dbContext = DataInitializer.GetDbContext())
-            {
-                
-            }
             Console.WriteLine("I update reservations");
         }
-        public void RemoveReservation(int reservationToRemove)
+        public void RemoveReservation(int reservationToRemove, ApplicationDbContext dbContext)
         {
-            using (var dbContext = DataInitializer.GetDbContext())
-            {
-                var guestsWithReservation = dbContext.Guests
-                    .Where(g => g.Reservations.Count > 0)
-                    .ToList();
+            var guestsWithReservation = dbContext.Guests
+                .Where(g => g.Reservations.Count > 0)
+                .ToList();
 
-                guestsWithReservation
-                    .ForEach(g =>
+            guestsWithReservation
+                .ForEach(g =>
+                {
+                    g.Reservations
+                    .Where(r => r.Id == reservationToRemove)
+                    .ToList()
+                    .ForEach(r =>
                     {
-                        g.Reservations
-                        .Where(r => r.ReservationId == reservationToRemove)
-                        .ToList()
-                        .ForEach(r =>
-                        {
-                            r.IsReservationActive = false;
-                        });
+                        r.IsReservationActive = false;
                     });
-                dbContext.SaveChanges();
-            }
+                });
+            dbContext.SaveChanges();
         }
     }
 }

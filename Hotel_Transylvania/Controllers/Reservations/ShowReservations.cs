@@ -1,4 +1,5 @@
-﻿using Hotel_Transylvania.Display;
+﻿using Hotel_Transylvania.Data;
+using Hotel_Transylvania.Display;
 using Hotel_Transylvania.Interfaces.MenuInterfaces.ReservationsInterfaces;
 using Hotel_Transylvania.Interfaces.ServicesInterfaces;
 
@@ -12,7 +13,9 @@ namespace Hotel_Transylvania.Menus.Reservations
         {
             Console.Clear();
             DisplayLogo.Paint();
-            reservationService.ShowReservations();
+
+            var dbContext = ApplicationDbContext.GetDbContext();
+
 
             Console.ReadKey();
         }

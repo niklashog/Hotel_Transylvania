@@ -12,7 +12,9 @@ namespace Hotel_Transylvania.Display
     {
         public void ExecuteXY(int x, int y)
         {
-            var inactiveGuests = guestService.GetAllGuests()
+            var dbContext = ApplicationDbContext.GetDbContext();
+
+            var inactiveGuests = guestService.GetAllGuests(dbContext)
             .Where(g => g.IsGuestActive == false)
             .ToList();
 
@@ -20,7 +22,7 @@ namespace Hotel_Transylvania.Display
             .ForEach(g =>
             {
                 Console.SetCursorPosition(x, y++);
-                Console.WriteLine($"Guest ID: {g.GuestId}, Name: {g.FirstName} {g.Surname}");
+                Console.WriteLine($"Guest ID: {g.Id}, Name: {g.FirstName} {g.Surname}");
             });
         }
     }

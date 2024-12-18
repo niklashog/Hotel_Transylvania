@@ -17,9 +17,12 @@ namespace Hotel_Transylvania.Menus.Guests
         {
             Console.Clear();
             DisplayLogo.Paint();
+            
+            var dbContext = ApplicationDbContext.GetDbContext();
+
             var xcoord = 2;
             var ycoord = 9;
-            guestService.GetInctiveGuests(xcoord, ycoord);
+            guestService.GetInctiveGuests(xcoord, ycoord, dbContext);
 
             Console.ReadKey();
         }
