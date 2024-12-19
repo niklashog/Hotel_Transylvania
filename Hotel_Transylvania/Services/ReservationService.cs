@@ -111,41 +111,6 @@ namespace Hotel_Transylvania.Services
             return dbContext.Reservations.Count();
         }
 
-        //public void ShowReservations(ApplicationDbContext dbContext)
-        //{
-        //    Console.WriteLine($"Reservation\tRoom\tCheck-in Date\tCheck-Out Date\tGuest Id");
-
-        //    var reservations = dbContext.Reservations;
-        //    foreach ( var reservation in reservations)
-        //    {
-        //        Console.WriteLine(reservation);
-        //    }
-
-        //}
-
-
-        //public void ShowReservations(ApplicationDbContext dbContext)
-        //{
-        //    Console.WriteLine($"Reservation\tRoom\tCheck-in Date\tCheck-Out Date\tGuest Id");
-
-        //    var guestsWithReservation = dbContext.Guests
-        //        .Where(g => g.Reservations.Count > 0)
-        //        .ToList();
-
-        //    guestsWithReservation
-        //        .ForEach(g =>
-        //        {
-        //            g.Reservations
-        //            .Where(r => r.IsReservationActive)
-        //            .ToList()
-        //            .ForEach(r =>
-        //            {
-        //                Console.WriteLine($"{r.Id}\t\t{r.RoomNumber}" +
-        //                    $"\t{r.CheckinDate:yyyy-MM-dd}\t{r.CheckoutDate:yyyy-MM-dd}" +
-        //                    $"\t{g.Id}");
-        //            });
-        //        });
-        //}
         public void ShowReservations(ApplicationDbContext dbContext)
         {
             Console.ForegroundColor = ConsoleColor.Yellow;
@@ -167,24 +132,6 @@ namespace Hotel_Transylvania.Services
             }
         }
 
-        //public void ShowReservations(ApplicationDbContext dbContext)
-        //{
-        //    Console.WriteLine($"Reservation\tRoom\tCheck-in Date\tCheck-Out Date\tGuest Id");
-
-        //    var guestsWithReservation = dbContext.Reservations
-        //        .Where(r => r.IsReservationActive)
-        //        .Include(r => r.Guests)
-        //        .ToList();
-
-        //    guestsWithReservation
-        //        .ForEach(r =>
-        //        {
-        //            Console.WriteLine($"{r.Id}\t\t{r.RoomNumber}" +
-        //                $"\t{r.CheckinDate:yyyy-MM-dd}\t{r.CheckoutDate:yyyy-MM-dd}" +
-        //                $"\t{r.Id}");
-
-        //        });
-        //}
         public void ShowReservation(ApplicationDbContext dbContext)
         {
             Console.WriteLine("I show reservations.");
