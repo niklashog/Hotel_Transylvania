@@ -75,37 +75,6 @@ namespace Hotel_Transylvania.Services
             dbContext.SaveChanges();
         }
 
-        //public void AddReservation(int guestId, DateTime checkinDate, DateTime checkoutDate, int roomNumber, ApplicationDbContext dbContext)
-        //{
-        //    if (!GetAvailableRooms(checkinDate, checkoutDate, dbContext)
-        //        .Any(r => r.RoomNumber == roomNumber))
-        //    {
-        //        throw new Exception("Room is unavailable on the selected dates. Try again.");
-        //        //Console.WriteLine("Room unavailable on selected dates. Try again.");
-        //    }
-
-        //    var reservation = new Reservation()
-        //    {
-        //        RoomNumber = roomNumber,
-        //        CheckinDate = checkinDate,
-        //        CheckoutDate = checkoutDate,
-        //        TimeOfReservation = DateTime.Now,
-        //        IsReservationActive = true
-        //    };
-
-        //    var guestToCheckin = dbContext.Guests
-        //    .FirstOrDefault(g => g.Id == guestId);
-        //    if (guestToCheckin == null)
-        //    {
-        //        throw new Exception("Guest not found.");
-        //    }
-        //    else
-        //    {
-        //        guestToCheckin.Reservations.Add(reservation);
-        //    }
-        //    dbContext.SaveChanges();
-        //}
-
         public int CountReservations(ApplicationDbContext dbContext)
         {
             return dbContext.Reservations.Count();

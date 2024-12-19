@@ -12,8 +12,6 @@ namespace Hotel_Transylvania
         {
             MainFactory.BuildContainer();
 
-            Console.WriteLine("Test");
-
             var app = MainFactory.Resolve<IApplication>();
             app.Run();
         }
