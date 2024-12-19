@@ -14,7 +14,8 @@ namespace Hotel_Transylvania.Interfaces.ServicesInterfaces
         public void AddReservation(int guestId, DateTime checkinDate, DateTime checkoutDate, int roomNumber, ApplicationDbContext dbContext);
         public int CountReservations(ApplicationDbContext dbContext);
         public void ShowReservations(ApplicationDbContext dbContext);
-        public void ShowReservation(ApplicationDbContext dbContext);
+        public void ShowInactiveReservations(ApplicationDbContext dbContext);
+        public void ShowReservationDetails(ApplicationDbContext dbContext);
         public void UpdateReservation(Guest guest, ApplicationDbContext dbContext);
         public void RemoveReservation(int id, ApplicationDbContext dbContext);
 

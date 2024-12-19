@@ -6,8 +6,8 @@ using Hotel_Transylvania.Services;
 
 namespace Hotel_Transylvania.Menus.Reservations
 {
-    public class CancelReservation(
-        IReservationService reservationService) : ICancelReservation
+    public class DeactivateReservation(
+        IReservationService reservationService) : IDeactivateReservation
     {
         public void Execute()
         {
@@ -18,7 +18,8 @@ namespace Hotel_Transylvania.Menus.Reservations
 
             reservationService.ShowReservations(dbContext);
 
-            Console.WriteLine("Type reservation id to remove");
+            Console.WriteLine("Enter Reservation Id to inactivate");
+            Console.WriteLine("Reservations cannot be reactivated.");
             var reservationIdToRemove = int.Parse(Console.ReadLine());
 
             reservationService.RemoveReservation(reservationIdToRemove, dbContext);

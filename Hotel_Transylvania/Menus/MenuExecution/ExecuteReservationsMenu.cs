@@ -7,8 +7,8 @@ namespace Hotel_Transylvania.Menus.MenuExecution
 {
     public class ExecuteReservationsMenu(
     IAddReservation addReservation,
-    IChangeReservation changeReservation,
-    ICancelReservation cancelReservation,
+    IUpdateReservation changeReservation,
+    IDeactivateReservation cancelReservation,
     IShowReservations showReservations,
     IMainMenu mainMenu) : IExecuteReservationsMenu
     {

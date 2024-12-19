@@ -4,7 +4,7 @@ using Hotel_Transylvania.Interfaces.MenuInterfaces.ReservationsInterfaces;
 
 namespace Hotel_Transylvania.Menus.Reservations
 {
-    public class ChangeReservation : IChangeReservation
+    public class UpdateReservation : IUpdateReservation
     {
         public void Execute()
         {

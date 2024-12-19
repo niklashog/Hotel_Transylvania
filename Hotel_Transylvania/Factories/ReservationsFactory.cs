@@ -25,8 +25,8 @@ namespace Hotel_Transylvania.Factories
 
             builder.RegisterType<ReservationsMenu>().As<IReservationsMenu>();
             builder.RegisterType<AddReservation>().As<IAddReservation>();
-            builder.RegisterType<CancelReservation>().As<ICancelReservation>();
-            builder.RegisterType<ChangeReservation>().As<IChangeReservation>();
+            builder.RegisterType<DeactivateReservation>().As<IDeactivateReservation>();
+            builder.RegisterType<UpdateReservation>().As<IUpdateReservation>();
             builder.RegisterType<ShowReservations>().As<IShowReservations>();
 
             builder.RegisterType<NavigateReservationsMenu>().As<INavigateReservationsMenu>();

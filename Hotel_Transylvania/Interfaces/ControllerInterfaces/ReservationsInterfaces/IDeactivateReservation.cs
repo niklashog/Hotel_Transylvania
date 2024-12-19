@@ -2,7 +2,7 @@
 
 namespace Hotel_Transylvania.Interfaces.MenuInterfaces.ReservationsInterfaces
 {
-    public interface ICancelReservation : IExecute
+    public interface IDeactivateReservation : IExecute
     {
     }
 }
