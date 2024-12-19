@@ -5,7 +5,7 @@ namespace Hotel_Transylvania.Models
     {
         public int Id { get; set; }
         public int RoomNumber { get; set; }
-        public int GuestID { get; set; }
+        public int GuestId { get; set; }
         public int NumberOfAdditionalBeds { get; set; }
         public DateTime CheckinDate { get; set; }
         public DateTime CheckoutDate { get; set; }

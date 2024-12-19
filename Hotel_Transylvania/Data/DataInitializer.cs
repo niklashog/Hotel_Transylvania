@@ -86,7 +86,7 @@ namespace Hotel_Transylvania.Data
                         new Reservation
                 {
                     RoomNumber = 101,
-                    GuestID = 1,
+                    GuestId = 1,
                     NumberOfAdditionalBeds = 0,
                     CheckinDate = DateTime.Now,
                     CheckoutDate = DateTime.Now.Date.AddDays(+2),
@@ -96,7 +96,7 @@ namespace Hotel_Transylvania.Data
                 new Reservation
                 {
                     RoomNumber = 101,
-                    GuestID = 1,
+                    GuestId = 1,
                     NumberOfAdditionalBeds = 0,
                     CheckinDate = DateTime.Now.Date.AddDays(+21),
                     CheckoutDate = DateTime.Now.Date.AddDays(+23),

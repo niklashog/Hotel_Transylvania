@@ -13,9 +13,14 @@
 -	Se över using(-blocken nu när jag tagit bort dem och kör dbContext som parameter)
 -	Krav på dubbel?
 -	Spectre på alla Show/Display metoder. Exempelvis Reservations.
+-	Meny på show reservations för att välja mellan aktiva och inaktiva bokningar.
+
+-	Åldersgränser för bokning?
+-	Ta bort rum som har aktiv bokning?
+
+-	Seed av rum funkar inte.
 
 ### CLEANUP
--	Städa bort isRunning från Execution och Navigation.
 -	Felhantering.
 -	Ändra så increment inte är automatisk på Room Number.
 
@@ -42,9 +47,9 @@ Fortsätt med Room och sedan Reservation.
 3:	(VG) Beskriv i ett dokument vad du har gjort för att garantera att dina tabeller möter 3NF:s krav.
 4:	(VG) Skapa MS-SQL syntaxer som kan utföra ’Joins’, ’Group By’ och minst en ’Subquery’ mot din databas
 
-[]	Kommunikationen med databasen skall ske med Entity Framework Core. 
-[]	Code First inclusive appsettings.json
-[]	Databas i MS-SQL Server.
+[•]	Kommunikationen med databasen skall ske med Entity Framework Core. 
+[•]	Code First inclusive appsettings.json
+[•]	Databas i MS-SQL Server.
 
 
 ROOM
@@ -59,8 +64,8 @@ GUEST
 [•]	Seed minst 4 gäster
 
 RESERVATION
-[]	Användaren måste välja datum då rummet ska bokas.
-[]	Ett rum kan bokas av en kund för en eller flera nätter. 
+[•]	Användaren måste välja datum då rummet ska bokas.
+[•]	Ett rum kan bokas av en kund för en eller flera nätter. 
 
 
 Redovisning: Totalt finns det 5 saker som ska lämnas in:
