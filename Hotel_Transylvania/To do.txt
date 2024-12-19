@@ -10,7 +10,9 @@
 -	List<Guest> Guests i min Room Model?
 -	Det går att önska 200 sängar.
 -	Update room måste jag fixa UX
--	Se över using(-blocken nu när jag tagit bort dem och kör dbContext som parameter.
+-	Se över using(-blocken nu när jag tagit bort dem och kör dbContext som parameter)
+-	Krav på dubbel?
+-	Spectre på alla Show/Display metoder. Exempelvis Reservations.
 
 ### CLEANUP
 -	Städa bort isRunning från Execution och Navigation.

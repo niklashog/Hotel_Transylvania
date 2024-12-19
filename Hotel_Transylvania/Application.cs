@@ -1,4 +1,5 @@
 ﻿using Hotel_Transylvania.Data;
+using Hotel_Transylvania.Display;
 using Hotel_Transylvania.Factories;
 using Hotel_Transylvania.Interfaces;
 using Hotel_Transylvania.Interfaces.MenuInterfaces;
@@ -12,6 +13,8 @@ namespace Hotel_Transylvania
     {
         public void Run()
         {
+            DisplayLogo.PaintInitializing();
+
             var dbContext = ApplicationDbContext.GetDbContext();
             DataInitializer.MigrateAndSeed(dbContext);
             mainMenu.Execute();
