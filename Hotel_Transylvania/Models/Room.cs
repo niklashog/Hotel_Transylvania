@@ -19,5 +19,6 @@ namespace Hotel_Transylvania.Models
         public int RoomSize { get; set; }
         public int AdditionalBeddingNumber { get; set; }
         public bool IsRoomActive { get; set; } = true;
+        public ICollection<Reservation>? Reservations { get; set; } = new List<Reservation>();
     }
 }
