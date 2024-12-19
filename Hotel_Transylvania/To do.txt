@@ -10,6 +10,7 @@
 -	List<Guest> Guests i min Room Model?
 -	Det går att önska 200 sängar.
 -	Update room måste jag fixa UX
+-	Se över using(-blocken nu när jag tagit bort dem och kör dbContext som parameter.
 
 ### CLEANUP
 -	Städa bort isRunning från Execution och Navigation.
@@ -20,9 +21,6 @@
 Console-Command
 add-migration "Initial migration"
 
-
-Bortkommenterad kod
-Rad45 i RoomService
 
 18/12-24
 Jag har försökt fixa GuestService.  Eventuellt klar?!

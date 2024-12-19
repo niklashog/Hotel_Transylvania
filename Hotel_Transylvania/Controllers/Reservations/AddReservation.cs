@@ -48,6 +48,16 @@ namespace Hotel_Transylvania.Controllers.Reservations
             var checkInDate = calendar.CalendarNavigate("CheckIn─Date", currentDate);
             var checkOutDate = calendar.CalendarNavigate("CheckOut─Date", checkInDate);
 
+            
+            var availableRooms = reservationService.GetAvailableRooms(checkInDate, checkOutDate, dbContext)
+                .ToList();
+            Console.WriteLine("Available Rooms");
+            foreach (var room in availableRooms)
+            {
+                Console.WriteLine($"#{room.RoomNumber}, {room.RoomType}, {room.RoomSize}m²");
+            }
+
+
             Console.WriteLine("Which room do you want stay in?");
             var roomNumberChoice = Convert.ToInt32(Console.ReadLine());
 

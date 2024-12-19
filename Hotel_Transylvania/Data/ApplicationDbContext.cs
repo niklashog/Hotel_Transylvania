@@ -39,5 +39,15 @@ namespace Hotel_Transylvania.Data
 
             return new ApplicationDbContext(options.Options);
         }
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<Guest>()
+                .HasMany(p => p.Reservations)
+                .WithMany(t => t.Guests);
+
+            modelBuilder.Entity<Room>()
+                .HasMany(p => p.Reservations)
+                .WithMany(t => t.Rooms);
+        }
     }
 }
