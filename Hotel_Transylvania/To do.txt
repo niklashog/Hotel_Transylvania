@@ -15,6 +15,7 @@
 -	Ta bort rum som har aktiv bokning?
 -	Metod som hämtar Guest Id's
 
+-	En data validator som validerar datum, ålder, osv?
 
 ### CLEANUP
 -	Felhantering.
