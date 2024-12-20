@@ -19,7 +19,7 @@ namespace Hotel_Transylvania.Menus.Rooms
         public void Execute()
         {
             var newRoom = MainFactory.Resolve<Room>();
-            var dbContext = ApplicationDbContext.GetDbContext();
+            using var dbContext = ApplicationDbContext.GetDbContext();
 
             Console.Clear();
             DisplayLogo.Paint();

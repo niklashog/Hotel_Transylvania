@@ -12,8 +12,8 @@ namespace Hotel_Transylvania.Interfaces.ServicesInterfaces
     {
         public void AddGuest(Guest guest, ApplicationDbContext dbContext);
         public IEnumerable<Guest> GetAllGuests(ApplicationDbContext dbContext);
-        public void DisplayActiveGuests(int x, int y, ApplicationDbContext dbContext);
-        public void GetInctiveGuests(int x, int y, ApplicationDbContext dbContext);
+        public void DisplayActiveGuests(ApplicationDbContext dbContext);
+        public void DisplayInactiveGuests(ApplicationDbContext dbContext);
         public Guest GetGuestById(int guestId, int x, int y, ApplicationDbContext dbContext);
         public void PrintGuestDetails(int guestId, int x, int y, ApplicationDbContext dbContext);
         public int CountAllGuests(ApplicationDbContext dbContext);

@@ -14,15 +14,40 @@ namespace Hotel_Transylvania.Menus.Reservations
             Console.Clear();
             DisplayLogo.Paint();
 
-            var dbContext = ApplicationDbContext.GetDbContext();
+            using var dbContext = ApplicationDbContext.GetDbContext();
+            var numberOfReservations = dbContext.Reservations.Count();
 
-            reservationService.ShowReservations(dbContext);
+            if (numberOfReservations >= 1)
+            {
+                reservationService.ShowReservations(dbContext);
 
-            Console.WriteLine("Enter Reservation Id to inactivate");
-            Console.WriteLine("Reservations cannot be reactivated.");
-            var reservationIdToRemove = int.Parse(Console.ReadLine());
+                Console.CursorVisible = true;
+                Console.SetCursorPosition(0, 7);
+                Console.Write(new string(' ', Console.WindowWidth));
+                Console.Write(new string(' ', Console.WindowWidth));
+                Console.SetCursorPosition(0, 7);
+                Console.WriteLine("Enter Reservation Id to cancel a reservation");
+                Console.Write("Reservation Id:");
+                var reservationIdToRemove = int.Parse(Console.ReadLine());
+                Console.CursorVisible = false;
 
-            reservationService.RemoveReservation(reservationIdToRemove, dbContext);
+                Console.SetCursorPosition(0, 7);
+                Console.WriteLine($"\nPress 'Enter' to cancel reservation #{reservationIdToRemove}..");
+                Console.Write(new string(' ', Console.WindowWidth));
+                Console.ReadKey();
+
+                Console.SetCursorPosition(0, 7);
+                Console.Write(new string(' ', Console.WindowWidth));
+                Console.Write(new string(' ', Console.WindowWidth));
+
+                reservationService.RemoveReservation(reservationIdToRemove, dbContext);
+            }
+            else
+            {
+                Console.WriteLine("There are no active guests in the system." +
+                    "\nPress any key to go back.");
+                Console.ReadKey();
+            }
 
             Console.ReadKey();
         }

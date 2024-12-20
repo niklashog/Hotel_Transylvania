@@ -5,6 +5,7 @@ using Hotel_Transylvania.Data;
 using Hotel_Transylvania.Services;
 using Hotel_Transylvania.Interfaces.ServicesInterfaces;
 using Hotel_Transylvania.Display;
+using System.Text.RegularExpressions;
 
 
 namespace Hotel_Transylvania.Menus.Guests
@@ -17,7 +18,7 @@ namespace Hotel_Transylvania.Menus.Guests
             Console.Clear();
             DisplayLogo.Paint();
 
-            var dbContext = ApplicationDbContext.GetDbContext();
+            using var dbContext = ApplicationDbContext.GetDbContext();
 
 
             Console.CursorVisible = true;
@@ -27,9 +28,51 @@ namespace Hotel_Transylvania.Menus.Guests
             Console.Write("Surname: ");
             var surname = Console.ReadLine();
             Console.Write("E-mail: ");
-            var email = Console.ReadLine();
-            Console.Write("Phone number: ");
-            var phone = Console.ReadLine();
+            var emailInput = Console.ReadLine();
+
+            string email;
+            string emailPattern = @"^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$";
+            if (Regex.IsMatch(emailInput, emailPattern))
+            {
+                email = emailInput;
+            }
+            else
+            {
+                Console.CursorVisible = false;
+                Console.WriteLine("Enter a valid e-mail adress.");
+                Console.WriteLine("Press any key to try again.");
+                Console.ReadKey();
+                return;
+            }
+
+            string phone = null;
+            string phonePattern = @"^\+{0,2}\d+(-?\d+)*(\(\d+\))?$";
+
+            while (true)
+            {
+                Console.Write("Phone number: ");
+                var phoneInput = Console.ReadLine();
+
+                if (string.IsNullOrWhiteSpace(phoneInput))
+                {
+                    phoneInput = null;
+                    Console.WriteLine("Phone number left blank.");
+                    break;
+                }
+
+                if (Regex.IsMatch(phoneInput, phonePattern))
+                {
+                    phone = phoneInput;
+                    break;
+                }
+                else
+                {
+                    Console.WriteLine("Enter a valid phone number.");
+                    Console.Write("Press any key to try again.");
+                    Console.ReadKey();
+                }
+            }
+
             Console.CursorVisible = false;
             Console.Write("\nPress 'Enter' to save..");
             Console.ReadKey();
@@ -40,15 +83,13 @@ namespace Hotel_Transylvania.Menus.Guests
 
             var newGuest = new Guest
             {
-                Id = setGuestId,
                 FirstName = firstName,
                 Surname = surname,
                 Email = email,
-                Phone = phone,
+                Phone = phone ?? "---"
             };
 
             guestService.AddGuest(newGuest, dbContext);
-            Console.ReadKey();
         }
     }
 }

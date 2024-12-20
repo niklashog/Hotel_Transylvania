@@ -1,21 +1,73 @@
 ﻿using Hotel_Transylvania.Data;
 using Hotel_Transylvania.Display;
+using Hotel_Transylvania.Interfaces.CalendarsInterfaces;
 using Hotel_Transylvania.Interfaces.MenuInterfaces.ReservationsInterfaces;
+using Hotel_Transylvania.Interfaces.ServicesInterfaces;
+using Hotel_Transylvania.Services;
 
 namespace Hotel_Transylvania.Menus.Reservations
 {
-    public class UpdateReservation : IUpdateReservation
+    public class UpdateReservation(
+        IReservationService reservationService,
+        ICalendarNavigation calendar,
+        IGuestService guestService) : IUpdateReservation
     {
         public void Execute()
         {
             Console.Clear();
             DisplayLogo.Paint();
 
-            var dbContext = ApplicationDbContext.GetDbContext();
+            using var dbContext = ApplicationDbContext.GetDbContext();
+
+            var firstReservationOnList = dbContext.Reservations
+                .Where(r => r.IsReservationActive)
+                .FirstOrDefault();
+
+            reservationService.ShowReservationDetails(firstReservationOnList, dbContext);
+            //reservationService.ShowReservations(dbContext);
+
+            //Console.CursorVisible = true;
+            //Console.SetCursorPosition(2, 8);
+            //Console.WriteLine("Change reservation by Reservation Id..");
+            //Console.SetCursorPosition(2, 9);
+            //Console.Write("Reservation Id: ");
+            //var guestIdToBook = Convert.ToInt32(Console.ReadLine());
 
 
-            Console.WriteLine("I CHANGE RESERVATIONS");
-            Console.ReadKey();
+
+
+            //Console.CursorVisible = false;
+            //Console.Write($"\nPress any key to chose dates for reservation.");
+            //Console.ReadKey();
+
+            //Console.Clear();
+            //DisplayLogo.Paint();
+            //var currentDate = DateTime.Now.Date;
+            //var checkInDate = calendar.CalendarNavigate("CheckIn─Date", currentDate);
+            //var checkOutDate = calendar.CalendarNavigate("CheckOut─Date", checkInDate);
+
+
+            //var availableRooms = reservationService.GetAvailableRooms(checkInDate, checkOutDate, dbContext)
+            //    .ToList();
+            //Console.WriteLine("Available Rooms");
+            //foreach (var room in availableRooms)
+            //{
+            //    Console.WriteLine($"#{room.RoomNumber}, {room.RoomType}, {room.RoomSize}m²");
+            //}
+
+
+            //Console.WriteLine("Which room do you want stay in?");
+            //var roomNumberChoice = Convert.ToInt32(Console.ReadLine());
+
+            //Console.WriteLine(
+            //    $"Confirm reservation from " +
+            //    $"{checkInDate.Year}-{checkInDate.Month}-{checkInDate.Day} to " +
+            //    $"{checkOutDate.Year}-{checkOutDate.Month}-{checkOutDate.Day}?");
+            //Console.ReadKey();
+
+            //reservationService.AddReservation(guestIdToBook, checkInDate, checkOutDate, roomNumberChoice, dbContext);
+            //Console.WriteLine("Reservation complete. Press any key to continue.");
+            //Console.ReadKey();
         }
     }
 }

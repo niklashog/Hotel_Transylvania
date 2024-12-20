@@ -15,7 +15,7 @@ namespace Hotel_Transylvania
         {
             DisplayLogo.PaintInitializing();
 
-            var dbContext = ApplicationDbContext.GetDbContext();
+            using var dbContext = ApplicationDbContext.GetDbContext();
             DataInitializer.MigrateAndSeed(dbContext);
             mainMenu.Execute();
         }

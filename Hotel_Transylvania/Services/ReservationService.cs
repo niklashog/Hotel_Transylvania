@@ -8,6 +8,7 @@ using Hotel_Transylvania.Data;
 using Hotel_Transylvania.Interfaces.ServicesInterfaces;
 using Hotel_Transylvania.Models;
 using Microsoft.EntityFrameworkCore;
+using Spectre.Console;
 
 namespace Hotel_Transylvania.Services
 {
@@ -81,9 +82,14 @@ namespace Hotel_Transylvania.Services
 
         public void ShowReservations(ApplicationDbContext dbContext)
         {
-            Console.ForegroundColor = ConsoleColor.Yellow;
-            Console.WriteLine($"Primary Guest\t\tRoom\tCheck-in\tCheck-Out\tReservation Number");
-            Console.ForegroundColor = ConsoleColor.White;
+            var table = new Table();
+            table.Border = TableBorder.Simple;
+
+            table.AddColumn("Primary Guest");
+            table.AddColumn("Room");
+            table.AddColumn("Check-in");
+            table.AddColumn("Check-out");
+            table.AddColumn("Reservation Number");
 
             var guestReservations = dbContext.Reservations
                 .Where(r => r.IsReservationActive)
@@ -92,19 +98,31 @@ namespace Hotel_Transylvania.Services
 
             foreach (var reservation in guestReservations)
             {
-                foreach(var guest in reservation.Guests)
+                foreach (var guest in reservation.Guests)
                 {
-                    Console.WriteLine($"{guest.Id} {guest.FirstName}{guest.Surname}" +
-                    $"\t\t{reservation.RoomNumber}\t{reservation.CheckinDate:yyyy-MM-dd}" +
-                    $"\t{reservation.CheckoutDate:yyyy-MM-dd}\t{reservation.Id}");
+                    table.AddRow(
+                        $"{guest.Id} {guest.FirstName} {guest.Surname}",
+                        reservation.RoomNumber.ToString(),
+                        reservation.CheckinDate.ToString("yyyy-MM-dd"),
+                        reservation.CheckoutDate.ToString("yyyy-MM-dd"),
+                        reservation.Id.ToString()
+                    );
                 }
             }
+
+            AnsiConsole.MarkupLine("[yellow]Active Reservations[/]");
+            AnsiConsole.Write(table);
         }
         public void ShowInactiveReservations(ApplicationDbContext dbContext)
         {
-            Console.ForegroundColor = ConsoleColor.Yellow;
-            Console.WriteLine($"Primary Guest\t\tRoom\tCheck-in\tCheck-Out\tReservation Number");
-            Console.ForegroundColor = ConsoleColor.White;
+            var table = new Table();
+            table.Border = TableBorder.Simple;
+
+            table.AddColumn("Primary Guest");
+            table.AddColumn("Room");
+            table.AddColumn("Check-in");
+            table.AddColumn("Check-out");
+            table.AddColumn("Reservation Number");
 
             var guestReservations = dbContext.Reservations
                 .Where(r => r.IsReservationActive == false)
@@ -115,16 +133,57 @@ namespace Hotel_Transylvania.Services
             {
                 foreach (var guest in reservation.Guests)
                 {
-                    Console.WriteLine($"{guest.Id} {guest.FirstName}{guest.Surname}" +
-                    $"\t\t{reservation.RoomNumber}\t{reservation.CheckinDate:yyyy-MM-dd}" +
-                    $"\t{reservation.CheckoutDate:yyyy-MM-dd}\t{reservation.Id}");
+                    table.AddRow(
+                        $"{guest.Id} {guest.FirstName} {guest.Surname}",
+                        reservation.RoomNumber.ToString(),
+                        reservation.CheckinDate.ToString("yyyy-MM-dd"),
+                        reservation.CheckoutDate.ToString("yyyy-MM-dd"),
+                        reservation.Id.ToString()
+                    );
                 }
             }
+
+            AnsiConsole.MarkupLine("[yellow]Inactive Reservations[/]");
+            AnsiConsole.Write(table);
         }
 
-        public void ShowReservationDetails(ApplicationDbContext dbContext)
+        public void ShowReservationDetails(Reservation reservationToChange, ApplicationDbContext dbContext)
         {
-            Console.WriteLine("I show details of one reservation.");
+            var reservationMatch = dbContext.Reservations
+                .Where(r => r.Id == reservationToChange.Id)
+                .Include(r => r.Guests)
+                .ToList();
+            
+            var table = new Table();
+            table.Border = TableBorder.Simple;
+
+            table.AddColumn("Reservation Id");
+            table.AddColumn("Primary Guest");
+            table.AddColumn("Room");
+            table.AddColumn("Check-in");
+            table.AddColumn("Check-out");
+            table.AddColumn("Reservation Date");
+            table.AddColumn("Extra Beds");
+
+            foreach (var reservation in reservationMatch)
+            {
+                foreach (var guest in reservation.Guests)
+                {
+                    table.AddRow(
+                        reservation.Id.ToString(),
+                        $"{guest.FirstName} {guest.Surname}",
+                        reservation.RoomNumber.ToString(),
+                        reservation.CheckinDate.ToString("yyyy-MM-dd"),
+                        reservation.CheckoutDate.ToString("yyyy-MM-dd"),
+                        reservation.TimeOfReservation.ToString("yyyy-MM-dd"),
+                        reservation.NumberOfAdditionalBeds.ToString()
+ 
+                    );
+                }
+            }
+            AnsiConsole.MarkupLine("[yellow]Reservation Details[/]");
+            AnsiConsole.Write(table);
+            Console.ReadKey();
         }
 
         public void UpdateReservation(Guest guest, ApplicationDbContext dbContext)

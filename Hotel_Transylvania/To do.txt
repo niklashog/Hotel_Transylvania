@@ -1,24 +1,20 @@
 ﻿### WORK ITEMS
 -	RoomType måste vara Enum!
--	Kan bara delete guest om ingen reservation är aktiv.
 
 -	När jag uppmanar att klicka Enter för att spara så vill jag även ge alternativet att
 	klicka backspace för att "backa utan att spara".
 
 -	Behöver jag verkligen IPaint när jag har IExecute??
--	Flytta CalendarNavigation och CalendarData till MenuNavigation & MenuExecution.
--	List<Guest> Guests i min Room Model?
 -	Det går att önska 200 sängar.
 -	Update room måste jag fixa UX
--	Se över using(-blocken nu när jag tagit bort dem och kör dbContext som parameter)
 -	Krav på dubbel?
 -	Spectre på alla Show/Display metoder. Exempelvis Reservations.
 -	Meny på show reservations för att välja mellan aktiva och inaktiva bokningar.
 
 -	Åldersgränser för bokning?
 -	Ta bort rum som har aktiv bokning?
+-	Metod som hämtar Guest Id's
 
--	Seed av rum funkar inte.
 
 ### CLEANUP
 -	Felhantering.

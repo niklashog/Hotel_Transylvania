@@ -14,7 +14,7 @@ namespace Hotel_Transylvania.Menus.Rooms
         {
             Console.Clear();
             DisplayLogo.Paint();
-            var dbContext = ApplicationDbContext.GetDbContext();
+            using var dbContext = ApplicationDbContext.GetDbContext();
 
             var xcoord = 45;
             var ycoord = 8;

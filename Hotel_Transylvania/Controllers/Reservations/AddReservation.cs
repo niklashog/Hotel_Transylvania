@@ -25,15 +25,15 @@ namespace Hotel_Transylvania.Controllers.Reservations
             Console.Clear();
             DisplayLogo.Paint();
 
-            var dbContext = ApplicationDbContext.GetDbContext();
+            using var dbContext = ApplicationDbContext.GetDbContext();
 
             var xcoord = 45;
             var ycoord = 8;
-            guestService.DisplayActiveGuests(xcoord, ycoord, dbContext);
+            guestService.DisplayActiveGuests(dbContext);
 
             Console.CursorVisible = true;
             Console.SetCursorPosition(2, 8);
-            Console.WriteLine("Make reservation by Guest ID..");
+            Console.WriteLine("Make reservation by Guest Id..");
             Console.SetCursorPosition(2, 9);
             Console.Write("Guest ID: ");
             var guestIdToBook = Convert.ToInt32(Console.ReadLine());

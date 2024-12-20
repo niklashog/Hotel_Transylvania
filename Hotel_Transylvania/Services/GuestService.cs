@@ -3,6 +3,7 @@ using Hotel_Transylvania.Interfaces.MenuInterfaces.GuestsInterfaces;
 using Hotel_Transylvania.Interfaces.ServicesInterfaces;
 using Hotel_Transylvania.Models;
 using Microsoft.EntityFrameworkCore;
+using Spectre.Console;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -23,47 +24,86 @@ namespace Hotel_Transylvania.Services
         {
                 return dbContext.Guests;
         }
-        public void DisplayActiveGuests(int x, int y, ApplicationDbContext dbContext)
+        public void DisplayActiveGuests(ApplicationDbContext dbContext)
         {
-                var activeGuests = dbContext.Guests
+            var activeGuests = dbContext.Guests
                 .Where(g => g.IsGuestActive)
+                .Include(g => g.Reservations)
                 .ToList();
 
-                activeGuests
-                    .ForEach(g =>
-                    {
-                        var reservation = g.Reservations.FirstOrDefault();
+            if (activeGuests.Count == 0)
+            {
+                Console.WriteLine("There are no active guests in the system.");
+                Console.WriteLine("Press 'Enter' to go back.");
+            }
+            else
+            {
+                var table = new Table();
+                table.Border = TableBorder.Simple;
 
-                        Console.SetCursorPosition(x, y++);
-                        if (reservation != null)
-                            Console.WriteLine($"* Guest ID: {g.Id}, Name: {g.FirstName} {g.Surname}");
-                        else
-                            Console.WriteLine($"Guest ID: {g.Id}, Name: {g.FirstName} {g.Surname}");
-                    });
+                table.AddColumn("Guest Id");
+                table.AddColumn("Name");
+                table.AddColumn("Phone");
+                table.AddColumn("E-mail");
+                table.AddColumn("Active Reservation");
 
-                Console.ForegroundColor = ConsoleColor.DarkGray;
-                Console.SetCursorPosition(x, y);
-                Console.WriteLine("\n\n* Guest has active reservation");
-                Console.ForegroundColor = ConsoleColor.White;
-        }
-        public void GetInctiveGuests(int x, int y, ApplicationDbContext dbContext)
-        {
-                var inactiveGuests = dbContext.Guests
-            .Where(g => g.IsGuestActive == false)
-            .ToList();
-
-                inactiveGuests
-                .ForEach(g =>
+                foreach (var guest in activeGuests)
                 {
-                    Console.SetCursorPosition(x, y++);
-                    Console.WriteLine($"Guest ID: {g.Id}, Name: {g.FirstName} {g.Surname}");
-                });
+                    var hasActiveReservation = guest.Reservations.Any(r => r.IsReservationActive);
+
+                    table.AddRow(
+                        guest.Id.ToString(),
+                        $"{guest.FirstName} {guest.Surname}",
+                        $"{guest.Phone}",
+                        $"{guest.Email}",
+                        hasActiveReservation ? "*" : ""
+                    );
+                }
+
+                AnsiConsole.MarkupLine("[yellow]Active Guests[/]");
+                AnsiConsole.Write(table);
+            }
+        }
+        public void DisplayInactiveGuests(ApplicationDbContext dbContext)
+        {
+            var inactiveGuests = dbContext.Guests
+                            .Where(g => g.IsGuestActive == false)
+                            .ToList();
+            if (inactiveGuests.Count == 0)
+            {
+                Console.WriteLine("There are no inactive guests in the system.");
+                Console.WriteLine("Press 'Enter' to go back.");
+            }
+            else
+            {
+                var table = new Table();
+                table.Border = TableBorder.Simple;
+
+                table.AddColumn("Guest Id");
+                table.AddColumn("Name");
+                table.AddColumn("Phone");
+                table.AddColumn("E-mail");
+
+                foreach (var guest in inactiveGuests)
+                {
+                    table.AddRow(
+                        guest.Id.ToString(),
+                        $"{guest.FirstName} {guest.Surname}",
+                        $"{guest.Phone}",
+                        $"{guest.Email}"
+                    );
+                }
+
+                AnsiConsole.MarkupLine("[yellow]Inactive Guests[/]");
+                AnsiConsole.Write(table);
+            }
         }
         public void PrintGuestDetails(int guestId, int x, int y, ApplicationDbContext dbContext)
         {
                 var selectedGuest = dbContext.Guests
-            .First(g => g.Id == guestId);
-                var selectedGuestReservations = selectedGuest.Reservations.ToList();
+                  .First(g => g.Id == guestId);
+
+                var selectedGuestReservations = selectedGuest.Reservations.ToList(); 
 
                 string activeOrInactive;
                 if (selectedGuest.IsGuestActive)
@@ -124,24 +164,39 @@ namespace Hotel_Transylvania.Services
                     if (guest.Reservations.Count < 1)
                     {
                         guest.IsGuestActive = false;
-                        Console.WriteLine("Guest deleted. Press 'Enter' to continue.");
+                        dbContext.SaveChanges();
+                    Console.WriteLine("Guest deleted. Press 'Enter' to continue.");
                         Console.ReadKey();
                     }
                     else
                     {
-                        Console.WriteLine("Active reservation found. Try again when");
-                        Console.WriteLine("reservations have been removed. ");
+                        Console.WriteLine("Cannot delete a customer with an active\t" +
+                            "reservation. Remove reservation first and try again.");
                         Console.ReadKey();
                     }
                 }
-                dbContext.SaveChanges();
+                
         }
         public void ReActivateGuest(int guestToReactivate, ApplicationDbContext dbContext)
         {
-                dbContext.Guests
-                .First(g => g.Id == guestToReactivate)
-                .IsGuestActive = true;
+            var guest = dbContext.Guests
+                .First(g => g.Id == guestToReactivate);
+
+            if (guest == null)
+            {
+                Console.WriteLine("No guest found with that Id. Press 'Enter' to continue.");
+                Console.ReadKey();
+            }
+            else
+            {
+                guest.IsGuestActive = true;
                 dbContext.SaveChanges();
+
+                Console.WriteLine("Guest reactivated. Press 'Enter' to continue.");
+                Console.ReadKey();
+            }
+
+
         }
     }
 }

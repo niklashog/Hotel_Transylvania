@@ -12,7 +12,7 @@ namespace Hotel_Transylvania.Display
     {
         public void ExecuteXY(int x, int y)
         {
-            var dbContext = ApplicationDbContext.GetDbContext();
+            using var dbContext = ApplicationDbContext.GetDbContext();
 
             var inactiveGuests = guestService.GetAllGuests(dbContext)
             .Where(g => g.IsGuestActive == false)

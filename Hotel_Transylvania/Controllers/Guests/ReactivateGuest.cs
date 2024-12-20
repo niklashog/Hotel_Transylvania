@@ -18,7 +18,7 @@ namespace Hotel_Transylvania.Menus.Guests
             Console.Clear();
             DisplayLogo.Paint();
 
-            var dbContext = ApplicationDbContext.GetDbContext();
+            using var dbContext = ApplicationDbContext.GetDbContext();
 
 
             if (guestService.GetAllGuests(dbContext)
@@ -26,21 +26,25 @@ namespace Hotel_Transylvania.Menus.Guests
                 .ToList()
                 .Count >= 1)
             {
-                var xcoord = 45;
-                var ycoord = 9;
-                guestService.GetInctiveGuests(xcoord, ycoord, dbContext);
+
+                guestService.DisplayInactiveGuests(dbContext);
 
                 Console.CursorVisible = true;
-                Console.SetCursorPosition(0, 9);
+                Console.SetCursorPosition(0, 7);
                 Console.WriteLine("Make choice by Guest ID..");
                 Console.Write("Guest to reactivate: ");
                 var guestToReactivate = int.Parse(Console.ReadLine());
                 Console.CursorVisible = false;
-                Console.Write("\nPress 'Enter' to save..");
 
+                Console.SetCursorPosition(0, 7);
+                Console.WriteLine($"\nPress 'Enter' to deactivate guest #{guestToReactivate}..");
+                Console.Write(new string(' ', Console.WindowWidth));
                 Console.ReadKey();
-                guestService.ReActivateGuest(guestToReactivate, dbContext);
 
+                Console.SetCursorPosition(0, 7);
+                Console.Write(new string(' ', Console.WindowWidth));
+                Console.Write(new string(' ', Console.WindowWidth));
+                guestService.ReActivateGuest(guestToReactivate, dbContext);
             }
             else
             {

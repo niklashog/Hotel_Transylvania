@@ -16,7 +16,7 @@ namespace Hotel_Transylvania.Menus.Rooms
             DisplayLogo.Paint();
 
             var roomService = MainFactory.Resolve<IRoomService>();
-            var dbContext = ApplicationDbContext.GetDbContext();
+            using var dbContext = ApplicationDbContext.GetDbContext();
 
 
             if (roomService.GetAllRooms(dbContext)

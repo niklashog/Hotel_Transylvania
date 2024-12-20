@@ -15,11 +15,11 @@ namespace Hotel_Transylvania.Menus.Guests
             Console.Clear();
             DisplayLogo.Paint();
 
-            var dbContext = ApplicationDbContext.GetDbContext();
+            using var dbContext = ApplicationDbContext.GetDbContext();
 
             var xcoord = 45;
             var ycoord = 8;
-            guestService.DisplayActiveGuests(xcoord, ycoord, dbContext);
+            guestService.DisplayActiveGuests(dbContext);
 
             Console.CursorVisible = true;
             Console.SetCursorPosition(2, 8);
