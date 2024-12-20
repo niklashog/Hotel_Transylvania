@@ -2,7 +2,10 @@
 
 namespace Hotel_Transylvania.Interfaces.MenuInterfaces.ReservationsInterfaces
 {
-    public interface IUpdateReservation : IExecute
+    public interface IUpdateReservation
     {
+        public void changeRoomNumber();
+        public void changeDates();
+        public void updateAdditionalBedding();
     }
 }

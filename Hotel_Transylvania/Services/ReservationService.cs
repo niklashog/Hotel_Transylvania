@@ -36,9 +36,20 @@ namespace Hotel_Transylvania.Services
 
             return availableRooms;
         }
+        public void ClearLinesAboveReservationInfo()
+        {
+            Console.SetCursorPosition(0, 7);
+            Console.Write(new string(' ', Console.WindowWidth));
+            Console.Write(new string(' ', Console.WindowWidth));
+        }
+        public void SetCorrectRowAboveReservationInfo()
+        {
+            Console.SetCursorPosition(0, 7);
+        }
 
-
-        public void AddReservation(int guestId, DateTime checkinDate, DateTime checkoutDate, int roomNumber, ApplicationDbContext dbContext)
+        public void AddReservation(int guestId, 
+            DateTime checkinDate, DateTime checkoutDate, 
+            int roomNumber, ApplicationDbContext dbContext)
         {
             if (!GetAvailableRooms(checkinDate, checkoutDate, dbContext)
                 .Any(r => r.RoomNumber == roomNumber))
@@ -47,8 +58,10 @@ namespace Hotel_Transylvania.Services
             }
             else
             {
-                var guest = dbContext.Guests.FirstOrDefault(g => g.Id == guestId);
-                var room = dbContext.Rooms.FirstOrDefault(r => r.RoomNumber == roomNumber);
+                var guest = dbContext.Guests
+                    .FirstOrDefault(g => g.Id == guestId);
+                var room = dbContext.Rooms
+                    .FirstOrDefault(r => r.RoomNumber == roomNumber);
 
                 if (guest == null || room == null)
                 {
@@ -109,7 +122,6 @@ namespace Hotel_Transylvania.Services
                     );
                 }
             }
-
             AnsiConsole.MarkupLine("[yellow]Active Reservations[/]");
             AnsiConsole.Write(table);
         }
@@ -147,11 +159,13 @@ namespace Hotel_Transylvania.Services
             AnsiConsole.Write(table);
         }
 
-        public void ShowReservationDetails(Reservation reservationToChange, ApplicationDbContext dbContext)
+        public void ShowReservationDetails(Reservation reservationToChange, 
+            ApplicationDbContext dbContext)
         {
             var reservationMatch = dbContext.Reservations
                 .Where(r => r.Id == reservationToChange.Id)
                 .Include(r => r.Guests)
+                .Include(r => r.Rooms)
                 .ToList();
             
             var table = new Table();
@@ -163,34 +177,46 @@ namespace Hotel_Transylvania.Services
             table.AddColumn("Check-in");
             table.AddColumn("Check-out");
             table.AddColumn("Reservation Date");
-            table.AddColumn("Extra Beds");
+            table.AddColumn("Selected Extra Beds");
+            table.AddColumn("Max Extra Beds");
 
             foreach (var reservation in reservationMatch)
             {
-                foreach (var guest in reservation.Guests)
+                foreach (var room in reservation.Rooms)
                 {
-                    table.AddRow(
-                        reservation.Id.ToString(),
-                        $"{guest.FirstName} {guest.Surname}",
-                        reservation.RoomNumber.ToString(),
-                        reservation.CheckinDate.ToString("yyyy-MM-dd"),
-                        reservation.CheckoutDate.ToString("yyyy-MM-dd"),
-                        reservation.TimeOfReservation.ToString("yyyy-MM-dd"),
-                        reservation.NumberOfAdditionalBeds.ToString()
- 
-                    );
+                    foreach (var guest in reservation.Guests)
+                    {
+                        table.AddRow(
+                            reservation.Id.ToString(),
+                            $"{guest.FirstName} {guest.Surname}",
+                            reservation.RoomNumber.ToString(),
+                            reservation.CheckinDate.ToString("yyyy-MM-dd"),
+                            reservation.CheckoutDate.ToString("yyyy-MM-dd"),
+                            reservation.TimeOfReservation.ToString("yyyy-MM-dd"),
+                            reservation.NumberOfAdditionalBeds.ToString(),
+                            room.AdditionalBeddingNumber.ToString()
+                        );
+                    }
                 }
+
             }
             AnsiConsole.MarkupLine("[yellow]Reservation Details[/]");
             AnsiConsole.Write(table);
-            Console.ReadKey();
         }
 
-        public void UpdateReservation(Guest guest, ApplicationDbContext dbContext)
+        public void UpdateReservationDetails(Reservation reservation, 
+            int roomNumber, DateTime checkinDate, DateTime checkoutDate,
+            int extraBeds, ApplicationDbContext dbContext)
         {
-            Console.WriteLine("I update reservations");
+            reservation.RoomNumber = roomNumber;
+            reservation.CheckinDate = checkinDate;
+            reservation.CheckoutDate = checkoutDate;
+            reservation.NumberOfAdditionalBeds = extraBeds;
+
+            dbContext.SaveChanges();
         }
-        public void RemoveReservation(int reservationToRemove, ApplicationDbContext dbContext)
+        public void RemoveReservation(int reservationToRemove, 
+            ApplicationDbContext dbContext)
         {
             var guestsWithReservation = dbContext.Guests
                 .Where(g => g.Reservations.Count > 0)
@@ -207,6 +233,23 @@ namespace Hotel_Transylvania.Services
                         r.IsReservationActive = false;
                     });
                 });
+            dbContext.SaveChanges();
+        }
+        public Reservation GetReservation(int findReservationById, 
+            ApplicationDbContext dbContext)
+        {
+            var reservation = dbContext.Reservations
+            .First(g => g.Id == findReservationById);
+
+            return reservation;
+        }
+        public void UpdateNumberOfAdditionalBeds(int reservationId, int numberOfBeds, ApplicationDbContext dbContext)
+        {
+            var reservationToUpdate = dbContext.Reservations
+                .First(r => r.Id == reservationId);
+
+            reservationToUpdate.NumberOfAdditionalBeds = numberOfBeds;
+
             dbContext.SaveChanges();
         }
     }

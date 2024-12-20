@@ -24,6 +24,7 @@ namespace Hotel_Transylvania.Factories
             builder.RegisterType<Reservation>().AsSelf();
 
             builder.RegisterType<ReservationsMenu>().As<IReservationsMenu>();
+            builder.RegisterType<UpdateReservationMenu>().As<IUpdateReservationMenu>();
             builder.RegisterType<AddReservation>().As<IAddReservation>();
             builder.RegisterType<DeactivateReservation>().As<IDeactivateReservation>();
             builder.RegisterType<UpdateReservation>().As<IUpdateReservation>();
@@ -31,6 +32,9 @@ namespace Hotel_Transylvania.Factories
 
             builder.RegisterType<NavigateReservationsMenu>().As<INavigateReservationsMenu>();
             builder.RegisterType<ExecuteReservationsMenu>().As<IExecuteReservationsMenu>();
+
+            builder.RegisterType<NavigateUpdateReservationMenu>().As<INavigateUpdateReservationMenu>();
+            builder.RegisterType<ExecuteUpdateReservationMenu>().As<IExecuteUpdateReservationMenu>();
 
             builder.RegisterType<ReservationService>().As<IReservationService>();
 

@@ -1,35 +1,30 @@
-﻿using Hotel_Transylvania.Interfaces.ControllerInterfaces.ReservationsInterfaces;
-using Hotel_Transylvania.Interfaces.MenuInterfaces;
+﻿using Hotel_Transylvania.Interfaces.MenuInterfaces;
 using Hotel_Transylvania.Interfaces.MenuInterfaces.MenuExecutionInterfaces;
 using Hotel_Transylvania.Interfaces.MenuInterfaces.ReservationsInterfaces;
+using System;
+
+
 
 namespace Hotel_Transylvania.Menus.MenuExecution
 {
-    public class ExecuteReservationsMenu(
-    IAddReservation addReservation,
-    IUpdateReservation changeReservation,
-    IUpdateReservationMenu updateReservation,
-    IDeactivateReservation cancelReservation,
-    IShowReservations showReservations,
-    IMainMenu mainMenu) : IExecuteReservationsMenu
+    public class ExecuteUpdateReservationMenu(
+        IMainMenu mainMenu,
+        IUpdateReservation updateReservation) : IExecuteUpdateReservationMenu
     {
         public void Execute(int index)
         {
             switch (index)
             {
                 case 0:
-                    addReservation.Execute();
+                    updateReservation.changeRoomNumber();
                     break;
                 case 1:
-                    updateReservation.Execute();
+                    updateReservation.changeDates();
                     break;
                 case 2:
-                    showReservations.Execute();
+                    updateReservation.updateAdditionalBedding();
                     break;
                 case 3:
-                    cancelReservation.Execute();
-                    break;
-                case 4:
                     mainMenu.Execute();
                     break;
                 default:
