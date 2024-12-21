@@ -252,5 +252,17 @@ namespace Hotel_Transylvania.Services
 
             dbContext.SaveChanges();
         }
+        public void DeactivateReservationsByCheckoutDate(ApplicationDbContext dbContext)
+        {
+            var reservationsToDeactivate = dbContext.Reservations
+                .Where(r => r.IsReservationActive && r.CheckoutDate.Date <= DateTime.Today)
+                .ToList();
+
+            foreach (var reservation in reservationsToDeactivate)
+            {
+                reservation.IsReservationActive = false;
+            }
+            dbContext.SaveChanges();
+        }
     }
 }

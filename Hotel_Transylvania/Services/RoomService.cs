@@ -145,7 +145,7 @@ namespace Hotel_Transylvania.Services
                 }
                 else
                 {
-                    Console.WriteLine("No room found with that ID.");
+                    Console.WriteLine("No room found with that Id.");
                 }
         }
         public void ReActivateRoom(int roomToReactivate, ApplicationDbContext dbContext)
@@ -159,8 +159,9 @@ namespace Hotel_Transylvania.Services
                 }
                 else
                 {
-                    Console.WriteLine("No room found with that ID.");
+                    Console.WriteLine("No room found with that Id.");
                 }
         }
+
     }
 }

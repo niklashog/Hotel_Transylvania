@@ -84,25 +84,35 @@ namespace Hotel_Transylvania.Data
                     Reservations = new List<Reservation>
                     {
                         new Reservation
-                {
-                    RoomNumber = 101,
-                    GuestId = 1,
-                    NumberOfAdditionalBeds = 0,
-                    CheckinDate = DateTime.Now,
-                    CheckoutDate = DateTime.Now.Date.AddDays(+2),
-                    TimeOfReservation = DateTime.Now.Date.AddDays(-30),
-                    IsReservationActive = true
-                },
-                new Reservation
-                {
-                    RoomNumber = 101,
-                    GuestId = 1,
-                    NumberOfAdditionalBeds = 0,
-                    CheckinDate = DateTime.Now.Date.AddDays(+21),
-                    CheckoutDate = DateTime.Now.Date.AddDays(+23),
-                    TimeOfReservation = DateTime.Now.Date.AddDays(-14),
-                    IsReservationActive = true
-                }
+                        {
+                            RoomNumber = 101,
+                            GuestId = 1,
+                            NumberOfAdditionalBeds = 0,
+                            CheckinDate = DateTime.Now,
+                            CheckoutDate = DateTime.Now.Date.AddDays(+2),
+                            TimeOfReservation = DateTime.Now.Date.AddDays(-30),
+                            IsReservationActive = true
+                        },
+                        new Reservation
+                        {
+                            RoomNumber = 101,
+                            GuestId = 1,
+                            NumberOfAdditionalBeds = 0,
+                            CheckinDate = DateTime.Now.Date.AddDays(+21),
+                            CheckoutDate = DateTime.Now.Date.AddDays(+23),
+                            TimeOfReservation = DateTime.Now.Date.AddDays(-14),
+                            IsReservationActive = true
+                        },
+                        new Reservation
+                        {
+                            RoomNumber = 103,
+                            GuestId = 1,
+                            NumberOfAdditionalBeds = 0,
+                            CheckinDate = DateTime.Now.Date.AddDays(-2),
+                            CheckoutDate = DateTime.Today.Date,
+                            TimeOfReservation = DateTime.Now.Date.AddDays(-14),
+                            IsReservationActive = true
+                        }
                     }
                 });
 

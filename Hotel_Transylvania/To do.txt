@@ -17,6 +17,8 @@
 
 -	En data validator som validerar datum, ålder, osv?
 
+[•]	Metod i MainMenu som uppdaterar bokningar med CheckOut-Date <= dagens datum till inactive.
+
 ### CLEANUP
 -	Felhantering.
 -	Ändra så increment inte är automatisk på Room Number.
@@ -76,8 +78,12 @@ Redovisning: Totalt finns det 5 saker som ska lämnas in:
 
 
 ### LOG
+2024-12-21 
+-	Glömde denna när tempot gick upp och fler timmar lades varje dag.
+	Lägger ner Loggen för detta projekt.
 
-2024-12-16 Denna är rätt.
+2024-12-16 
+- Denna version är rätt.
 
 2024.12.13
 -	Skriver klar all CRUD för Rooms.

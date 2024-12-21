@@ -33,6 +33,8 @@ namespace Hotel_Transylvania.Interfaces.ServicesInterfaces
             ApplicationDbContext dbContext);
         public void UpdateNumberOfAdditionalBeds(int reservationId, int numberOfBeds, 
             ApplicationDbContext dbContext);
+        public void DeactivateReservationsByCheckoutDate(
+            ApplicationDbContext dbContext);
 
     }
 }
