@@ -104,15 +104,33 @@ namespace Hotel_Transylvania.Menus.Reservations
 
                 reservationService.SetCorrectRowAboveReservationInfo();
 
-                Console.WriteLine($"\nPress 'Enter' to update reservation #{reservationIdInput}..");
+                Console.WriteLine($"\nPress 'Enter' to chose new room for reservation #{reservationIdInput}..");
                 Console.Write(new string(' ', Console.WindowWidth));
                 Console.ReadKey();
 
-                reservationService.ClearLinesAboveReservationInfo();
-                reservationService.SetCorrectRowAboveReservationInfo();
 
-                Console.SetCursorPosition(0, 7);
+                
                 var reservationToUpdate = reservationService.GetReservation(reservationIdInput, dbContext);
+                var reservationToUpdateId = reservationToUpdate.Id;
+                var checkInDate = reservationToUpdate.CheckinDate;
+                var checkOutDate = reservationToUpdate.CheckoutDate;
+
+
+                var availableRooms = reservationService.GetAvailableRooms(checkInDate, checkOutDate, dbContext)
+                .ToList();
+                Console.WriteLine("Available Rooms");
+                foreach (var room in availableRooms)
+                {
+                    Console.WriteLine($"#{room.RoomNumber}, {room.RoomType}, {room.RoomSize}m²");
+                }
+
+                Console.WriteLine("Enter new room number: ");
+                var roomNumber = int.Parse(Console.ReadLine());
+
+
+                reservationService.UpdateReservedRoom(reservationToUpdateId, roomNumber, dbContext);
+                Console.WriteLine("Room updated. Press 'Enter' to continue.");
+
             }
 
 

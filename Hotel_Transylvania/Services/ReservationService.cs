@@ -252,6 +252,16 @@ namespace Hotel_Transylvania.Services
 
             dbContext.SaveChanges();
         }
+        public void UpdateReservedRoom(int reservationId, int roomNumber, ApplicationDbContext dbContext)
+        {
+            var reservationToUpdate = dbContext.Reservations
+                .First(r => r.Id == reservationId);
+
+            reservationToUpdate.RoomNumber = roomNumber;
+
+            dbContext.SaveChanges();
+        }
+
         public void DeactivateReservationsByCheckoutDate(ApplicationDbContext dbContext)
         {
             var reservationsToDeactivate = dbContext.Reservations
