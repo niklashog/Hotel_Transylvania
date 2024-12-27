@@ -9,7 +9,7 @@
 -	Behöver jag verkligen IPaint när jag har IExecute??
 -	Det går att önska 200 sängar.
 -	Update room måste jag fixa UX
--	Krav på dubbel?
+-	Krav på dubbelrum för extrasäng måste in igen.
 -	Spectre på alla Show/Display metoder. Exempelvis Reservations.
 -	Meny på show reservations för att välja mellan aktiva och inaktiva bokningar.
 
@@ -47,6 +47,9 @@ FELHANTERING / SPECTRE
 	[ ] Reactivate
 	[ ] Register 
 	[ ] Update
+
+	-	Krav på dubbelrum för extrasäng måste in igen.
+
 - Reservation
 	[•] Add
 	[•] Deactivate
