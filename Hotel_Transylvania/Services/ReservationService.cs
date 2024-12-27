@@ -116,6 +116,7 @@ namespace Hotel_Transylvania.Services
                     table.AddRow(
                         $"{guest.Id} {guest.FirstName} {guest.Surname}",
                         reservation.RoomNumber.ToString(),
+
                         reservation.CheckinDate.ToString("yyyy-MM-dd"),
                         reservation.CheckoutDate.ToString("yyyy-MM-dd"),
                         reservation.Id.ToString()
@@ -176,9 +177,8 @@ namespace Hotel_Transylvania.Services
             table.AddColumn("Room");
             table.AddColumn("Check-in");
             table.AddColumn("Check-out");
-            table.AddColumn("Reservation Date");
-            table.AddColumn("Selected Extra Beds");
-            table.AddColumn("Max Extra Beds");
+            table.AddColumn("Time of Reservation");
+            table.AddColumn("Additional bedding");
 
             foreach (var reservation in reservationMatch)
             {
@@ -193,8 +193,7 @@ namespace Hotel_Transylvania.Services
                             reservation.CheckinDate.ToString("yyyy-MM-dd"),
                             reservation.CheckoutDate.ToString("yyyy-MM-dd"),
                             reservation.TimeOfReservation.ToString("yyyy-MM-dd"),
-                            reservation.NumberOfAdditionalBeds.ToString(),
-                            room.AdditionalBeddingNumber.ToString()
+                            $"{reservation.NumberOfAdditionalBeds.ToString()} / {room.AdditionalBeddingNumber.ToString()}"
                         );
                     }
                 }
@@ -243,7 +242,8 @@ namespace Hotel_Transylvania.Services
 
             return reservation;
         }
-        public void UpdateNumberOfAdditionalBeds(int reservationId, int numberOfBeds, ApplicationDbContext dbContext)
+        public void UpdateNumberOfAdditionalBeds(int reservationId, int numberOfBeds, 
+            ApplicationDbContext dbContext)
         {
             var reservationToUpdate = dbContext.Reservations
                 .First(r => r.Id == reservationId);
@@ -252,14 +252,39 @@ namespace Hotel_Transylvania.Services
 
             dbContext.SaveChanges();
         }
-        public void UpdateReservedRoom(int reservationId, int roomNumber, ApplicationDbContext dbContext)
+        public void UpdateReservedRoom(int reservationId, int roomNumber, 
+            ApplicationDbContext dbContext)
         {
             var reservationToUpdate = dbContext.Reservations
+                .Where(r => r.IsReservationActive)
                 .First(r => r.Id == reservationId);
-
-            reservationToUpdate.RoomNumber = roomNumber;
-
-            dbContext.SaveChanges();
+            if (reservationToUpdate.IsReservationActive == false)
+            {
+                Console.WriteLine("No active reservation with that number.");
+            }
+            else
+            {
+                reservationToUpdate.RoomNumber = roomNumber;
+                dbContext.SaveChanges();
+            }
+        }
+        public void UpdateReservationDates(int reservationId, 
+            DateTime newCheckinDate, DateTime newCheckoutDate, 
+            ApplicationDbContext dbContext)
+        {
+            var reservationToUpdate = dbContext.Reservations
+                .Where(r => r.IsReservationActive)
+                .First(r => r.Id == reservationId);
+            if (reservationToUpdate.IsReservationActive == false)
+            {
+                Console.WriteLine("No active reservation with that number.");
+            }
+            else
+            {
+                reservationToUpdate.CheckinDate = newCheckinDate;
+                reservationToUpdate.CheckinDate = newCheckoutDate;
+                dbContext.SaveChanges();
+            }
         }
 
         public void DeactivateReservationsByCheckoutDate(ApplicationDbContext dbContext)

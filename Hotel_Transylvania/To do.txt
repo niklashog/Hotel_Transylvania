@@ -3,6 +3,8 @@
 
 -	När jag uppmanar att klicka Enter för att spara så vill jag även ge alternativet att
 	klicka backspace för att "backa utan att spara".
+-	Kan max lägga till en extra säng på rum som ska klara 2.
+-	Kan jag byta till ett rum som bara klarar en extra säng om jag behöver 2?
 
 -	Behöver jag verkligen IPaint när jag har IExecute??
 -	Det går att önska 200 sängar.
@@ -14,6 +16,8 @@
 -	Åldersgränser för bokning?
 -	Ta bort rum som har aktiv bokning?
 -	Metod som hämtar Guest Id's
+-	Update på Reservation Dates uppdaterar inte CheckOutDate.
+-	RoomNumber i Room och i Reservation..
 
 -	En data validator som validerar datum, ålder, osv?
 

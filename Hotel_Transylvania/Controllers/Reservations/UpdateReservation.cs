@@ -71,7 +71,7 @@ namespace Hotel_Transylvania.Menus.Reservations
             //    Console.Write($"Room number: ");
             //    var roomNumber = int.Parse(Console.ReadLine());
         }
-        public void changeRoomNumber()
+        public void ChangeRoomNumber()
         {
             Console.Clear();
             DisplayLogo.Paint();
@@ -108,36 +108,41 @@ namespace Hotel_Transylvania.Menus.Reservations
                 Console.Write(new string(' ', Console.WindowWidth));
                 Console.ReadKey();
 
-
                 
                 var reservationToUpdate = reservationService.GetReservation(reservationIdInput, dbContext);
                 var reservationToUpdateId = reservationToUpdate.Id;
                 var checkInDate = reservationToUpdate.CheckinDate;
                 var checkOutDate = reservationToUpdate.CheckoutDate;
 
+                Console.Clear();
+                DisplayLogo.Paint();
+                reservationService.ShowReservationDetails(reservationToUpdate, dbContext);
+
 
                 var availableRooms = reservationService.GetAvailableRooms(checkInDate, checkOutDate, dbContext)
                 .ToList();
+
                 Console.WriteLine("Available Rooms");
                 foreach (var room in availableRooms)
                 {
                     Console.WriteLine($"#{room.RoomNumber}, {room.RoomType}, {room.RoomSize}m²");
                 }
 
+                reservationService.ClearLinesAboveReservationInfo();
+                reservationService.SetCorrectRowAboveReservationInfo();
                 Console.WriteLine("Enter new room number: ");
                 var roomNumber = int.Parse(Console.ReadLine());
 
 
                 reservationService.UpdateReservedRoom(reservationToUpdateId, roomNumber, dbContext);
                 Console.WriteLine("Room updated. Press 'Enter' to continue.");
-
             }
 
 
 
 
         }
-        public void changeDates()
+        public void ChangeDates()
         {
             Console.Clear();
             DisplayLogo.Paint();
@@ -170,18 +175,30 @@ namespace Hotel_Transylvania.Menus.Reservations
 
                 reservationService.SetCorrectRowAboveReservationInfo();
 
-                Console.WriteLine($"\nPress 'Enter' to update reservation #{reservationIdInput}..");
+                Console.WriteLine($"\nPress 'Enter' to change dates of reservation #{reservationIdInput}..");
                 Console.Write(new string(' ', Console.WindowWidth));
                 Console.ReadKey();
 
-                reservationService.ClearLinesAboveReservationInfo();
-                reservationService.SetCorrectRowAboveReservationInfo();
-
-                Console.SetCursorPosition(0, 7);
+                //// Härifrån har jag klistrat in koden för Change Room.
+                /// Fixa så att nuvarande bokning inte blockerar möjligheten att bara lägga
+                /// till en extra dag tex.
                 var reservationToUpdate = reservationService.GetReservation(reservationIdInput, dbContext);
+                var reservationToUpdateId = reservationToUpdate.Id;
+                var currentDate = DateTime.Now.Date;
+
+                var currentCheckInDate = reservationToUpdate.CheckinDate;
+                var currentCheckOutDate = reservationToUpdate.CheckoutDate;
+
+                var newCheckInDate = calendar.CalendarNavigate("CheckIn─Date", currentDate);
+                var newCheckOutDate = calendar.CalendarNavigate("CheckOut─Date", newCheckInDate);
+
+                Console.Clear();
+                DisplayLogo.Paint();
+
+                reservationService.UpdateReservationDates(reservationToUpdateId, newCheckInDate, newCheckOutDate, dbContext);
             }
         }
-        public void updateAdditionalBedding()
+        public void UpdateAdditionalBedding()
         {
             Console.Clear();
             DisplayLogo.Paint();

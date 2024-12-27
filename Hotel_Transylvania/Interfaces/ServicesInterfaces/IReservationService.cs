@@ -35,6 +35,9 @@ namespace Hotel_Transylvania.Interfaces.ServicesInterfaces
             ApplicationDbContext dbContext);
         public void UpdateReservedRoom(int reservationId, int roomNumber, 
             ApplicationDbContext dbContext);
+        public void UpdateReservationDates(int reservationId, 
+            DateTime newCheckinDate, DateTime newCheckoutDate,
+            ApplicationDbContext dbContext);
         public void DeactivateReservationsByCheckoutDate(
             ApplicationDbContext dbContext);
 

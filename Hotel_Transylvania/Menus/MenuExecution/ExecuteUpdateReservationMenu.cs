@@ -16,13 +16,13 @@ namespace Hotel_Transylvania.Menus.MenuExecution
             switch (index)
             {
                 case 0:
-                    updateReservation.changeRoomNumber();
+                    updateReservation.ChangeRoomNumber();
                     break;
                 case 1:
-                    updateReservation.changeDates();
+                    updateReservation.ChangeDates();
                     break;
                 case 2:
-                    updateReservation.updateAdditionalBedding();
+                    updateReservation.UpdateAdditionalBedding();
                     break;
                 case 3:
                     mainMenu.Execute();

@@ -6,6 +6,7 @@ using System.Threading.Channels;
 using Hotel_Transylvania.Interfaces.ServicesInterfaces;
 using Hotel_Transylvania.Display;
 using Hotel_Transylvania.Interfaces.DisplayInterfaces;
+using Spectre.Console;
 
 namespace Hotel_Transylvania.Menus.Guests
 {
@@ -26,6 +27,7 @@ namespace Hotel_Transylvania.Menus.Guests
                 .Count >= 1)
             {
                 guestService.DisplayActiveGuests(dbContext);
+
 
                 Console.CursorVisible = true;
                 Console.SetCursorPosition(0, 7);
