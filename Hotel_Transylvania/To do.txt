@@ -18,6 +18,8 @@
 -	Metod som hämtar Guest Id's
 -	Update på Reservation Dates uppdaterar inte CheckOutDate.
 -	RoomNumber i Room och i Reservation..
+-	Update guest bara en post istället för hela gästen??
+-	ReservationService. Läs kommentaren.
 
 -	En data validator som validerar datum, ålder, osv?
 
@@ -26,15 +28,30 @@
 ### CLEANUP
 -	Felhantering.
 -	Ändra så increment inte är automatisk på Room Number.
+-	Update Guest ser ut som skit.
 
 
 Console-Command
 add-migration "Initial migration"
 
 
-18/12-24
-Jag har försökt fixa GuestService.  Eventuellt klar?!
-Fortsätt med Room och sedan Reservation.
+FELHANTERING
+- Guest
+	[•] Deactivate
+	[•] Reactivate
+	[•] Register 
+	[•] Update
+- Room
+	[ ] Deactivate
+	[ ] Reactivate
+	[ ] Register 
+	[ ] Update
+- Reservation
+	[ ] Add
+	[ ] Deactivate
+	[ ] Update
+	
+
 
 
 ## KRAV

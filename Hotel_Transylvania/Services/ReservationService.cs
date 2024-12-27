@@ -36,6 +36,46 @@ namespace Hotel_Transylvania.Services
 
             return availableRooms;
         }
+        public void DisplayAvailableRoomsForReservations(DateTime checkinDate, DateTime checkoutDate, ApplicationDbContext dbContext)
+        {
+            var allRooms = dbContext.Rooms.ToList();
+
+            var unavailableRooms = dbContext.Reservations
+                .Where(r => r.CheckinDate < checkoutDate && r.CheckoutDate > checkinDate && r.IsReservationActive)
+                .ToList();
+
+            var reservedRoomNumbers = unavailableRooms
+                .Select(r => r.RoomNumber)
+                .Distinct()
+                .ToList();
+
+            var availableRooms = allRooms
+                .Where(r => !reservedRoomNumbers.Contains(r.RoomNumber))
+                .ToList();
+
+            var table = new Table();
+            table.Border = TableBorder.Simple;
+
+            table.AddColumn("Room Number");
+            table.AddColumn("Room Type");
+            table.AddColumn("Room Size");
+            table.AddColumn("Additional bedding");
+
+            foreach (var room in availableRooms)
+            {
+                table.AddRow(
+                    room.RoomNumber.ToString(),
+                    room.RoomType.ToString(),
+                    $"{room.RoomSize.ToString()}m²",
+                    $"Available: {room.AdditionalBeddingNumber.ToString()}"
+                );
+            }
+
+            AnsiConsole.MarkupLine("[yellow]Available Rooms[/]");
+            AnsiConsole.Write(table);
+        }
+
+
         public void ClearLinesAboveReservationInfo()
         {
             Console.SetCursorPosition(0, 7);
@@ -282,7 +322,7 @@ namespace Hotel_Transylvania.Services
             else
             {
                 reservationToUpdate.CheckinDate = newCheckinDate;
-                reservationToUpdate.CheckinDate = newCheckoutDate;
+                reservationToUpdate.CheckoutDate = newCheckoutDate;
                 dbContext.SaveChanges();
             }
         }
@@ -298,6 +338,22 @@ namespace Hotel_Transylvania.Services
                 reservation.IsReservationActive = false;
             }
             dbContext.SaveChanges();
+        }
+        public string CheckInCalendarPrompt()
+        {
+            return "chose desired check-out date.";
+        }
+        public string CheckOutCalendarPrompt()
+        {
+            return "chose desired room for the stay.";
+        }
+        public string CheckInCalendarHeader()
+        {
+            return "CheckIn─Date";
+        }
+        public string CheckOutCalendarHeader()
+        {
+            return "CheckOut─Date";
         }
     }
 }

@@ -164,16 +164,12 @@ namespace Hotel_Transylvania.Menus.Reservations
                 reservationService.ShowReservations(dbContext);
 
                 Console.CursorVisible = true;
-                reservationService.ClearLinesAboveReservationInfo();
-                reservationService.SetCorrectRowAboveReservationInfo();
                 Console.WriteLine("Input Reservation Id to update..");
                 Console.Write("Reservation Id: ");
 
                 var reservationIdInput = int.Parse(Console.ReadLine());
 
                 Console.CursorVisible = false;
-
-                reservationService.SetCorrectRowAboveReservationInfo();
 
                 Console.WriteLine($"\nPress 'Enter' to change dates of reservation #{reservationIdInput}..");
                 Console.Write(new string(' ', Console.WindowWidth));
@@ -189,8 +185,8 @@ namespace Hotel_Transylvania.Menus.Reservations
                 var currentCheckInDate = reservationToUpdate.CheckinDate;
                 var currentCheckOutDate = reservationToUpdate.CheckoutDate;
 
-                var newCheckInDate = calendar.CalendarNavigate("CheckIn─Date", currentDate);
-                var newCheckOutDate = calendar.CalendarNavigate("CheckOut─Date", newCheckInDate);
+                var newCheckInDate = calendar.CalendarNavigate(reservationService.CheckInCalendarHeader(), currentDate, reservationService.CheckInCalendarPrompt());
+                var newCheckOutDate = calendar.CalendarNavigate(reservationService.CheckOutCalendarHeader(), newCheckInDate, reservationService.CheckOutCalendarPrompt());
 
                 Console.Clear();
                 DisplayLogo.Paint();

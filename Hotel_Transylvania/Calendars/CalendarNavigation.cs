@@ -13,7 +13,7 @@ namespace Hotel_Transylvania.Calendars
     public class CalendarNavigation(
         ICalendarData calendarData) : ICalendarNavigation
     {
-        public DateTime CalendarNavigate(string checkInOrCheckOut, DateTime dateFrom)
+        public DateTime CalendarNavigate(string checkInOrCheckOut, DateTime dateFrom, string prompt)
         {
             var currentDate = dateFrom;
             var selectedDate = new DateTime(currentDate.Year, currentDate.Month, currentDate.Day);
@@ -42,7 +42,7 @@ namespace Hotel_Transylvania.Calendars
                     case ConsoleKey.Enter:
                         if (selectedDate.Date >= currentDate.Date)
                         {
-                            AnsiConsole.MarkupLine($"\nSelected date: [Yellow]{selectedDate:yyyy-MM-dd}[/]");
+                            AnsiConsole.MarkupLine($"\nSelected date: [Yellow]{selectedDate:yyyy-MM-dd}[/]. Press any key to {prompt}.. ");
                             Console.ReadKey();
                             return selectedDate;
                         }

@@ -12,6 +12,8 @@ namespace Hotel_Transylvania.Interfaces.ServicesInterfaces
     {
         public IEnumerable<Room> GetAvailableRooms(DateTime checkinDate, DateTime checkoutDate,
             ApplicationDbContext dbContext);
+        public void DisplayAvailableRoomsForReservations(DateTime checkinDate, DateTime checkoutDate, 
+            ApplicationDbContext dbContext);
         public void ClearLinesAboveReservationInfo();
         public void SetCorrectRowAboveReservationInfo();
         public void AddReservation(int guestId, DateTime checkinDate, DateTime checkoutDate,
@@ -40,6 +42,9 @@ namespace Hotel_Transylvania.Interfaces.ServicesInterfaces
             ApplicationDbContext dbContext);
         public void DeactivateReservationsByCheckoutDate(
             ApplicationDbContext dbContext);
-
+        public string CheckInCalendarPrompt();
+        public string CheckOutCalendarPrompt();
+        public string CheckInCalendarHeader();
+        public string CheckOutCalendarHeader();
     }
 }

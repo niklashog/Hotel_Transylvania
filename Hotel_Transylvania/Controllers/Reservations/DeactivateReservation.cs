@@ -46,9 +46,7 @@ namespace Hotel_Transylvania.Menus.Reservations
             {
                 Console.WriteLine("There are no active guests in the system." +
                     "\nPress any key to go back.");
-                Console.ReadKey();
             }
-
             Console.ReadKey();
         }
     }

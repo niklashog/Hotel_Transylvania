@@ -27,39 +27,33 @@ namespace Hotel_Transylvania.Controllers.Reservations
 
             using var dbContext = ApplicationDbContext.GetDbContext();
 
-            var xcoord = 45;
-            var ycoord = 8;
             guestService.DisplayActiveGuests(dbContext);
 
             Console.CursorVisible = true;
-            Console.SetCursorPosition(2, 8);
             Console.WriteLine("Make reservation by Guest Id..");
-            Console.SetCursorPosition(2, 9);
             Console.Write("Guest ID: ");
             var guestIdToBook = Convert.ToInt32(Console.ReadLine());
-
             Console.CursorVisible = false;
+
             Console.Write($"\nPress any key to chose dates for reservation.");
             Console.ReadKey();
 
             Console.Clear();
             DisplayLogo.Paint();
             var currentDate = DateTime.Now.Date;
-            var checkInDate = calendar.CalendarNavigate("CheckIn─Date", currentDate);
-            var checkOutDate = calendar.CalendarNavigate("CheckOut─Date", checkInDate);
+            var checkInDate = calendar.CalendarNavigate(reservationService.CheckInCalendarHeader(), currentDate, reservationService.CheckInCalendarPrompt());
+            var checkOutDate = calendar.CalendarNavigate(reservationService.CheckOutCalendarHeader(), checkInDate, reservationService.CheckOutCalendarPrompt());
 
-            
-            var availableRooms = reservationService.GetAvailableRooms(checkInDate, checkOutDate, dbContext)
-                .ToList();
-            Console.WriteLine("Available Rooms");
-            foreach (var room in availableRooms)
-            {
-                Console.WriteLine($"#{room.RoomNumber}, {room.RoomType}, {room.RoomSize}m²");
-            }
+            Console.Clear();
+            DisplayLogo.Paint();
 
+            Console.CursorVisible = true;
 
-            Console.WriteLine("Which room do you want stay in?");
+            reservationService.DisplayAvailableRoomsForReservations(checkInDate, checkOutDate, dbContext);
+
+            Console.WriteLine("Chose room for reservation");
             var roomNumberChoice = Convert.ToInt32(Console.ReadLine());
+            Console.CursorVisible = false;
 
             Console.WriteLine(
                 $"Confirm reservation from " +

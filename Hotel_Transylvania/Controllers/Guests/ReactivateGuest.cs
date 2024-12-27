@@ -7,6 +7,7 @@ using Hotel_Transylvania.Interfaces.ServicesInterfaces;
 using Hotel_Transylvania.Display;
 using Hotel_Transylvania.Interfaces.DisplayInterfaces;
 using Hotel_Transylvania.Data;
+using Spectre.Console;
 
 namespace Hotel_Transylvania.Menus.Guests
 {
@@ -26,33 +27,58 @@ namespace Hotel_Transylvania.Menus.Guests
                 .ToList()
                 .Count >= 1)
             {
-
                 guestService.DisplayInactiveGuests(dbContext);
 
+
+                var inactiveGuests = guestService.ListOfInctiveGuests(dbContext);
+                var validGuestIds = inactiveGuests
+                .Select(g => g.Id)
+                .ToList();
+
                 Console.CursorVisible = true;
-                Console.SetCursorPosition(0, 7);
-                Console.WriteLine("Make choice by Guest ID..");
-                Console.Write("Guest to reactivate: ");
-                var guestToReactivate = int.Parse(Console.ReadLine());
+                AnsiConsole.MarkupLine("[bold yellow]Reactivate Guest[/]");
+
+                string guestToReactivate = AnsiConsole.Prompt(
+                    new TextPrompt<string>("Ange [yellow]Guest to reactivate: [/]:")
+                        .ValidationErrorMessage("[red]Please enter an existing Guest Id[/]")
+                        .Validate(input =>
+                        {
+                            if (!int.TryParse(input, out int guestId))
+                            {
+                                return ValidationResult.Error("[red]Guest Id has to be a number[/]");
+                            }
+
+                            if (!validGuestIds.Contains(guestId))
+                            {
+                                return ValidationResult.Error("[red]Guest Id doesn't exist[/]");
+                            }
+
+                            return ValidationResult.Success();
+                        })
+
+                        );
+
                 Console.CursorVisible = false;
 
-                Console.SetCursorPosition(0, 7);
-                Console.WriteLine($"\nPress 'Enter' to deactivate guest #{guestToReactivate}..");
-                Console.Write(new string(' ', Console.WindowWidth));
-                Console.ReadKey();
+                bool confirm = AnsiConsole.Confirm("\nPlease confirm this is the correct guest to reactivate.");
 
-                Console.SetCursorPosition(0, 7);
-                Console.Write(new string(' ', Console.WindowWidth));
-                Console.Write(new string(' ', Console.WindowWidth));
-                guestService.ReActivateGuest(guestToReactivate, dbContext);
+                if (confirm)
+                {
+                    guestService.ReActivateGuest(guestToReactivate, dbContext);
+                }
+                else
+                {
+                    AnsiConsole.MarkupLine("[bold red]Cancelled..[/]");
+                }
             }
             else
             {
-                Console.WriteLine("There are no inactive guests in the system." +
+                AnsiConsole.WriteLine("There are no inactive guests in the system." +
                     "\nPress any key to go back.");
                 Console.ReadKey();
                 return;
             }
+            Console.ReadKey();
         }
     }
 }
