@@ -22,7 +22,7 @@ namespace Hotel_Transylvania.Menus.Guests
 
 
             Console.CursorVisible = true;
-            Console.WriteLine("Enter guest details..");
+            Console.WriteLine("Enter guest details.");
 
             string firstName;
             string firstNamePattern = @"^[\p{L}]+$";
@@ -103,9 +103,7 @@ namespace Hotel_Transylvania.Menus.Guests
                 }
                 else
                 {
-                    Console.WriteLine("Enter a valid phone number.");
-                    Console.Write("Press any key to try again.");
-                    Console.ReadKey();
+                    Console.WriteLine("Enter a valid phone number or leave blank.");
                 }
             }
 

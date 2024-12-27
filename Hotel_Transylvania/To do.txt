@@ -41,7 +41,7 @@ FELHANTERING / SPECTRE
 	[•] Deactivate
 	[•] Reactivate
 	[•] Register 
-	[•] Update
+	[ ] Update
 - Room
 	[ ] Deactivate
 	[ ] Reactivate
@@ -49,8 +49,11 @@ FELHANTERING / SPECTRE
 	[ ] Update
 - Reservation
 	[•] Add
-	[ ] Deactivate
-	[ ] Update
+	[•] Deactivate
+	[ ] Update 
+		[•] Beds
+		[ ] Dates
+		[ ] Room
 	
 
 

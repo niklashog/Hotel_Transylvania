@@ -12,65 +12,8 @@ namespace Hotel_Transylvania.Menus.Reservations
 {
     public class UpdateReservation(
         IReservationService reservationService,
-        ICalendarNavigation calendar,
-        IGuestService guestService) : IUpdateReservation
+        ICalendarNavigation calendar) : IUpdateReservation
     {
-        public void Execute()
-        {
-            //Console.Clear();
-            //DisplayLogo.Paint();
-
-            //using var dbContext = ApplicationDbContext.GetDbContext();
-
-            //var numberOfReservations = dbContext.Reservations
-            //    .Where(r => r.IsReservationActive)
-            //    .Count();
-            //if (numberOfReservations < 1)
-            //{
-            //    Console.WriteLine("There are no active reservations in the system." +
-            //    "\nPress any key to go back.");
-
-            //    Console.ReadKey();
-            //}
-            //else
-            //{
-            //    reservationService.ShowReservations(dbContext);
-
-            //    Console.CursorVisible = true;
-            //    reservationService.ClearLinesAboveReservationInfo();
-            //    reservationService.SetCorrectRowAboveReservationInfo();
-            //    Console.WriteLine("Input Reservation Id to update..");
-            //    Console.Write("Reservation Id: ");
-
-            //    var reservationIdInput = int.Parse(Console.ReadLine());
-
-            //    Console.CursorVisible = false;
-
-            //    reservationService.SetCorrectRowAboveReservationInfo();
-
-            //    Console.WriteLine($"\nPress 'Enter' to update reservation #{reservationIdInput}..");
-            //    Console.Write(new string(' ', Console.WindowWidth));
-            //    Console.ReadKey();
-
-            //    reservationService.SetCorrectRowAboveReservationInfo();
-            //    Console.Write(new string(' ', Console.WindowWidth));
-            //    Console.Write(new string(' ', Console.WindowWidth));
-
-            //    Console.SetCursorPosition(0, 7);
-            //    var reservationToUpdate = reservationService.GetReservation(reservationIdInput, dbContext);
-
-            //    Console.Clear();
-            //    DisplayLogo.Paint();
-
-            //    reservationService.ShowReservationDetails(reservationToUpdate, dbContext);
-            //    reservationService.GetAvailableRooms(dbContext);
-
-            //    reservationService.ClearLinesAboveReservationInfo();
-            //    reservationService.SetCorrectRowAboveReservationInfo();
-            //    Console.WriteLine($"Enter desired room number.. ");
-            //    Console.Write($"Room number: ");
-            //    var roomNumber = int.Parse(Console.ReadLine());
-        }
         public void ChangeRoomNumber()
         {
             Console.Clear();
@@ -201,48 +144,65 @@ namespace Hotel_Transylvania.Menus.Reservations
 
             using var dbContext = ApplicationDbContext.GetDbContext();
 
-            var numberOfReservations = dbContext.Reservations
+            var listOfActiveReservations = dbContext.Reservations
                 .Where(r => r.IsReservationActive)
-                .Count();
-            if (numberOfReservations < 1)
-            {
-                Console.WriteLine("There are no active reservations in the system." +
-                "\nPress any key to go back.");
+                .ToList();
 
-                Console.ReadKey();
+            var numberOfActiveReservations = listOfActiveReservations
+                .Count();
+
+            var validReservationIds = listOfActiveReservations
+                .Select(r => r.Id)
+                .ToList();
+
+            if (numberOfActiveReservations <= 0)
+            {
+                Console.WriteLine("There are no active guests in the system.\n" +
+                    "Press any key to go back.");
             }
             else
             {
                 reservationService.ShowReservations(dbContext);
 
                 Console.CursorVisible = true;
-                reservationService.ClearLinesAboveReservationInfo();
-                reservationService.SetCorrectRowAboveReservationInfo();
-                Console.WriteLine("Change Additional Bedding by Reservation Id..");
-                Console.Write("Reservation Id: ");
+                //AnsiConsole.MarkupLine("[bold yellow]Change Additional Bedding[/]");
 
-                var reservationIdInput = int.Parse(Console.ReadLine());
+                string reservationIdInputString = AnsiConsole.Prompt(
+                    new TextPrompt<string>("Input [yellow]Reservation Id[/] to update beds: ")
+                        .ValidationErrorMessage("[red]Please enter a valid Reservation Id[/]")
+                        .Validate(input =>
+                        {
+                            if (!int.TryParse(input, out int reservationId))
+                            {
+                                return ValidationResult.Error("[red]Reservation Id has to be a number[/]");
+                            }
+
+                            if (!validReservationIds.Contains(reservationId))
+                            {
+                                return ValidationResult.Error("[red]Reservation Id doesn't exist or isn't active.[/]");
+                               
+                            }
+
+                            return ValidationResult.Success();
+                        })
+                        );
+
+                var reservationIdInput = int.Parse(reservationIdInputString);
                 var reservationToUpdate = reservationService.GetReservation(reservationIdInput, dbContext);
 
                 Console.Clear();
                 DisplayLogo.Paint();
                 reservationService.ShowReservationDetails(reservationToUpdate, dbContext);
 
-                Console.CursorVisible = false;
-
-                reservationService.ClearLinesAboveReservationInfo();
-                reservationService.SetCorrectRowAboveReservationInfo();
-                
-                
                 var allowedBedsInRoom = dbContext.Rooms
-                    .Where(r => r.Id == reservationToUpdate.Id)
+                    .Where(r => r.RoomNumber == reservationToUpdate.RoomNumber)
                     .Select(r => r.AdditionalBeddingNumber)
                     .FirstOrDefault();
 
                 if (allowedBedsInRoom == 0)
                 {
-                    Console.WriteLine("Room cannot have additional beds.");
-                    Console.WriteLine("To accommodate extra beds, change room instead.");
+                    AnsiConsole.MarkupLine($"[red]Room is to small to accommodate extra beds. " +
+                        $"Change room instead.[/]");
                     Console.ReadKey();
                     return;
                 }
@@ -250,25 +210,42 @@ namespace Hotel_Transylvania.Menus.Reservations
                 {
                     while (true)
                     {
-                        Console.WriteLine($"Enter the desired Extra Beds (max {allowedBedsInRoom})");
-                        var desiredNumberOfBeds = int.Parse(Console.ReadLine());
+                        string desiredNumberOfBedsString = AnsiConsole.Prompt(
+                            new TextPrompt<string>("Input desired [yellow]number[/] of additional beds: ")
+                                .ValidationErrorMessage($"[red]Please enter a valid number of beds[/]")
+                                .Validate(input =>
+                                {
+                                    if (!int.TryParse(input, out int numberOfBeds))
+                                    {
+                                        return ValidationResult.Error("[red]Input has to be a number[/]");
+                                    }
+
+                                    return ValidationResult.Success();
+                                })
+                                );
+
+                        var desiredNumberOfBeds = int.Parse(desiredNumberOfBedsString);
+
                         if (desiredNumberOfBeds < 0)
                         {
-                            Console.WriteLine($"Number must be between 0 and {allowedBedsInRoom}");
+                            AnsiConsole.MarkupLine($"[red]Number must be between 0 and {allowedBedsInRoom}[/]");
                         }
                         else
                         {
                             if (desiredNumberOfBeds > allowedBedsInRoom)
                             {
-                                Console.WriteLine($"Try again. Maximum beds allowed: {allowedBedsInRoom}.");
+                                AnsiConsole.MarkupLine($"[red]Try again. No more than {allowedBedsInRoom} extra beds can be accomodated..[/]");
                             }
                             else
                             {
                                 reservationService.UpdateNumberOfAdditionalBeds(reservationIdInput, desiredNumberOfBeds, dbContext);
+                                AnsiConsole.MarkupLine("[green]Success! Press 'Enter' to continue.[/]");
+                                Console.ReadKey();
                                 return;
                             }
                         }
                     }
+
                 }
             }
         }
