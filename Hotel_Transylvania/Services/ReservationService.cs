@@ -258,9 +258,11 @@ namespace Hotel_Transylvania.Services
 
             dbContext.SaveChanges();
         }
-        public void RemoveReservation(int reservationToRemove, 
+        public void RemoveReservation(string reservationToRemoveString, 
             ApplicationDbContext dbContext)
         {
+            var reservationToRemove = int.Parse(reservationToRemoveString);
+
             var guestsWithReservation = dbContext.Guests
                 .Where(g => g.Reservations.Count > 0)
                 .ToList();

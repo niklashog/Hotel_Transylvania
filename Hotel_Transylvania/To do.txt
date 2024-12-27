@@ -28,15 +28,15 @@
 
 ### CLEANUP
 -	Felhantering.
--	Ändra så increment inte är automatisk på Room Number.
 -	Update Guest ser ut som skit.
+-   Ta bort felaktiga foreign keys.
 
 
 Console-Command
 add-migration "Initial migration"
 
 
-FELHANTERING
+FELHANTERING / SPECTRE
 - Guest
 	[•] Deactivate
 	[•] Reactivate
@@ -48,7 +48,7 @@ FELHANTERING
 	[ ] Register 
 	[ ] Update
 - Reservation
-	[ ] Add
+	[•] Add
 	[ ] Deactivate
 	[ ] Update
 	

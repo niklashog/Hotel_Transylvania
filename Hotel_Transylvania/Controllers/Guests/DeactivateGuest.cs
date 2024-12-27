@@ -66,8 +66,7 @@ namespace Hotel_Transylvania.Menus.Guests
                 }
                 else
                 {
-                    AnsiConsole.MarkupLine("[bold red]Cancelled..[/]");
-
+                    AnsiConsole.MarkupLine("[bold red]Nothing was cancelled. Everything is still active.[/]");
                 }
             }
             else

@@ -168,7 +168,7 @@ namespace Hotel_Transylvania.Services
 
             if (guest == null)
             {
-                Console.WriteLine("No guest found with that ID.");
+                Console.WriteLine("No guest found with that Id.");
             }
             else
             {

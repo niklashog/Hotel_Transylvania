@@ -31,7 +31,7 @@ namespace Hotel_Transylvania.Interfaces.ServicesInterfaces
             int extraBeds, ApplicationDbContext dbContext);
         public Reservation GetReservation(int findReservationById, 
             ApplicationDbContext dbContext);
-        public void RemoveReservation(int id, 
+        public void RemoveReservation(string reservationToRemoveString,
             ApplicationDbContext dbContext);
         public void UpdateNumberOfAdditionalBeds(int reservationId, int numberOfBeds, 
             ApplicationDbContext dbContext);
