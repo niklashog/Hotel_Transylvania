@@ -87,10 +87,14 @@ namespace Hotel_Transylvania.Services
             Console.SetCursorPosition(0, 7);
         }
 
-        public void AddReservation(int guestId, 
+        public void AddReservation(string guestIdString, 
             DateTime checkinDate, DateTime checkoutDate, 
-            int roomNumber, ApplicationDbContext dbContext)
+            string roomNumberString, ApplicationDbContext dbContext)
         {
+
+            var guestId = int.Parse(guestIdString);
+            var roomNumber = int.Parse(roomNumberString);
+
             if (!GetAvailableRooms(checkinDate, checkoutDate, dbContext)
                 .Any(r => r.RoomNumber == roomNumber))
             {

@@ -20,8 +20,6 @@ namespace Hotel_Transylvania.Menus.Guests
             
             using var dbContext = ApplicationDbContext.GetDbContext();
 
-            var xcoord = 2;
-            var ycoord = 9;
             guestService.DisplayInactiveGuests(dbContext);
 
             Console.ReadKey();

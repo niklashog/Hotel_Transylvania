@@ -11,6 +11,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Hotel_Transylvania.Interfaces.ControllerInterfaces.ReservationsInterfaces;
 using Hotel_Transylvania.Data;
+using Spectre.Console;
 
 namespace Hotel_Transylvania.Controllers.Reservations
 {
@@ -29,10 +30,31 @@ namespace Hotel_Transylvania.Controllers.Reservations
 
             guestService.DisplayActiveGuests(dbContext);
 
+            var activeGuests = guestService.ListOfActiveGuests(dbContext);
+            var validGuestIds = activeGuests
+                .Select(g => g.Id)
+                .ToList();
+
             Console.CursorVisible = true;
-            Console.WriteLine("Make reservation by Guest Id..");
-            Console.Write("Guest ID: ");
-            var guestIdToBook = Convert.ToInt32(Console.ReadLine());
+            string guestIdToBook = AnsiConsole.Prompt(
+                    new TextPrompt<string>("Make reservation by [yellow]Guest Id [/]:")
+                        .ValidationErrorMessage("[red]Please enter an existing Guest Id[/]")
+                        .Validate(input =>
+                        {
+                            if (!int.TryParse(input, out int guestId))
+                            {
+                                return ValidationResult.Error("[red]Guest Id's can only contain numbers. Try again.[/]");
+                            }
+
+                            if (!validGuestIds.Contains(guestId))
+                            {
+                                return ValidationResult.Error("[red]Guest Id doesn't exist. Try again.[/]");
+                            }
+
+                            return ValidationResult.Success();
+                        })
+
+                        );
             Console.CursorVisible = false;
 
             Console.Write($"\nPress any key to chose dates for reservation.");
@@ -50,9 +72,35 @@ namespace Hotel_Transylvania.Controllers.Reservations
             Console.CursorVisible = true;
 
             reservationService.DisplayAvailableRoomsForReservations(checkInDate, checkOutDate, dbContext);
+            
+            var activeRooms = reservationService.GetAvailableRooms(checkInDate, checkOutDate, dbContext);
+            var validRoomNumbers = activeRooms
+                .Select(r => r.RoomNumber)
+                .ToList();
 
-            Console.WriteLine("Chose room for reservation");
-            var roomNumberChoice = Convert.ToInt32(Console.ReadLine());
+            Console.CursorVisible = true;
+            AnsiConsole.MarkupLine("[bold yellow]Available rooms[/]");
+
+            string roomNumberChoice = AnsiConsole.Prompt(
+                new TextPrompt<string>("Enter [yellow]room number[/] for reservation:")
+                    .ValidationErrorMessage("[red]Please enter a valid room number[/]")
+                    .Validate(input =>
+                    {
+                        if (!int.TryParse(input, out int roomNumber))
+                        {
+                            return ValidationResult.Error("[red]Room numbers only contain digits. Try again.[/]");
+                        }
+
+                        if (!validRoomNumbers.Contains(roomNumber))
+                        {
+                            return ValidationResult.Error("[red]Please chose one of the available rooms.[/]");
+                        }
+
+                        return ValidationResult.Success();
+                    })
+
+                    );
+
             Console.CursorVisible = false;
 
             Console.WriteLine(
