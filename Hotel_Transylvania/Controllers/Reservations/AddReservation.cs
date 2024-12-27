@@ -37,13 +37,13 @@ namespace Hotel_Transylvania.Controllers.Reservations
 
             Console.CursorVisible = true;
             string guestIdToBook = AnsiConsole.Prompt(
-                    new TextPrompt<string>("Make reservation by [yellow]Guest Id [/]:")
+                    new TextPrompt<string>("Make reservation by [yellow]Guest Id[/]:")
                         .ValidationErrorMessage("[red]Please enter an existing Guest Id[/]")
                         .Validate(input =>
                         {
                             if (!int.TryParse(input, out int guestId))
                             {
-                                return ValidationResult.Error("[red]Guest Id's can only contain numbers. Try again.[/]");
+                                return ValidationResult.Error("[red]Guest Id's only contain numbers. Try again.[/]");
                             }
 
                             if (!validGuestIds.Contains(guestId))
@@ -82,7 +82,7 @@ namespace Hotel_Transylvania.Controllers.Reservations
             AnsiConsole.MarkupLine("[bold yellow]Available rooms[/]");
 
             string roomNumberChoice = AnsiConsole.Prompt(
-                new TextPrompt<string>("Enter [yellow]room number[/] for reservation:")
+                new TextPrompt<string>("Enter a [yellow]room number[/] for the reservation: ")
                     .ValidationErrorMessage("[red]Please enter a valid room number[/]")
                     .Validate(input =>
                     {
@@ -98,20 +98,18 @@ namespace Hotel_Transylvania.Controllers.Reservations
 
                         return ValidationResult.Success();
                     })
-
                     );
 
             Console.CursorVisible = false;
 
             Console.WriteLine(
-                $"Confirm reservation from " +
+                $"Reservation made from " +
                 $"{checkInDate.Year}-{checkInDate.Month}-{checkInDate.Day} to " +
-                $"{checkOutDate.Year}-{checkOutDate.Month}-{checkOutDate.Day}?");
+                $"{checkOutDate.Year}-{checkOutDate.Month}-{checkOutDate.Day} \n" +
+                $"Press any key to continue.");
             Console.ReadKey();
 
             reservationService.AddReservation(guestIdToBook, checkInDate, checkOutDate, roomNumberChoice, dbContext);
-            Console.WriteLine("Reservation complete. Press any key to continue.");
-            Console.ReadKey();
         }
     }
 }

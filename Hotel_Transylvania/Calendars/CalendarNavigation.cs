@@ -11,7 +11,8 @@ using System.Threading.Tasks;
 namespace Hotel_Transylvania.Calendars
 {
     public class CalendarNavigation(
-        ICalendarData calendarData) : ICalendarNavigation
+        ICalendarData calendarData,
+        IMainMenu mainMenu) : ICalendarNavigation
     {
         public DateTime CalendarNavigate(string checkInOrCheckOut, DateTime dateFrom, string prompt)
         {
@@ -48,11 +49,12 @@ namespace Hotel_Transylvania.Calendars
                         }
                         else
                         {
-                            Console.WriteLine("Bookings can only be made from today's date and forward. Try again.");
+                            Console.WriteLine("Reservations can only be made from today and forward. Try again.");
                             Console.ReadKey();
                             break;
                         }
                     case ConsoleKey.Escape:
+                        mainMenu.Execute();
                         break;
                 }
             }

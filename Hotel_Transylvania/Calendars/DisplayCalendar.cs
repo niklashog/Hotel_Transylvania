@@ -57,7 +57,9 @@ namespace Hotel_Transylvania.Calendars
 
             AnsiConsole.Write(panel);
             Console.WriteLine();
-            AnsiConsole.MarkupLine("\nUse arrow keys [Yellow]\u25C4 \u25B2 \u25BA \u25BC[/] to navigate \nand use [Yellow]Enter[/] to confirm date.");
+            AnsiConsole.MarkupLine("\nUse arrow keys [Yellow]\u25C4 \u25B2 \u25BA \u25BC[/] to navigate \n" +
+                "and use [Yellow]Enter[/] to confirm date.\n" +
+                "Press 'Esc' to go back to main menu.");
         }
     }
 }

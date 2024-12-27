@@ -22,6 +22,7 @@
 -	ReservationService. Läs kommentaren.
 
 -	En data validator som validerar datum, ålder, osv?
+-	Crashar när jag byter till ett rum som inte kan ha sängar, men har extra sängar.
 
 [•]	Metod i MainMenu som uppdaterar bokningar med CheckOut-Date <= dagens datum till inactive.
 
