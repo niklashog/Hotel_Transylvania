@@ -21,10 +21,18 @@ namespace Hotel_Transylvania.Menus.Reservations
 
             using var dbContext = ApplicationDbContext.GetDbContext();
 
-            var numberOfReservations = dbContext.Reservations
+            var listOfActiveReservations = dbContext.Reservations
                 .Where(r => r.IsReservationActive)
+                .ToList();
+
+            var numberOfActiveReservations = listOfActiveReservations
                 .Count();
-            if (numberOfReservations < 1)
+
+            var validReservationIds = listOfActiveReservations
+                .Select(r => r.Id)
+                .ToList();
+
+            if (numberOfActiveReservations < 1)
             {
                 Console.WriteLine("There are no active reservations in the system." +
                 "\nPress any key to go back.");
@@ -36,43 +44,57 @@ namespace Hotel_Transylvania.Menus.Reservations
                 reservationService.ShowReservations(dbContext);
 
                 Console.CursorVisible = true;
-                reservationService.ClearLinesAboveReservationInfo();
-                reservationService.SetCorrectRowAboveReservationInfo();
-                Console.WriteLine("Input Reservation Id to update..");
-                Console.Write("Reservation Id: ");
 
-                var reservationIdInput = int.Parse(Console.ReadLine());
+                string reservationIdInputString = AnsiConsole.Prompt(
+                    new TextPrompt<string>("Input [yellow]Reservation Id[/] to update: ")
+                        .ValidationErrorMessage("[red]Please enter a valid Reservation Id[/]")
+                        .Validate(input =>
+                        {
+                            if (!int.TryParse(input, out int reservationId))
+                            {
+                                return ValidationResult.Error("[red]Reservation Id has to be a number[/]");
+                            }
+
+                            if (!validReservationIds.Contains(reservationId))
+                            {
+                                return ValidationResult.Error("[red]Reservation Id doesn't exist or isn't active.[/]");
+
+                            }
+
+                            return ValidationResult.Success();
+                        })
+                        );
+
+                var reservationIdInput = int.Parse(reservationIdInputString);
 
                 Console.CursorVisible = false;
 
-                reservationService.SetCorrectRowAboveReservationInfo();
-
                 Console.WriteLine($"\nPress 'Enter' to chose new room for reservation #{reservationIdInput}..");
-                Console.Write(new string(' ', Console.WindowWidth));
                 Console.ReadKey();
 
-                
+
                 var reservationToUpdate = reservationService.GetReservation(reservationIdInput, dbContext);
                 var reservationToUpdateId = reservationToUpdate.Id;
                 var checkInDate = reservationToUpdate.CheckinDate;
                 var checkOutDate = reservationToUpdate.CheckoutDate;
+                
+                var currentNumberOfExtraBeds = reservationToUpdate
+                    .NumberOfAdditionalBeds;
 
                 Console.Clear();
                 DisplayLogo.Paint();
                 reservationService.ShowReservationDetails(reservationToUpdate, dbContext);
-
-
-                var availableRooms = reservationService.GetAvailableRooms(checkInDate, checkOutDate, dbContext)
-                .ToList();
-
-                Console.WriteLine("Available Rooms");
-                foreach (var room in availableRooms)
+                
+                //Jag är här
+                if (currentNumberOfExtraBeds > 0)
                 {
-                    Console.WriteLine($"#{room.RoomNumber}, {room.RoomType}, {room.RoomSize}m²");
+                    Console.WriteLine($" {currentNumberOfExtraBeds}");
                 }
 
-                reservationService.ClearLinesAboveReservationInfo();
-                reservationService.SetCorrectRowAboveReservationInfo();
+                reservationService.DisplayAvailableRoomsForReservations(checkInDate, checkOutDate, dbContext);
+                Console.WriteLine("\nAvailable Rooms");
+
+
                 Console.WriteLine("Enter new room number: ");
                 var roomNumber = int.Parse(Console.ReadLine());
 
@@ -92,10 +114,18 @@ namespace Hotel_Transylvania.Menus.Reservations
 
             using var dbContext = ApplicationDbContext.GetDbContext();
 
-            var numberOfReservations = dbContext.Reservations
+            var listOfActiveReservations = dbContext.Reservations
                 .Where(r => r.IsReservationActive)
+                .ToList();
+
+            var numberOfActiveReservations = listOfActiveReservations
                 .Count();
-            if (numberOfReservations < 1)
+
+            var validReservationIds = listOfActiveReservations
+                .Select(r => r.Id)
+                .ToList();
+
+            if (numberOfActiveReservations < 1)
             {
                 Console.WriteLine("There are no active reservations in the system." +
                 "\nPress any key to go back.");
@@ -107,10 +137,28 @@ namespace Hotel_Transylvania.Menus.Reservations
                 reservationService.ShowReservations(dbContext);
 
                 Console.CursorVisible = true;
-                Console.WriteLine("Input Reservation Id to update..");
-                Console.Write("Reservation Id: ");
 
-                var reservationIdInput = int.Parse(Console.ReadLine());
+                string reservationIdInputString = AnsiConsole.Prompt(
+                    new TextPrompt<string>("Input [yellow]Reservation Id[/] to update: ")
+                        .ValidationErrorMessage("[red]Please enter a valid Reservation Id[/]")
+                        .Validate(input =>
+                        {
+                            if (!int.TryParse(input, out int reservationId))
+                            {
+                                return ValidationResult.Error("[red]Reservation Id has to be a number[/]");
+                            }
+
+                            if (!validReservationIds.Contains(reservationId))
+                            {
+                                return ValidationResult.Error("[red]Reservation Id doesn't exist or isn't active.[/]");
+
+                            }
+
+                            return ValidationResult.Success();
+                        })
+                        );
+
+                var reservationIdInput = int.Parse(reservationIdInputString);
 
                 Console.CursorVisible = false;
 
@@ -118,9 +166,6 @@ namespace Hotel_Transylvania.Menus.Reservations
                 Console.Write(new string(' ', Console.WindowWidth));
                 Console.ReadKey();
 
-                //// Härifrån har jag klistrat in koden för Change Room.
-                /// Fixa så att nuvarande bokning inte blockerar möjligheten att bara lägga
-                /// till en extra dag tex.
                 var reservationToUpdate = reservationService.GetReservation(reservationIdInput, dbContext);
                 var reservationToUpdateId = reservationToUpdate.Id;
                 var currentDate = DateTime.Now.Date;

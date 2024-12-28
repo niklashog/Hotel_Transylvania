@@ -107,8 +107,8 @@ Redovisning: Totalt finns det 5 saker som ska lämnas in:
 
 ### LOG
 2024-12-21 
--	Glömde denna när tempot gick upp och fler timmar lades varje dag.
-	Lägger ner Loggen för detta projekt.
+-	Slutade skriva när tempot gick upp och fler timmar lades varje dag.
+	Lägger ner Loggen för detta projekt. Missed too much.
 
 2024-12-16 
 - Denna version är rätt.

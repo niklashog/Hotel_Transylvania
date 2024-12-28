@@ -67,7 +67,7 @@ namespace Hotel_Transylvania.Services
                     room.RoomNumber.ToString(),
                     room.RoomType.ToString(),
                     $"{room.RoomSize.ToString()}m²",
-                    $"Available: {room.AdditionalBeddingNumber.ToString()}"
+                    $"#{room.AdditionalBeddingNumber.ToString()}"
                 );
             }
 
