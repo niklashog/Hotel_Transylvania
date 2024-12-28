@@ -53,6 +53,52 @@ namespace Hotel_Transylvania.Services
                 .Where(r => !reservedRoomNumbers.Contains(r.RoomNumber))
                 .ToList();
 
+            var desiredAdditionalBeddingRequest = availableRooms
+                .Where(r => r.AdditionalBeddingNumber > 0)
+                .ToList();
+
+            var table = new Table();
+            table.Border = TableBorder.Simple;
+
+            table.AddColumn("Room Number");
+            table.AddColumn("Room Type");
+            table.AddColumn("Room Size");
+            table.AddColumn("Additional bedding");
+
+            foreach (var room in availableRooms)
+            {
+                table.AddRow(
+                    room.RoomNumber.ToString(),
+                    room.RoomType.ToString(),
+                    $"{room.RoomSize.ToString()}m²",
+                    $"#{room.AdditionalBeddingNumber.ToString()}"
+                );
+            }
+
+            AnsiConsole.MarkupLine("[yellow]Available Rooms[/]");
+            AnsiConsole.Write(table);
+        }
+        public void DisplayAvailableRoomsWithAdditionalBeddingRequest(
+            DateTime checkinDate, DateTime checkoutDate, int beddingRequest, ApplicationDbContext dbContext)
+        {
+            var allRooms = dbContext.Rooms.ToList();
+
+            var unavailableRooms = dbContext.Reservations
+                .Where(r => r.CheckinDate < checkoutDate && r.CheckoutDate > checkinDate)
+                .Where(r => r.IsReservationActive)
+                .Where(r => r.NumberOfAdditionalBeds < beddingRequest)
+                .ToList();
+
+            var reservedRoomNumbers = unavailableRooms
+                .Select(r => r.RoomNumber)
+                .Distinct()
+                .ToList();
+
+            var availableRooms = allRooms
+                .Where(r => !reservedRoomNumbers.Contains(r.RoomNumber))
+                .ToList();
+
+
             var table = new Table();
             table.Border = TableBorder.Simple;
 

@@ -6,6 +6,7 @@ using Hotel_Transylvania.Interfaces.ServicesInterfaces;
 using Hotel_Transylvania.Models;
 using Hotel_Transylvania.Services;
 using Spectre.Console;
+using System.Linq;
 using System.Xml;
 
 namespace Hotel_Transylvania.Menus.Reservations
@@ -84,14 +85,51 @@ namespace Hotel_Transylvania.Menus.Reservations
                 Console.Clear();
                 DisplayLogo.Paint();
                 reservationService.ShowReservationDetails(reservationToUpdate, dbContext);
-                
+
                 //Jag är här
+                var ifNoSetBedsToZero = 0;
+                int oneOrTwoBeds;
+                var listOfValidChoicesForExtraBeds = new List<int> { 1, 2 };
+
                 if (currentNumberOfExtraBeds > 0)
                 {
-                    Console.WriteLine($" {currentNumberOfExtraBeds}");
-                }
+                    AnsiConsole.MarkupLine($"Will extra beds still be needed?");
+                    bool confirm = AnsiConsole.Confirm("Press 'y' for yes or 'n' for no.");
+                    
+                    if (confirm)
+                    {
+                        string oneOrTwoBedsString = AnsiConsole.Prompt(
+                            new TextPrompt<string>("[yellow]One or two?[/]")
+                                .ValidationErrorMessage("[red]Please enter a number for additional bedding.[/]")
+                        .Validate(input =>
+                        {
+                            if (!int.TryParse(input, out int oneOrTwoBedsString))
+                            {
+                                return ValidationResult.Error("[red]Extra beds must be input as a number[/]");
+                            }
 
-                reservationService.DisplayAvailableRoomsForReservations(checkInDate, checkOutDate, dbContext);
+                            if (!listOfValidChoicesForExtraBeds.Contains(oneOrTwoBedsString))
+                            {
+                                return ValidationResult.Error("[red]Choice can only be made of between 1 and 2.[/]");
+
+                            }
+                            return ValidationResult.Success();
+                            
+                        })
+                        );
+
+                        oneOrTwoBeds = int.Parse(oneOrTwoBedsString);
+                    }
+                    else
+                    {
+                        AnsiConsole.MarkupLine("[yellow]Showing all available rooms.[/]");
+                    }
+                }
+                
+                reservationService.DisplayAvailableRoomsWithAdditionalBeddingRequest(
+                    checkInDate, checkOutDate, currentNumberOfExtraBeds, dbContext);
+
+                //Jag är här!
                 Console.WriteLine("\nAvailable Rooms");
 
 

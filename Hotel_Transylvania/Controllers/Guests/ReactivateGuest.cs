@@ -39,7 +39,7 @@ namespace Hotel_Transylvania.Menus.Guests
                 AnsiConsole.MarkupLine("[bold yellow]Reactivate Guest[/]");
 
                 string guestToReactivate = AnsiConsole.Prompt(
-                    new TextPrompt<string>("Ange [yellow]Guest to reactivate: [/]:")
+                    new TextPrompt<string>("[yellow]Guest Id[/] to reactivate:")
                         .ValidationErrorMessage("[red]Please enter an existing Guest Id[/]")
                         .Validate(input =>
                         {
