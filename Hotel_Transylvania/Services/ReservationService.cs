@@ -36,6 +36,28 @@ namespace Hotel_Transylvania.Services
 
             return availableRooms;
         }
+        public IEnumerable<Room> GetAvailableRoomsWithBedding(
+            DateTime checkinDate, DateTime checkoutDate, 
+            int beddingRequest, ApplicationDbContext dbContext)
+        {
+            var allRooms = dbContext.Rooms.ToList();
+
+            var unavailableRooms = dbContext.Reservations
+                .Where(r => r.CheckinDate < checkoutDate && r.CheckoutDate > checkinDate && r.IsReservationActive)
+                .ToList();
+
+            var reservedRoomNumbers = unavailableRooms
+                .Select(r => r.RoomNumber)
+                .Distinct()
+                .ToList();
+
+            var availableRooms = allRooms
+                .Where(r => !reservedRoomNumbers.Contains(r.RoomNumber))
+                .Where(r => r.AdditionalBeddingNumber >= beddingRequest)
+                .ToList();
+
+            return availableRooms;
+        }
         public void DisplayAvailableRoomsForReservations(DateTime checkinDate, DateTime checkoutDate, ApplicationDbContext dbContext)
         {
             var allRooms = dbContext.Rooms.ToList();
@@ -84,9 +106,7 @@ namespace Hotel_Transylvania.Services
             var allRooms = dbContext.Rooms.ToList();
 
             var unavailableRooms = dbContext.Reservations
-                .Where(r => r.CheckinDate < checkoutDate && r.CheckoutDate > checkinDate)
-                .Where(r => r.IsReservationActive)
-                .Where(r => r.NumberOfAdditionalBeds < beddingRequest)
+                .Where(r => r.CheckinDate < checkoutDate && r.CheckoutDate > checkinDate && r.IsReservationActive)
                 .ToList();
 
             var reservedRoomNumbers = unavailableRooms
@@ -96,6 +116,7 @@ namespace Hotel_Transylvania.Services
 
             var availableRooms = allRooms
                 .Where(r => !reservedRoomNumbers.Contains(r.RoomNumber))
+                .Where(r => r.AdditionalBeddingNumber >= beddingRequest)
                 .ToList();
 
 
@@ -188,11 +209,11 @@ namespace Hotel_Transylvania.Services
             var table = new Table();
             table.Border = TableBorder.Simple;
 
+            table.AddColumn("Reservation Id");
             table.AddColumn("Primary Guest");
             table.AddColumn("Room");
             table.AddColumn("Check-in");
             table.AddColumn("Check-out");
-            table.AddColumn("Reservation Number");
 
             var guestReservations = dbContext.Reservations
                 .Where(r => r.IsReservationActive)
@@ -204,12 +225,12 @@ namespace Hotel_Transylvania.Services
                 foreach (var guest in reservation.Guests)
                 {
                     table.AddRow(
+                        reservation.Id.ToString(),
                         $"{guest.Id} {guest.FirstName} {guest.Surname}",
                         reservation.RoomNumber.ToString(),
 
                         reservation.CheckinDate.ToString("yyyy-MM-dd"),
-                        reservation.CheckoutDate.ToString("yyyy-MM-dd"),
-                        reservation.Id.ToString()
+                        reservation.CheckoutDate.ToString("yyyy-MM-dd")
                     );
                 }
             }

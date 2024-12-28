@@ -12,6 +12,9 @@ namespace Hotel_Transylvania.Interfaces.ServicesInterfaces
     {
         public IEnumerable<Room> GetAvailableRooms(DateTime checkinDate, DateTime checkoutDate,
             ApplicationDbContext dbContext);
+        public IEnumerable<Room> GetAvailableRoomsWithBedding(
+            DateTime checkinDate, DateTime checkoutDate,
+            int beddingRequest, ApplicationDbContext dbContext);
         public void DisplayAvailableRoomsForReservations(DateTime checkinDate, DateTime checkoutDate, 
             ApplicationDbContext dbContext);
         public void DisplayAvailableRoomsWithAdditionalBeddingRequest(

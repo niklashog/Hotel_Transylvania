@@ -53,7 +53,6 @@ namespace Hotel_Transylvania.Menus.Guests
 
                             return ValidationResult.Success();
                         })
-
                         );
 
                 Console.CursorVisible = false;

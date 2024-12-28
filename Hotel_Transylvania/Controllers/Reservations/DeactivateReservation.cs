@@ -57,7 +57,6 @@ namespace Hotel_Transylvania.Menus.Reservations
 
                             return ValidationResult.Success();
                         })
-
                         );
 
                 Console.CursorVisible = false;

@@ -67,13 +67,6 @@ namespace Hotel_Transylvania.Menus.Reservations
                         );
 
                 var reservationIdInput = int.Parse(reservationIdInputString);
-
-                Console.CursorVisible = false;
-
-                Console.WriteLine($"\nPress 'Enter' to chose new room for reservation #{reservationIdInput}..");
-                Console.ReadKey();
-
-
                 var reservationToUpdate = reservationService.GetReservation(reservationIdInput, dbContext);
                 var reservationToUpdateId = reservationToUpdate.Id;
                 var checkInDate = reservationToUpdate.CheckinDate;
@@ -86,10 +79,8 @@ namespace Hotel_Transylvania.Menus.Reservations
                 DisplayLogo.Paint();
                 reservationService.ShowReservationDetails(reservationToUpdate, dbContext);
 
-                //Jag är här
-                var ifNoSetBedsToZero = 0;
-                int oneOrTwoBeds;
                 var listOfValidChoicesForExtraBeds = new List<int> { 1, 2 };
+                var oneOrTwoBeds = 0;
 
                 if (currentNumberOfExtraBeds > 0)
                 {
@@ -99,7 +90,7 @@ namespace Hotel_Transylvania.Menus.Reservations
                     if (confirm)
                     {
                         string oneOrTwoBedsString = AnsiConsole.Prompt(
-                            new TextPrompt<string>("[yellow]One or two?[/]")
+                            new TextPrompt<string>("[yellow]One or two beds needed? Input as single digit.[/]")
                                 .ValidationErrorMessage("[red]Please enter a number for additional bedding.[/]")
                         .Validate(input =>
                         {
@@ -114,36 +105,50 @@ namespace Hotel_Transylvania.Menus.Reservations
 
                             }
                             return ValidationResult.Success();
-                            
+                        })
+                        );
+                        oneOrTwoBeds = int.Parse(oneOrTwoBedsString);
+                    }
+                }
+
+
+                Console.Clear();
+                DisplayLogo.Paint();
+                reservationService.DisplayAvailableRoomsWithAdditionalBeddingRequest(
+                checkInDate, checkOutDate, oneOrTwoBeds, dbContext);
+
+                var availableRoomsWithBedding = reservationService.GetAvailableRoomsWithBedding(
+                    checkInDate, checkOutDate, oneOrTwoBeds, dbContext);
+
+                var validRoomsWithBedding = availableRoomsWithBedding
+                    .Select(r => r.RoomNumber)
+                    .ToList();
+
+                string roomNumberString = AnsiConsole.Prompt(
+                    new TextPrompt<string>("Input new [yellow]Room Number[/]: ")
+                        .ValidationErrorMessage("[red]Please enter a valid Room Number[/]")
+                        .Validate(input =>
+                        {
+                            if (!int.TryParse(input, out int roomNumber))
+                            {
+                                return ValidationResult.Error("[red]Enter a room number with three digits.[/]");
+                            }
+
+                            if (!validRoomsWithBedding.Contains(roomNumber))
+                            {
+                                return ValidationResult.Error("[red]Input a room number from the list.[/]");
+
+                            }
+
+                            return ValidationResult.Success();
                         })
                         );
 
-                        oneOrTwoBeds = int.Parse(oneOrTwoBedsString);
-                    }
-                    else
-                    {
-                        AnsiConsole.MarkupLine("[yellow]Showing all available rooms.[/]");
-                    }
-                }
-                
-                reservationService.DisplayAvailableRoomsWithAdditionalBeddingRequest(
-                    checkInDate, checkOutDate, currentNumberOfExtraBeds, dbContext);
-
-                //Jag är här!
-                Console.WriteLine("\nAvailable Rooms");
-
-
-                Console.WriteLine("Enter new room number: ");
-                var roomNumber = int.Parse(Console.ReadLine());
-
+                var roomNumber = int.Parse(roomNumberString);
 
                 reservationService.UpdateReservedRoom(reservationToUpdateId, roomNumber, dbContext);
-                Console.WriteLine("Room updated. Press 'Enter' to continue.");
+                AnsiConsole.MarkupLine($"[green]Room updated. Press 'Enter' to continue.[/]");
             }
-
-
-
-
         }
         public void ChangeDates()
         {
@@ -248,7 +253,6 @@ namespace Hotel_Transylvania.Menus.Reservations
                 reservationService.ShowReservations(dbContext);
 
                 Console.CursorVisible = true;
-                //AnsiConsole.MarkupLine("[bold yellow]Change Additional Bedding[/]");
 
                 string reservationIdInputString = AnsiConsole.Prompt(
                     new TextPrompt<string>("Input [yellow]Reservation Id[/] to update beds: ")

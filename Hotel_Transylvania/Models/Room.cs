@@ -14,7 +14,6 @@ namespace Hotel_Transylvania.Models
     {
         public int Id { get; set; }
         public int RoomNumber { get; set; }
-        public int? ReservationId { get; set; }
         public string RoomType { get; set; }
         public int RoomSize { get; set; }
         public int AdditionalBeddingNumber { get; set; }

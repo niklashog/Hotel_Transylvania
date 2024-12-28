@@ -2,7 +2,7 @@
 -	RoomType måste vara Enum!
 
 -	När jag uppmanar att klicka Enter för att spara så vill jag även ge alternativet att
-	klicka backspace för att "backa utan att spara".
+	klicka backspace eller 'Esc' för att "backa utan att spara".
 -	Kan max lägga till en extra säng på rum som ska klara 2.
 -	Kan jag byta till ett rum som bara klarar en extra säng om jag behöver 2?
 
@@ -53,12 +53,7 @@ FELHANTERING / SPECTRE
 - Reservation
 	[•] Add
 	[•] Deactivate
-	[ ] Update 
-		[•] Beds
-		[ ] Dates
-		[ ] Room
-	
-	UpdateReservation rad 132.
+	[•] Update
 
 
 

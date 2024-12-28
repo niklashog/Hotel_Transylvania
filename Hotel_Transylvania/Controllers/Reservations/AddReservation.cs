@@ -53,8 +53,8 @@ namespace Hotel_Transylvania.Controllers.Reservations
 
                             return ValidationResult.Success();
                         })
-
                         );
+
             Console.CursorVisible = false;
 
             Console.Write($"\nPress any key to chose dates for reservation.");
