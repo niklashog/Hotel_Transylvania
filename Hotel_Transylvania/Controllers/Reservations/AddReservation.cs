@@ -100,7 +100,50 @@ namespace Hotel_Transylvania.Controllers.Reservations
                     })
                     );
 
+            var additionalBeddingNumber = 0;
+            var chosenRoom = activeRooms
+                .Where(r => r.RoomNumber == int.Parse(roomNumberChoice))
+                .FirstOrDefault();
+
+            if (chosenRoom.AdditionalBeddingNumber > 0)
+            {
+                AnsiConsole.MarkupLine($"Need of additional bedding?");
+                bool confirm = AnsiConsole.Confirm("Press 'y' for yes or 'n' for no.");
+
+                if (confirm && chosenRoom.AdditionalBeddingNumber == 2)
+                {
+                    var listOfValidChoicesForExtraBeds = new List<int> { 1, 2 };
+
+                    string oneOrTwoBedsString = AnsiConsole.Prompt(
+                        new TextPrompt<string>("[yellow]One or two beds needed? Input as single digit.[/]")
+                            .ValidationErrorMessage("[bold red]Please enter a number for additional bedding.[/]")
+                    .Validate(input =>
+                    {
+                        if (!int.TryParse(input, out int oneOrTwoBedsString))
+                        {
+                            return ValidationResult.Error("[bold red]Extra beds must be input as a number[/]");
+                        }
+
+                        if (!listOfValidChoicesForExtraBeds.Contains(oneOrTwoBedsString))
+                        {
+                            return ValidationResult.Error("[bold red]Choice can only be made of between 1 and 2.[/]");
+
+                        }
+                        return ValidationResult.Success();
+                    })
+                    );
+                    additionalBeddingNumber = int.Parse(oneOrTwoBedsString);
+                    AnsiConsole.MarkupLine($"[green]Additional bedding set to {additionalBeddingNumber}[/]");
+                }
+                if (confirm && chosenRoom.AdditionalBeddingNumber == 1)
+                {
+                    additionalBeddingNumber = 1;
+                    AnsiConsole.MarkupLine($"[green]Additional bedding set to {additionalBeddingNumber}[/]");
+                }
+            }
+
             Console.CursorVisible = false;
+
 
             Console.WriteLine(
                 $"Reservation made from " +
@@ -109,8 +152,7 @@ namespace Hotel_Transylvania.Controllers.Reservations
                 $"Press any key to continue.");
             Console.ReadKey();
 
-            var timeOfReservation = DateTime.Now;
-            reservationService.AddReservation(guestIdToBook, checkInDate, checkOutDate, roomNumberChoice, dbContext);
+            reservationService.AddReservation(guestIdToBook, checkInDate, checkOutDate, roomNumberChoice, additionalBeddingNumber, dbContext);
         }
     }
 }

@@ -16,7 +16,6 @@
 
 -	En data validator som validerar datum, ålder, osv?
 
--	Telefonnr är inte valbart just nu!
 -	Välja antal extra sängar vid bokning.
 
 

@@ -143,7 +143,7 @@ namespace Hotel_Transylvania.Services
         }
         public void AddReservation(string guestIdString, 
             DateTime checkinDate, DateTime checkoutDate,
-            string roomNumberString, ApplicationDbContext dbContext)
+            string roomNumberString, int additionalBeddingNumber, ApplicationDbContext dbContext)
         {
 
             var guestId = int.Parse(guestIdString);
@@ -172,6 +172,7 @@ namespace Hotel_Transylvania.Services
                         RoomNumber = roomNumber,
                         CheckinDate = checkinDate.Date,
                         CheckoutDate = checkoutDate.Date,
+                        NumberOfAdditionalBeds = additionalBeddingNumber,
                         TimeOfReservation = DateTime.Now.Date,
                         IsReservationActive = true
                     };
@@ -185,11 +186,6 @@ namespace Hotel_Transylvania.Services
             }
         }
 
-        public int CountReservations(ApplicationDbContext dbContext)
-        {
-            return dbContext.Reservations.Count();
-        }
-
         public void ShowReservations(ApplicationDbContext dbContext)
         {
             var table = new Table();
@@ -200,6 +196,7 @@ namespace Hotel_Transylvania.Services
             table.AddColumn("Room");
             table.AddColumn("Check-in");
             table.AddColumn("Check-out");
+            table.AddColumn("Additional Bedding Required");
 
             var guestReservations = dbContext.Reservations
                 .Where(r => r.IsReservationActive)
@@ -214,9 +211,9 @@ namespace Hotel_Transylvania.Services
                         reservation.Id.ToString(),
                         $"{guest.Id} {guest.FirstName} {guest.Surname}",
                         reservation.RoomNumber.ToString(),
-
                         reservation.CheckinDate.ToString("yyyy-MM-dd"),
-                        reservation.CheckoutDate.ToString("yyyy-MM-dd")
+                        reservation.CheckoutDate.ToString("yyyy-MM-dd"),
+                        reservation.NumberOfAdditionalBeds.ToString()
                     );
                 }
             }

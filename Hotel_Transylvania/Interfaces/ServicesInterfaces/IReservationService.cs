@@ -20,9 +20,7 @@ namespace Hotel_Transylvania.Interfaces.ServicesInterfaces
         public void DisplayAvailableRoomsWithAdditionalBeddingRequest(
             DateTime checkinDate, DateTime checkoutDate, int beddingRequest, ApplicationDbContext dbContext);
         public void AddReservation(string guestIdString, DateTime checkinDate, DateTime checkoutDate,
-            string roomNumber, ApplicationDbContext dbContext);
-        public int CountReservations(
-            ApplicationDbContext dbContext);
+            string roomNumber, int additionalBeddingNumber, ApplicationDbContext dbContext);
         public void ShowReservations(
             ApplicationDbContext dbContext);
         public void ShowInactiveReservations(
