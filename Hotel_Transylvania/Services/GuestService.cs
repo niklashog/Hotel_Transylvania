@@ -97,23 +97,45 @@ namespace Hotel_Transylvania.Services
                 AnsiConsole.Write(table);
             }
         }
-        public void PrintGuestDetails(int guestId, ApplicationDbContext dbContext)
+        //public void DisplayGuestDetails(int guestId, ApplicationDbContext dbContext)
+        //{
+        //        var selectedGuest = dbContext.Guests
+        //          .First(g => g.Id == guestId);
+
+        //        var selectedGuestReservations = selectedGuest.Reservations.ToList(); 
+
+        //        string activeOrInactive;
+        //        if (selectedGuest.IsGuestActive)
+        //            activeOrInactive = "Active";
+        //        else
+        //            activeOrInactive = "Inactive";
+
+        //        Console.WriteLine($"First Name:\t{selectedGuest.FirstName}");
+        //        Console.WriteLine($"Surname:\t{selectedGuest.Surname}");
+        //        Console.WriteLine($"E-mail:\t\t{selectedGuest.Email}");
+        //        Console.WriteLine($"Phone number:\t{selectedGuest.Phone}");
+        //}
+
+        public void DisplayGuestDetails(int guestId, ApplicationDbContext dbContext)
         {
-                var selectedGuest = dbContext.Guests
-                  .First(g => g.Id == guestId);
+            var selectedGuest = dbContext.Guests
+                .First(g => g.Id == guestId);
 
-                var selectedGuestReservations = selectedGuest.Reservations.ToList(); 
+            var activeStatus = selectedGuest.IsGuestActive ? "Active" : "Inactive";
 
-                string activeOrInactive;
-                if (selectedGuest.IsGuestActive)
-                    activeOrInactive = "Active";
-                else
-                    activeOrInactive = "Inactive";
+            var guestTable = new Table();
+            guestTable.Border = TableBorder.Simple;
 
-                Console.WriteLine($"First Name:\t{selectedGuest.FirstName}");
-                Console.WriteLine($"Surname:\t{selectedGuest.Surname}");
-                Console.WriteLine($"E-mail:\t\t{selectedGuest.Email}");
-                Console.WriteLine($"Phone number:\t{selectedGuest.Phone}");
+            guestTable.AddColumn("Field");
+            guestTable.AddColumn("Details");
+
+            guestTable.AddRow("First Name", selectedGuest.FirstName);
+            guestTable.AddRow("Surname", selectedGuest.Surname);
+            guestTable.AddRow("E-mail", selectedGuest.Email);
+            guestTable.AddRow("Phone Number", selectedGuest.Phone);
+            guestTable.AddRow("Status", activeStatus);
+
+            AnsiConsole.Write(guestTable);
         }
         public Guest GetGuestById(int guestId, ApplicationDbContext dbContext)
         {
@@ -121,10 +143,6 @@ namespace Hotel_Transylvania.Services
             .First(g => g.Id == guestId);
 
                 return selectedGuest;
-        }
-        public int CountAllGuests(ApplicationDbContext dbContext)
-        {
-                return dbContext.Guests.Count();
         }
         public List<Guest> ListOfActiveGuests(ApplicationDbContext dbContext)
         {

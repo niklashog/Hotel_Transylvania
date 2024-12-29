@@ -58,14 +58,14 @@ namespace Hotel_Transylvania.Menus.Guests
             Console.Clear();
             DisplayLogo.Paint();
 
-            guestService.PrintGuestDetails(guestToUpdate, dbContext);
+            guestService.DisplayGuestDetails(guestToUpdate, dbContext);
 
             string firstNameInput = AnsiConsole.Prompt(
                 new TextPrompt<string>("Input [yellow]First Name[/]:")
                     .ValidationErrorMessage("[red]First Names can only consist of letters.[/]")
                     .Validate(input =>
                     {
-                        if (Regex.IsMatch(input, @"^[\p{L}]{2,20}$"))
+                        if (Regex.IsMatch(input, @"^[\p{L}]{2,20}-$"))
                         {
                             return ValidationResult.Success();
                         }
@@ -81,7 +81,7 @@ namespace Hotel_Transylvania.Menus.Guests
                     .ValidationErrorMessage("[red]Surnames can only consist of letters.[/]")
                     .Validate(input =>
                     {
-                        if (Regex.IsMatch(input, @"^[\p{L}]{2,50}$"))
+                        if (Regex.IsMatch(input, @"^[\p{L}]{2,20}-$"))
                         {
                             return ValidationResult.Success();
                         }

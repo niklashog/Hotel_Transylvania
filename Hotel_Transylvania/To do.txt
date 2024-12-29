@@ -13,7 +13,6 @@
 -	ReservationService. Läs kommentaren.
 
 -	Update room ska visa alla rum inte bara aktiva.
--	Update room måste jag fixa UX
 -	Ska inte kunna ta bort en gäst eller ett rum som har en bokning.
 -	Kolla så att ett rum inte är bokat innan man ändrar status/details?
 
@@ -22,15 +21,12 @@
 -	Kolla så jag är konsekvent mellan bold red, red & bold green, green.
 -	Telefonnr är inte valbart just nu!
 
-### CLEANUP
--	Update Guest ser ut som skit.
-
 
 Console-Command
-add-migration "Initial migration"
+add-migration "Comment comment"
 
 
-FELHANTERING / SPECTRE
+FELHANTERING & SPECTRE
 - Guest
 	[•] Deactivate
 	[•] Reactivate
@@ -40,7 +36,7 @@ FELHANTERING / SPECTRE
 	[•] Deactivate
 	[•] Reactivate
 	[•] Register 
-	[ ] Update
+	[•] Update
 
 - Reservation
 	[•] Add
