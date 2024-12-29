@@ -25,6 +25,7 @@
 -	Ska inte kunna ta bort rum som har bokningar.'
 -	Får inte skapa rum med samma rumsnr som redan finns.
 -	Kolla så jag är konsekvent mellan bold red, red & bold green, green.
+-	Sök efter "ange" och ändra till Input
 
 [•]	Metod i MainMenu som uppdaterar bokningar med CheckOut-Date <= dagens datum till inactive.
 
@@ -42,7 +43,7 @@ FELHANTERING / SPECTRE
 - Guest
 	[•] Deactivate
 	[•] Reactivate
-	[ ] Register 
+	[•] Register 
 	[ ] Update
 - Room
 	[•] Deactivate
