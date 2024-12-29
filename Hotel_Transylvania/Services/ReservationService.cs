@@ -225,11 +225,12 @@ namespace Hotel_Transylvania.Services
             var table = new Table();
             table.Border = TableBorder.Simple;
 
+            table.AddColumn("Reservation Number");
             table.AddColumn("Primary Guest");
             table.AddColumn("Room");
             table.AddColumn("Check-in");
             table.AddColumn("Check-out");
-            table.AddColumn("Reservation Number");
+            table.AddColumn("Extra beds specified");
 
             var guestReservations = dbContext.Reservations
                 .Where(r => r.IsReservationActive == false)
@@ -241,11 +242,12 @@ namespace Hotel_Transylvania.Services
                 foreach (var guest in reservation.Guests)
                 {
                     table.AddRow(
+                        reservation.Id.ToString(),
                         $"{guest.Id} {guest.FirstName} {guest.Surname}",
                         reservation.RoomNumber.ToString(),
                         reservation.CheckinDate.ToString("yyyy-MM-dd"),
                         reservation.CheckoutDate.ToString("yyyy-MM-dd"),
-                        reservation.Id.ToString()
+                        reservation.NumberOfAdditionalBeds.ToString()
                     );
                 }
             }
