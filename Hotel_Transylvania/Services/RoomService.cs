@@ -20,7 +20,7 @@ namespace Hotel_Transylvania.Services
 
             if (newRoom.RoomSize <= 14 || newRoom.RoomType == "Single")
             {
-                AnsiConsole.MarkupLine("[red]Important note.[/] Per guest security reasons," +
+                AnsiConsole.MarkupLine("[bold red]Important note.[/] Per guest security reasons," +
                     "this room is too small to accomodate any extra beds.");
             }
             else if (newRoom.RoomSize >= 15 && newRoom.RoomSize <= 19 && (newRoom.RoomType == "Double" || newRoom.RoomType == "Suite"))
@@ -51,7 +51,7 @@ namespace Hotel_Transylvania.Services
                 .ToList();
             if (activeRooms.Count == 0)
             {
-                AnsiConsole.MarkupLine($"No active rooms in the system.\n" +
+                AnsiConsole.MarkupLine($"[bold red]No active rooms in the system.[/]\n" +
                     $"Press any key to go back.");
                 return;
             }
@@ -86,7 +86,7 @@ namespace Hotel_Transylvania.Services
                 .ToList();
             if (inactiveRooms.Count == 0)
             {
-                AnsiConsole.MarkupLine($"No inactive rooms in the system.\n" +
+                AnsiConsole.MarkupLine($"[bold red]No inactive rooms in the system.[/]\n" +
                     $"Press any key to go back.");
                 return;
             }
@@ -156,7 +156,7 @@ namespace Hotel_Transylvania.Services
 
             if (roomToUpdate.RoomSize <= 14 || roomToUpdate.RoomType == "Single")
             {
-                AnsiConsole.MarkupLine("[red]Important note.[/] Per guest security reasons," +
+                AnsiConsole.MarkupLine("[bold red]Important note.[/] Per guest security reasons," +
                     "this room is too small to accomodate any extra beds.");
             }
             else if (roomToUpdate.RoomSize >= 15 && roomToUpdate.RoomSize <= 19 && (roomToUpdate.RoomType == "Double" || roomToUpdate.RoomType == "Suite"))
@@ -186,7 +186,7 @@ namespace Hotel_Transylvania.Services
                 }
                 else
                 {
-                    Console.WriteLine("No room found with that Id.");
+                    AnsiConsole.MarkupLine("[bold red]No room found with that Id.[/]");
                 }
         }
         public void ReActivateRoom(int roomToReactivate, ApplicationDbContext dbContext)
@@ -200,7 +200,7 @@ namespace Hotel_Transylvania.Services
                 }
                 else
                 {
-                    Console.WriteLine("No room found with that Id.");
+                    AnsiConsole.MarkupLine("[bold red]No room found with that Id.[/]");
                 }
         }
         public IEnumerable<string> GetExistingRoomNumbersAsString(ApplicationDbContext dbContext)

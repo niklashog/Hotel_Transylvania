@@ -141,19 +141,6 @@ namespace Hotel_Transylvania.Services
             AnsiConsole.MarkupLine("[yellow]Available Rooms[/]");
             AnsiConsole.Write(table);
         }
-
-
-        public void ClearLinesAboveReservationInfo()
-        {
-            Console.SetCursorPosition(0, 7);
-            Console.Write(new string(' ', Console.WindowWidth));
-            Console.Write(new string(' ', Console.WindowWidth));
-        }
-        public void SetCorrectRowAboveReservationInfo()
-        {
-            Console.SetCursorPosition(0, 7);
-        }
-
         public void AddReservation(string guestIdString, 
             DateTime checkinDate, DateTime checkoutDate,
             string roomNumberString, ApplicationDbContext dbContext)
@@ -165,7 +152,7 @@ namespace Hotel_Transylvania.Services
             if (!GetAvailableRooms(checkinDate, checkoutDate, dbContext)
                 .Any(r => r.RoomNumber == roomNumber))
             {
-                throw new Exception("Room is unavailable on the selected dates. Try again.");
+                throw new Exception("[bold red]Room is unavailable on the selected dates. Try again.[/]");
             }
             else
             {
@@ -176,7 +163,7 @@ namespace Hotel_Transylvania.Services
 
                 if (guest == null || room == null)
                 {
-                    throw new InvalidOperationException("Guest or Room not found.");
+                    throw new InvalidOperationException("[bold red]Guest or Room not found.[/]");
                 }
                 else
                 {
@@ -372,7 +359,7 @@ namespace Hotel_Transylvania.Services
                 .First(r => r.Id == reservationId);
             if (reservationToUpdate.IsReservationActive == false)
             {
-                Console.WriteLine("No active reservation with that number.");
+                AnsiConsole.MarkupLine("[bold red]No active reservation with that number.[/]");
             }
             else
             {
@@ -389,7 +376,7 @@ namespace Hotel_Transylvania.Services
                 .First(r => r.Id == reservationId);
             if (reservationToUpdate.IsReservationActive == false)
             {
-                Console.WriteLine("No active reservation with that number.");
+                AnsiConsole.MarkupLine("[bold red]No active reservation with that number.[/]");
             }
             else
             {

@@ -4,8 +4,6 @@
 -	När jag uppmanar att klicka Enter för att spara så vill jag även ge alternativet att
 	klicka backspace eller 'Esc' för att "backa utan att spara".
 
-
--	Spectre på alla Show/Display metoder. Exempelvis Reservations.
 -	Meny på show reservations för att välja mellan aktiva och inaktiva bokningar.
 
 -	Åldersgränser för bokning?
@@ -18,8 +16,8 @@
 
 -	En data validator som validerar datum, ålder, osv?
 
--	Kolla så jag är konsekvent mellan bold red, red & bold green, green.
 -	Telefonnr är inte valbart just nu!
+-	Välja antal extra sängar vid bokning.
 
 
 Console-Command

@@ -19,8 +19,6 @@ namespace Hotel_Transylvania.Interfaces.ServicesInterfaces
             ApplicationDbContext dbContext);
         public void DisplayAvailableRoomsWithAdditionalBeddingRequest(
             DateTime checkinDate, DateTime checkoutDate, int beddingRequest, ApplicationDbContext dbContext);
-        public void ClearLinesAboveReservationInfo();
-        public void SetCorrectRowAboveReservationInfo();
         public void AddReservation(string guestIdString, DateTime checkinDate, DateTime checkoutDate,
             string roomNumber, ApplicationDbContext dbContext);
         public int CountReservations(

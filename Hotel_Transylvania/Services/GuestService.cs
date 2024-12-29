@@ -34,8 +34,8 @@ namespace Hotel_Transylvania.Services
 
             if (activeGuests.Count == 0)
             {
-                Console.WriteLine("There are no active guests in the system.");
-                Console.WriteLine("Press 'Enter' to go back.");
+                AnsiConsole.MarkupLine("[bold red]There are no active guests in the system.[/]");
+                AnsiConsole.MarkupLine("Press 'Enter' to go back.");
             }
             else
             {
@@ -71,8 +71,8 @@ namespace Hotel_Transylvania.Services
                             .ToList();
             if (inactiveGuests.Count == 0)
             {
-                Console.WriteLine("There are no inactive guests in the system.");
-                Console.WriteLine("Press 'Enter' to go back.");
+                AnsiConsole.MarkupLine("[bold red]There are no inactive guests in the system.[/]");
+                AnsiConsole.MarkupLine("Press 'Enter' to go back.");
             }
             else
             {
@@ -97,24 +97,6 @@ namespace Hotel_Transylvania.Services
                 AnsiConsole.Write(table);
             }
         }
-        //public void DisplayGuestDetails(int guestId, ApplicationDbContext dbContext)
-        //{
-        //        var selectedGuest = dbContext.Guests
-        //          .First(g => g.Id == guestId);
-
-        //        var selectedGuestReservations = selectedGuest.Reservations.ToList(); 
-
-        //        string activeOrInactive;
-        //        if (selectedGuest.IsGuestActive)
-        //            activeOrInactive = "Active";
-        //        else
-        //            activeOrInactive = "Inactive";
-
-        //        Console.WriteLine($"First Name:\t{selectedGuest.FirstName}");
-        //        Console.WriteLine($"Surname:\t{selectedGuest.Surname}");
-        //        Console.WriteLine($"E-mail:\t\t{selectedGuest.Email}");
-        //        Console.WriteLine($"Phone number:\t{selectedGuest.Phone}");
-        //}
 
         public void DisplayGuestDetails(int guestId, ApplicationDbContext dbContext)
         {
@@ -186,7 +168,7 @@ namespace Hotel_Transylvania.Services
 
             if (guest == null)
             {
-                Console.WriteLine("No guest found with that Id.");
+                AnsiConsole.MarkupLine("[bold red]No guest found with that Id.[/]");
             }
             else
             {
@@ -198,8 +180,8 @@ namespace Hotel_Transylvania.Services
                 }
                 else
                 {
-                    Console.WriteLine("Cannot delete a customer with an active\t" +
-                        "reservation. Remove reservation first and try again.");
+                    AnsiConsole.MarkupLine("[bold red]Cannot delete a customer with an active\t" +
+                        "reservation.[/] Remove reservation first and try again.");
                     Console.ReadKey();
                 }
             }
@@ -214,7 +196,7 @@ namespace Hotel_Transylvania.Services
 
             if (guest == null)
             {
-                AnsiConsole.WriteLine("No guest found with that Id. Press 'Enter' to continue.");
+                AnsiConsole.MarkupLine("[bold red]No guest found with that Id.[/] Press 'Enter' to continue.");
             }
             else
             {
