@@ -22,23 +22,37 @@ namespace Hotel_Transylvania.Menus.Rooms
         {
             var newRoom = MainFactory.Resolve<Room>();
             using var dbContext = ApplicationDbContext.GetDbContext();
+            
+            var existingRoomNumbers = roomService.GetExistingRoomNumbersAsString(dbContext);
 
             Console.Clear();
             DisplayLogo.Paint();
-            Console.CursorVisible = true;
 
+            AnsiConsole.MarkupLine($"[bold yellow]Current Room Numbers[/]");
+            foreach (var roomNumber in existingRoomNumbers)
+            {
+                AnsiConsole.Markup($"{roomNumber} ");
+            }
+
+            Console.WriteLine("\n");
+            Console.CursorVisible = true;
             string roomNumberInput = AnsiConsole.Prompt(
-                new TextPrompt<string>("Input [yellow]Room Number[/]:")
+                new TextPrompt<string>("Input [yellow]Room Number:[/]")
                     .ValidationErrorMessage("[red]Room Number can only contain a maximum of three digits.[/]")
                     .Validate(input =>
                     {
+                        if (existingRoomNumbers.Contains(input))
+                        {
+                            return ValidationResult.Error("[red]Room with that number already exists.[/]");
+
+                        }
                         if (System.Text.RegularExpressions.Regex.IsMatch(input, @"^[1-9]\d{2}$"))
                         {
                             return ValidationResult.Success();
                         }
                         else
                         {
-                            return ValidationResult.Error("[red]Room Numbers cannot consist of letters and must be exactly three digits long.[/]");
+                            return ValidationResult.Error("[red]Room Numbers can only contain digits, must be 3 digits long, and cannot start with a 0.[/]");
                         }
                     })
                     );

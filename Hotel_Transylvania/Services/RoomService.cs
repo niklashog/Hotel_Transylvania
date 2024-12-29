@@ -53,7 +53,6 @@ namespace Hotel_Transylvania.Services
             {
                 AnsiConsole.MarkupLine($"No active rooms in the system.\n" +
                     $"Press any key to go back.");
-                Console.ReadKey();
                 return;
             }
             else
@@ -89,7 +88,6 @@ namespace Hotel_Transylvania.Services
             {
                 AnsiConsole.MarkupLine($"No inactive rooms in the system.\n" +
                     $"Press any key to go back.");
-                Console.ReadKey();
                 return;
             }
             else
@@ -207,6 +205,14 @@ namespace Hotel_Transylvania.Services
                 {
                     Console.WriteLine("No room found with that Id.");
                 }
+        }
+        public IEnumerable<string> GetExistingRoomNumbersAsString(ApplicationDbContext dbContext)
+        {
+            var existingRoomNumbers = dbContext.Rooms
+                .Select(r => r.RoomNumber.ToString())
+                .ToList();
+
+            return existingRoomNumbers;
         }
 
     }

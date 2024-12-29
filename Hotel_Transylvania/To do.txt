@@ -26,6 +26,7 @@
 -	Får inte skapa rum med samma rumsnr som redan finns.
 -	Kolla så jag är konsekvent mellan bold red, red & bold green, green.
 -	Sök efter "ange" och ändra till Input
+-	Telefonnr är inte valbart just nu!
 
 [•]	Metod i MainMenu som uppdaterar bokningar med CheckOut-Date <= dagens datum till inactive.
 
@@ -44,7 +45,7 @@ FELHANTERING / SPECTRE
 	[•] Deactivate
 	[•] Reactivate
 	[•] Register 
-	[ ] Update
+	[•] Update
 - Room
 	[•] Deactivate
 	[•] Reactivate

@@ -144,7 +144,7 @@ namespace Hotel_Transylvania.Menus.Guests
 };
             AnsiConsole.MarkupLine("\n[bold yellow]Summary:[/]");
             var table = new Table();
-            table.AddColumn("[yellow]Detail[/]");
+            table.AddColumn("[yellow]Guest detail[/]");
             table.AddColumn("[yellow]Current[/]");
             table.AddColumn("[yellow]New[/]");
             table.AddRow("First Name:", currentGuestDetails.FirstName, firstNameInput);

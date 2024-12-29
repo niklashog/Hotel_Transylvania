@@ -45,7 +45,7 @@ namespace Hotel_Transylvania.Menus.Rooms
                         {
                             if (!int.TryParse(input, out int roomNumber))
                             {
-                                return ValidationResult.Error("[red]Room Number only contain three digits[/]");
+                                return ValidationResult.Error("[red]Room Numbers only contain digits. Try again.[/]");
                             }
 
                             if (!validRoomNumbers.Contains(roomNumber))
@@ -63,7 +63,7 @@ namespace Hotel_Transylvania.Menus.Rooms
 
                 if (confirm)
                 {
-                    AnsiConsole.MarkupLine($"[green]Success! Room is active once more.[/]");
+                    AnsiConsole.MarkupLine($"[green]Success! Room is now active.[/]");
                     roomService.ReActivateRoom(roomToReactivate, dbContext);
                 }
                 else
