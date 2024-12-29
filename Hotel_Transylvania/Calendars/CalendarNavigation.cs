@@ -45,7 +45,7 @@ namespace Hotel_Transylvania.Calendars
                         {
                             AnsiConsole.MarkupLine($"\nSelected date: [Yellow]{selectedDate:yyyy-MM-dd}[/]. Press any key to {prompt}.. ");
                             Console.ReadKey();
-                            return selectedDate;
+                            return selectedDate.Date;
                         }
                         else
                         {

@@ -109,6 +109,7 @@ namespace Hotel_Transylvania.Controllers.Reservations
                 $"Press any key to continue.");
             Console.ReadKey();
 
+            var timeOfReservation = DateTime.Now;
             reservationService.AddReservation(guestIdToBook, checkInDate, checkOutDate, roomNumberChoice, dbContext);
         }
     }

@@ -81,7 +81,7 @@ namespace Hotel_Transylvania.Menus.Guests
                     .ValidationErrorMessage("[red]Surnames can only consist of letters.[/]")
                     .Validate(input =>
                     {
-                        if (Regex.IsMatch(input, @"^[\p{L}]{2,20}-?$"))
+                        if (Regex.IsMatch(input, @"^[\p{L}]{2,50}-?$"))
                         {
                             return ValidationResult.Success();
                         }

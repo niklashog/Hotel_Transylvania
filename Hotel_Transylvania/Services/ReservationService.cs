@@ -155,7 +155,7 @@ namespace Hotel_Transylvania.Services
         }
 
         public void AddReservation(string guestIdString, 
-            DateTime checkinDate, DateTime checkoutDate, 
+            DateTime checkinDate, DateTime checkoutDate,
             string roomNumberString, ApplicationDbContext dbContext)
         {
 
@@ -183,9 +183,9 @@ namespace Hotel_Transylvania.Services
                     var reservation = new Reservation()
                     {
                         RoomNumber = roomNumber,
-                        CheckinDate = checkinDate,
-                        CheckoutDate = checkoutDate,
-                        TimeOfReservation = DateTime.Now,
+                        CheckinDate = checkinDate.Date,
+                        CheckoutDate = checkoutDate.Date,
+                        TimeOfReservation = DateTime.Now.Date,
                         IsReservationActive = true
                     };
 

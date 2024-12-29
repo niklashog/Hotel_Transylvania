@@ -108,7 +108,7 @@ namespace Hotel_Transylvania.Data
                             CheckinDate = DateTime.Now.Date.AddDays(-2),
                             CheckoutDate = DateTime.Today.Date,
                             TimeOfReservation = DateTime.Now.Date.AddDays(-14),
-                            IsReservationActive = true
+                            IsReservationActive = false
                         }
                     }
                 });
