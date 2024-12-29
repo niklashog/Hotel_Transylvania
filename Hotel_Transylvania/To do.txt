@@ -24,7 +24,7 @@
 -	En data validator som validerar datum, ålder, osv?
 -	Ska inte kunna ta bort rum som har bokningar.'
 -	Får inte skapa rum med samma rumsnr som redan finns.
-
+-	Kolla så jag är konsekvent mellan bold red, red & bold green, green.
 
 [•]	Metod i MainMenu som uppdaterar bokningar med CheckOut-Date <= dagens datum till inactive.
 
@@ -62,7 +62,8 @@ FELHANTERING / SPECTRE
 [•]	(R) Se en list över de befintliga entiteter som finns i databasen
 [•]	(U) Uppdatera en befintlig entitet
 [•]	(D) Radera en befintlig entitet
-		[•] Behöver ta bort bokning innan en gäst går att ta bort.
+		[ ] Behöver ta bort bokning innan en gäst går att ta bort.
+		[ ] Behöver ta bort bokning innan ett rum går att ta bort.
 
 1:	(G) ER diagram ska ha alla entiteter som behövs för att hotellappen ska 
 	fungera enligt appens beskrivning. 
