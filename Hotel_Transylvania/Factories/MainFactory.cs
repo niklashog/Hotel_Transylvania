@@ -32,9 +32,6 @@ namespace Hotel_Transylvania.Factories
             builder.RegisterType<NavigateMainMenu>().As<INavigateMainMenu>();
             builder.RegisterType<ExecuteMainMenu>().As<IExecuteMainMenu>();
 
-            builder.RegisterType<DisplayInactiveGuests>().As<IDisplayInactiveGuests>();
-            builder.RegisterType<DisplayActiveGuests>().As<IDisplayActiveGuests>();
-
             _container = builder.Build();
         }
 

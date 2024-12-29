@@ -24,10 +24,8 @@ namespace Hotel_Transylvania.Factories
             builder.RegisterType<ReactivateRoom>().As<IReactivateRoom>();
             builder.RegisterType<RegisterNewRoom>().As<IRegisterNewRoom>();
 
-            //Dessa ligger utanför min Service. Måste fixas.
             builder.RegisterType<ShowActiveRooms>().As<IShowActiveRooms>();
             builder.RegisterType<ShowInactiveRooms>().As<IShowInactiveRooms>();
-
 
             builder.RegisterType<UpdateRoom>().As<IUpdateRoom>();
 
