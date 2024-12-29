@@ -182,7 +182,6 @@ namespace Hotel_Transylvania.Services
                 {
                     var reservation = new Reservation()
                     {
-                        GuestId = guestId,
                         RoomNumber = roomNumber,
                         CheckinDate = checkinDate,
                         CheckoutDate = checkoutDate,

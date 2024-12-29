@@ -3,13 +3,6 @@ using System.Collections.Generic;
 
 namespace Hotel_Transylvania.Models
 {
-    public enum TypeOfRoom
-    {
-        Single,
-        Double,
-        Suite
-    }
-
     public class Room
     {
         public int Id { get; set; }

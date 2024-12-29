@@ -17,10 +17,7 @@ namespace Hotel_Transylvania.Menus.Rooms
             DisplayLogo.Paint();
             using var dbContext = ApplicationDbContext.GetDbContext();
 
-            var xcoord = 2;
-            var ycoord = 9;
-            roomService.GetActiveRooms(xcoord, ycoord, dbContext);
-
+            roomService.DisplayActiveRooms(dbContext);
             Console.ReadKey();
         }
     }

@@ -5,17 +5,18 @@ using Hotel_Transylvania.Interfaces.MenuInterfaces.RoomsInterfaces;
 using Hotel_Transylvania.Interfaces.ServicesInterfaces;
 using Hotel_Transylvania.Models;
 using Hotel_Transylvania.Services;
+using Spectre.Console;
 
 namespace Hotel_Transylvania.Menus.Rooms
 {
-    public class DeactivateRoom(): IDeactivateRoom
+    public class DeactivateRoom(
+        IRoomService roomService): IDeactivateRoom
     {
         public void Execute()
         {
             Console.Clear();
             DisplayLogo.Paint();
 
-            var roomService = MainFactory.Resolve<IRoomService>();
             using var dbContext = ApplicationDbContext.GetDbContext();
 
 
@@ -24,28 +25,60 @@ namespace Hotel_Transylvania.Menus.Rooms
                 .ToList()
                 .Count >= 1)
             {
-                var xcoord = 45;
-                var ycoord = 9;
-                roomService.GetActiveRooms(xcoord, ycoord, dbContext);
+                roomService.DisplayActiveRooms(dbContext);
+
+                var activeRooms = dbContext.Rooms
+                .Where(g => g.IsRoomActive)
+                .ToList();
+
+                var validRoomNumbers = activeRooms
+                    .Select(r => r.RoomNumber)
+                    .ToList();
 
                 Console.CursorVisible = true;
-                Console.SetCursorPosition(0, 9);
-                Console.WriteLine("Make choice by Room ID..");
-                Console.Write("Room to deactivate: ");
-                var roomToDeactivate = int.Parse(Console.ReadLine());
-                Console.CursorVisible = false;
-                Console.Write($"\nPress 'Enter' to deactivate room #{roomToDeactivate}..");
+                AnsiConsole.MarkupLine("[bold yellow]Deactivate Room[/]");
 
-                Console.ReadKey();
-                roomService.RemoveRoom(roomToDeactivate, dbContext);
+                string roomToDeactivateString = AnsiConsole.Prompt(
+                    new TextPrompt<string>("Input [yellow]Room Number[/] to deactivate:")
+                        .ValidationErrorMessage("[red]Please enter an existing Room Number[/]")
+                        .Validate(input =>
+                        {
+                            if (!int.TryParse(input, out int roomNumber))
+                            {
+                                return ValidationResult.Error("[red]Room Number only contain three digits[/]");
+                            }
+
+                            if (!validRoomNumbers.Contains(roomNumber))
+                            {
+                                return ValidationResult.Error("[red]Please input a room number from the list.[/]");
+                            }
+                            return ValidationResult.Success();
+                        })
+                        );
+
+                Console.CursorVisible = false;
+                var roomToDeactivate = int.Parse(roomToDeactivateString);
+
+                bool confirm = AnsiConsole.Confirm("\nPlease confirm this is the correct room to deactivate.");
+
+                if (confirm)
+                {
+                    AnsiConsole.MarkupLine($"[green]Success! Room is now inactive.[/]");
+                    roomService.RemoveRoom(roomToDeactivate, dbContext);
+                }
+                else
+                {
+                    AnsiConsole.MarkupLine("[bold red]Nothing was cancelled. Everything is still active.[/]");
+                }
             }
             else
             {
-                Console.WriteLine("There are no active rooms in the system." +
+                AnsiConsole.WriteLine("There are no active rooms in the system." +
                     "\nPress any key to go back.");
                 Console.ReadKey();
                 return;
             }
+            Console.ReadKey();
         }
     }
 }

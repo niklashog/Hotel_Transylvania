@@ -8,6 +8,7 @@ using Hotel_Transylvania.Interfaces.MenuInterfaces.RoomsInterfaces;
 using Hotel_Transylvania.Interfaces.ServicesInterfaces;
 using Hotel_Transylvania.Models;
 using Microsoft.EntityFrameworkCore;
+using Spectre.Console;
 
 namespace Hotel_Transylvania.Services
 {
@@ -17,22 +18,22 @@ namespace Hotel_Transylvania.Services
         {
                 var newRoom = room;
 
-                if (newRoom.RoomSize <= 14 || newRoom.RoomType == "Single")
-                {
-                    Console.WriteLine("Important note. Per guest security reasons," +
-                        "this room is too small to accomodate extra beds.");
-                }
-                else if (newRoom.RoomSize >= 15 && newRoom.RoomSize <= 19)
-                {
-                    newRoom.AdditionalBeddingNumber = 1;
-                    Console.WriteLine("If requested by guest," +
-                        "room can accomodate 1 additonal bed.");
-                }
-                else
+            if (newRoom.RoomSize <= 14 || newRoom.RoomType == "Single")
+            {
+                AnsiConsole.MarkupLine("[red]Important note.[/] Per guest security reasons," +
+                    "this room is too small to accomodate any extra beds.");
+            }
+            else if (newRoom.RoomSize >= 15 && newRoom.RoomSize <= 19 && (newRoom.RoomType == "Double" || newRoom.RoomType == "Suite"))
+            {
+                newRoom.AdditionalBeddingNumber = 1;
+                AnsiConsole.MarkupLine("If requested by guest," +
+                        "room can accomodate [yellow]1[/] additonal bed.");
+            }
+            else if (newRoom.RoomSize >= 20 && (newRoom.RoomType == "Double" || newRoom.RoomType == "Suite"))
                 {
                     newRoom.AdditionalBeddingNumber = 2;
-                    Console.WriteLine("If requested by guest," +
-                        "room can accomodate 2 additonal beds.");
+                AnsiConsole.MarkupLine("\nIf requested by guest, " +
+                        "room can accomodate up to [yellow]2[/] additional beds.");
                 }
 
                 dbContext.Rooms.Add(room);
@@ -43,59 +44,104 @@ namespace Hotel_Transylvania.Services
         {
                 return dbContext.Rooms;
         }
-        public void GetActiveRooms(int x, int y, ApplicationDbContext dbContext)
+        public void DisplayActiveRooms(ApplicationDbContext dbContext)
         {
-                var activeRooms = dbContext.Rooms
+            var activeRooms = dbContext.Rooms
                 .Where(r => r.IsRoomActive)
                 .ToList();
+            if (activeRooms.Count == 0)
+            {
+                AnsiConsole.MarkupLine($"No active rooms in the system.\n" +
+                    $"Press any key to go back.");
+                Console.ReadKey();
+                return;
+            }
+            else
+            {
+                var table = new Table();
+                table.Border = TableBorder.Simple;
 
-                activeRooms
-                    .ForEach(r =>
-                    {
-                        Console.SetCursorPosition(x, y++);
-                        Console.WriteLine($"# {r.RoomNumber}, {r.RoomType}, {r.RoomSize}m²");
-                    });
+                table.AddColumn("Room Number");
+                table.AddColumn("Room Type");
+                table.AddColumn("Room Size");
+                table.AddColumn("Additional bedding");
+
+                foreach (var room in activeRooms)
+                {
+                    table.AddRow(
+                        room.RoomNumber.ToString(),
+                        room.RoomType.ToString(),
+                        $"{room.RoomSize}m²",
+                        $"{room.AdditionalBeddingNumber}"
+                    );
+                }
+
+                AnsiConsole.MarkupLine("[yellow]Active Rooms[/]");
+                AnsiConsole.Write(table);
+            }
         }
-        public void GetInactiveRooms(int x, int y, ApplicationDbContext dbContext)
+        public void DisplayInactiveRooms(ApplicationDbContext dbContext)
         {
-                var inactiveRooms = dbContext.Rooms
+            var inactiveRooms = dbContext.Rooms
                 .Where(r => r.IsRoomActive == false)
                 .ToList();
+            if (inactiveRooms.Count == 0)
+            {
+                AnsiConsole.MarkupLine($"No inactive rooms in the system.\n" +
+                    $"Press any key to go back.");
+                Console.ReadKey();
+                return;
+            }
+            else
+            {
+                var table = new Table();
+                table.Border = TableBorder.Simple;
 
-                inactiveRooms
-                .ForEach(r =>
+                table.AddColumn("Room Number");
+                table.AddColumn("Room Type");
+                table.AddColumn("Room Size");
+                table.AddColumn("Additional bedding");
+
+                foreach (var room in inactiveRooms)
                 {
-                    Console.SetCursorPosition(x, y++);
-                    Console.WriteLine($"# {r.RoomNumber}, {r.RoomType}, {r.RoomSize}m²");
-                });
+                    table.AddRow(
+                        room.RoomNumber.ToString(),
+                        room.RoomType.ToString(),
+                        $"{room.RoomSize}m²",
+                        $"{room.AdditionalBeddingNumber}"
+                    );
+                }
+
+                AnsiConsole.MarkupLine("[yellow]Inactive Rooms[/]");
+                AnsiConsole.Write(table);
+            }
         }
-        public void DisplaySingleRoom(int roomId, int x, int y, ApplicationDbContext dbContext)
+
+        public void DisplaySingleRoom(int roomId, ApplicationDbContext dbContext)
         {
-                var selectedRoom = dbContext.Rooms
-            .First(r => r.RoomNumber == roomId);
+            var selectedRoom = dbContext.Rooms
+                .First(r => r.RoomNumber == roomId);
 
-                var roomStatus = "not set";
+            var table = new Table();
+            table.Border = TableBorder.Simple;
 
-                if (selectedRoom.IsRoomActive)
-                {
-                    roomStatus = "Yes";
-                }
-                else
-                {
-                    roomStatus = "No";
-                }
+            table.AddColumn("Room Number");
+            table.AddColumn("Room Type");
+            table.AddColumn("Room Size");
+            table.AddColumn("Max number of extra beds");
+            table.AddColumn("Room active");
 
-                Console.SetCursorPosition(x, y);
-                Console.WriteLine($"#{selectedRoom.RoomNumber}");
-                Console.SetCursorPosition(x, y + 1);
-                Console.WriteLine($"Type: {selectedRoom.RoomType}");
-                Console.SetCursorPosition(x, y + 2);
-                Console.WriteLine($"Size: {selectedRoom.RoomSize}m²");
-                Console.SetCursorPosition(x, y + 3);
-                Console.WriteLine($"Max number of extra beds: {selectedRoom.AdditionalBeddingNumber}");
-                Console.SetCursorPosition(x, y + 4);
-                Console.WriteLine($"Room active: {roomStatus}");
+            table.AddRow(
+                selectedRoom.RoomNumber.ToString(),
+                selectedRoom.RoomType.ToString(),
+                $"{selectedRoom.RoomSize}m²",
+                selectedRoom.AdditionalBeddingNumber.ToString()
+            );
+
+            AnsiConsole.MarkupLine("[yellow]Selected Room[/]");
+            AnsiConsole.Write(table);
         }
+
         public int CountAllRooms(ApplicationDbContext dbContext)
         {
                 return dbContext.Rooms.Count();

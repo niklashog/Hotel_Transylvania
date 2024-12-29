@@ -13,9 +13,9 @@ namespace Hotel_Transylvania.Interfaces.ServicesInterfaces
         public void AddRoom(ApplicationDbContext dbContext, Room room);
 
         public IEnumerable<Room> GetAllRooms(ApplicationDbContext dbContext);
-        public void GetActiveRooms(int x, int y, ApplicationDbContext dbContext);
-        public void GetInactiveRooms(int x, int y, ApplicationDbContext dbContext);
-        public void DisplaySingleRoom(int roomId, int x, int y, ApplicationDbContext dbContext);
+        public void DisplayActiveRooms(ApplicationDbContext dbContext);
+        public void DisplayInactiveRooms(ApplicationDbContext dbContext);
+        public void DisplaySingleRoom(int roomId, ApplicationDbContext dbContext);
         public int CountAllRooms(ApplicationDbContext dbContext);
 
         public void UpdateRoomDetails(int roomIdInput, Room updatedRoomDetails, ApplicationDbContext dbContext);

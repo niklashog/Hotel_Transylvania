@@ -5,6 +5,7 @@ using Hotel_Transylvania.Interfaces.ServicesInterfaces;
 using Hotel_Transylvania.Models;
 using Hotel_Transylvania.Services;
 using Microsoft.EntityFrameworkCore;
+using Spectre.Console;
 
 namespace Hotel_Transylvania.Menus.Rooms
 {
@@ -18,34 +19,66 @@ namespace Hotel_Transylvania.Menus.Rooms
 
             using var dbContext = ApplicationDbContext.GetDbContext();
 
+
             if (roomService.GetAllRooms(dbContext)
                 .Where(g => g.IsRoomActive == false)
                 .ToList()
                 .Count >= 1)
             {
-                var xcoord = 45;
-                var ycoord = 9;
-                roomService.GetInactiveRooms(xcoord, ycoord, dbContext);
+                roomService.DisplayInactiveRooms(dbContext);
+
+                var inactiveRooms = dbContext.Rooms
+                .Where(g => g.IsRoomActive == false)
+                .ToList();
+
+                var validRoomNumbers = inactiveRooms
+                    .Select(r => r.RoomNumber)
+                    .ToList();
 
                 Console.CursorVisible = true;
-                Console.SetCursorPosition(0, 9);
-                Console.WriteLine("Make choice by Room number..");
-                Console.Write("Room to reactivate: ");
-                var roomToReactivate = int.Parse(Console.ReadLine());
+                AnsiConsole.MarkupLine("[bold yellow]Reactivate Room[/]");
+
+                string roomToReactivateString = AnsiConsole.Prompt(
+                    new TextPrompt<string>("Input [yellow]Room Number[/] to reactivate:")
+                        .ValidationErrorMessage("[red]Please enter an existing Room Number[/]")
+                        .Validate(input =>
+                        {
+                            if (!int.TryParse(input, out int roomNumber))
+                            {
+                                return ValidationResult.Error("[red]Room Number only contain three digits[/]");
+                            }
+
+                            if (!validRoomNumbers.Contains(roomNumber))
+                            {
+                                return ValidationResult.Error("[red]Please input a room number from the list.[/]");
+                            }
+                            return ValidationResult.Success();
+                        })
+                        );
+
                 Console.CursorVisible = false;
-                Console.Write("\nPress 'Enter' to save..");
+                var roomToReactivate = int.Parse(roomToReactivateString);
 
-                Console.ReadKey();
-                roomService.ReActivateRoom(roomToReactivate, dbContext);
+                bool confirm = AnsiConsole.Confirm("\nPlease confirm this is the correct room to reactivate.");
 
+                if (confirm)
+                {
+                    AnsiConsole.MarkupLine($"[green]Success! Room is active once more.[/]");
+                    roomService.ReActivateRoom(roomToReactivate, dbContext);
+                }
+                else
+                {
+                    AnsiConsole.MarkupLine("[bold red]Nothing was reactivated. Room is still inactive.[/]");
+                }
             }
             else
             {
-                Console.WriteLine("There are no inactive rooms in the system." +
+                AnsiConsole.WriteLine("There are no inactive rooms in the system." +
                     "\nPress any key to go back.");
                 Console.ReadKey();
                 return;
             }
+            Console.ReadKey();
         }
     }
 }

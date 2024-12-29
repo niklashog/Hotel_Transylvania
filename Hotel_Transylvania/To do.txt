@@ -20,9 +20,11 @@
 -	RoomNumber i Room och i Reservation..
 -	Update guest bara en post istället för hela gästen??
 -	ReservationService. Läs kommentaren.
-
+-	Ska inte kunna ta bort en gäst eller ett rum som har en bokning.
 -	En data validator som validerar datum, ålder, osv?
--	Crashar när jag byter till ett rum som inte kan ha sängar, men har extra sängar.
+-	Ska inte kunna ta bort rum som har bokningar.'
+-	Får inte skapa rum med samma rumsnr som redan finns.
+
 
 [•]	Metod i MainMenu som uppdaterar bokningar med CheckOut-Date <= dagens datum till inactive.
 
@@ -40,15 +42,13 @@ FELHANTERING / SPECTRE
 - Guest
 	[•] Deactivate
 	[•] Reactivate
-	[•] Register 
-	[ ] Update
-- Room
-	[ ] Deactivate
-	[ ] Reactivate
 	[ ] Register 
 	[ ] Update
-
-	-	Krav på dubbelrum för extrasäng måste in igen.
+- Room
+	[•] Deactivate
+	[•] Reactivate
+	[•] Register 
+	[ ] Update
 
 - Reservation
 	[•] Add
