@@ -6,7 +6,6 @@ using Hotel_Transylvania.Data;
 using Hotel_Transylvania.Services;
 using Hotel_Transylvania.Interfaces.ServicesInterfaces;
 using Hotel_Transylvania.Display;
-using Hotel_Transylvania.Interfaces.DisplayInterfaces;
 
 namespace Hotel_Transylvania.Menus.Guests
 {

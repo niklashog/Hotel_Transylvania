@@ -70,13 +70,13 @@ namespace Hotel_Transylvania.Menus.Guests
                     );
 
             string phoneInput = AnsiConsole.Prompt(
-                new TextPrompt<string>("Input [yellow]Phone Number[/]:")
+                new TextPrompt<string?>("Input [yellow]Phone Number[/]:")
+                    .AllowEmpty()
                     .ValidationErrorMessage("[red]Please enter a correct phone number[/]")
                     .Validate(input =>
                     {
                         if (string.IsNullOrWhiteSpace(input))
                         {
-                            phoneInput = null;
                             Console.WriteLine("Phone number left blank.");
                             return ValidationResult.Success();
                         }
@@ -121,7 +121,7 @@ namespace Hotel_Transylvania.Menus.Guests
                     FirstName = firstNameInput,
                     Surname = surnameInput,
                     Email = emailInput,
-                    Phone = phoneInput ?? "---"
+                    Phone = phoneInput ?? "-"
                 };
                 guestService.AddGuest(newGuest, dbContext);
             }

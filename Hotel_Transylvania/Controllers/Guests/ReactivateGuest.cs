@@ -5,7 +5,6 @@ using Hotel_Transylvania.Models;
 using Hotel_Transylvania.Services;
 using Hotel_Transylvania.Interfaces.ServicesInterfaces;
 using Hotel_Transylvania.Display;
-using Hotel_Transylvania.Interfaces.DisplayInterfaces;
 using Hotel_Transylvania.Data;
 using Spectre.Console;
 

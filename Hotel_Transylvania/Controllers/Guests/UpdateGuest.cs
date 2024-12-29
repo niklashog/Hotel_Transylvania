@@ -109,13 +109,13 @@ namespace Hotel_Transylvania.Menus.Guests
                     );
 
             string phoneInput = AnsiConsole.Prompt(
-                new TextPrompt<string>("Input [yellow]Phone Number[/] (optional):")
+                new TextPrompt<string?>("Input [yellow]Phone Number[/] (optional):")
+                    .AllowEmpty()
                     .ValidationErrorMessage("[red]Please enter a correct phone number[/]")
                     .Validate(input =>
                     {
                         if (string.IsNullOrWhiteSpace(input))
                         {
-                            phoneInput = null;
                             Console.WriteLine("Phone number left blank.");
                             return ValidationResult.Success();
                         }
@@ -129,6 +129,7 @@ namespace Hotel_Transylvania.Menus.Guests
                         }
                     })
                     );
+
             Console.CursorVisible = false;
             Console.Clear();
             DisplayLogo.Paint();
@@ -140,7 +141,7 @@ namespace Hotel_Transylvania.Menus.Guests
                 firstNameInput,
                 surnameInput,
                 emailInput,
-                phoneInput ?? "---"
+                phoneInput ?? "-"
             };
 
             AnsiConsole.MarkupLine("\n[bold yellow]Summary:[/]");
