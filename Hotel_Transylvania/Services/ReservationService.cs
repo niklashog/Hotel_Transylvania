@@ -196,7 +196,7 @@ namespace Hotel_Transylvania.Services
             table.AddColumn("Room");
             table.AddColumn("Check-in");
             table.AddColumn("Check-out");
-            table.AddColumn("Additional Bedding Required");
+            table.AddColumn("Specified extra beds");
 
             var guestReservations = dbContext.Reservations
                 .Where(r => r.IsReservationActive)
