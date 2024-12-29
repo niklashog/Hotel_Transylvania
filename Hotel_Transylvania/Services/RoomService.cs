@@ -154,27 +154,24 @@ namespace Hotel_Transylvania.Services
                 roomToUpdate.RoomType = updatedRoomDetails.RoomType;
                 roomToUpdate.RoomSize = updatedRoomDetails.RoomSize;
 
-                if (roomToUpdate.RoomSize <= 14)
-                {
-                    Console.WriteLine("This room is too small to accomodate extra beds.");
-
-                    roomToUpdate.AdditionalBeddingNumber = 0;
-                }
-                else if (roomToUpdate.RoomSize >= 15 && roomToUpdate.RoomSize <= 19)
-                {
-                    Console.WriteLine("If requested by guest," +
-                        "room can accomodate 1 additonal bed.");
-
-                    roomToUpdate.AdditionalBeddingNumber = 1;
-                }
-                else
-                {
-                    Console.WriteLine("If requested by guest," +
-                        "room can accomodate 2 additonal beds.");
-
-                    roomToUpdate.AdditionalBeddingNumber = 2;
-                }
-                dbContext.SaveChanges();
+            if (roomToUpdate.RoomSize <= 14 || roomToUpdate.RoomType == "Single")
+            {
+                AnsiConsole.MarkupLine("[red]Important note.[/] Per guest security reasons," +
+                    "this room is too small to accomodate any extra beds.");
+            }
+            else if (roomToUpdate.RoomSize >= 15 && roomToUpdate.RoomSize <= 19 && (roomToUpdate.RoomType == "Double" || roomToUpdate.RoomType == "Suite"))
+            {
+                roomToUpdate.AdditionalBeddingNumber = 1;
+                AnsiConsole.MarkupLine("If requested by guest," +
+                        "room can accomodate [yellow]1[/] additonal bed.");
+            }
+            else if (roomToUpdate.RoomSize >= 20 && (roomToUpdate.RoomType == "Double" || roomToUpdate.RoomType == "Suite"))
+            {
+                roomToUpdate.AdditionalBeddingNumber = 2;
+                AnsiConsole.MarkupLine("\nIf requested by guest, " +
+                        "room can accomodate up to [yellow]2[/] additional beds.");
+            }
+            dbContext.SaveChanges();
         }
 
         public void RemoveRoom(int roomToDelete, ApplicationDbContext dbContext)
@@ -213,6 +210,22 @@ namespace Hotel_Transylvania.Services
                 .ToList();
 
             return existingRoomNumbers;
+        }
+        public IEnumerable<Room> ListOfActiveRooms(ApplicationDbContext dbContext)
+        {
+            var listOfActiveRooms = dbContext.Rooms
+                .Where(g => g.IsRoomActive)
+                .ToList();
+
+            return listOfActiveRooms;
+        }
+        public IEnumerable<Room> ListOfInctiveRooms(ApplicationDbContext dbContext)
+        {
+            var listOfInctiveRooms = dbContext.Rooms
+                .Where(g => g.IsRoomActive == false)
+                .ToList();
+
+            return listOfInctiveRooms;
         }
 
     }

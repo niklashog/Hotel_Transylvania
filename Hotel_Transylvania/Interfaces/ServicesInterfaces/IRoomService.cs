@@ -23,5 +23,8 @@ namespace Hotel_Transylvania.Interfaces.ServicesInterfaces
         public void RemoveRoom(int roomToDelete, ApplicationDbContext dbContext);
         public void ReActivateRoom(int roomToReactivate, ApplicationDbContext dbContext);
         public IEnumerable<string> GetExistingRoomNumbersAsString(ApplicationDbContext dbContext);
+
+        public IEnumerable<Room> ListOfActiveRooms(ApplicationDbContext dbContext);
+        public IEnumerable<Room> ListOfInctiveRooms(ApplicationDbContext dbContext);
     }
 }

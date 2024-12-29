@@ -1,39 +1,29 @@
 ﻿### WORK ITEMS
--	RoomType måste vara Enum!
+-	RoomType måste vara Enum? Just nu styr jag med Regex.
 
 -	När jag uppmanar att klicka Enter för att spara så vill jag även ge alternativet att
 	klicka backspace eller 'Esc' för att "backa utan att spara".
--	Kan max lägga till en extra säng på rum som ska klara 2.
--	Kan jag byta till ett rum som bara klarar en extra säng om jag behöver 2?
 
--	Behöver jag verkligen IPaint när jag har IExecute??
--	Det går att önska 200 sängar.
--	Update room måste jag fixa UX
--	Krav på dubbelrum för extrasäng måste in igen.
+
 -	Spectre på alla Show/Display metoder. Exempelvis Reservations.
 -	Meny på show reservations för att välja mellan aktiva och inaktiva bokningar.
 
 -	Åldersgränser för bokning?
--	Ta bort rum som har aktiv bokning?
--	Metod som hämtar Guest Id's
--	Update på Reservation Dates uppdaterar inte CheckOutDate.
--	RoomNumber i Room och i Reservation..
--	Update guest bara en post istället för hela gästen??
+
 -	ReservationService. Läs kommentaren.
+
+-	Update room ska visa alla rum inte bara aktiva.
+-	Update room måste jag fixa UX
 -	Ska inte kunna ta bort en gäst eller ett rum som har en bokning.
+-	Kolla så att ett rum inte är bokat innan man ändrar status/details?
+
 -	En data validator som validerar datum, ålder, osv?
--	Ska inte kunna ta bort rum som har bokningar.'
--	Får inte skapa rum med samma rumsnr som redan finns.
+
 -	Kolla så jag är konsekvent mellan bold red, red & bold green, green.
--	Sök efter "ange" och ändra till Input
 -	Telefonnr är inte valbart just nu!
 
-[•]	Metod i MainMenu som uppdaterar bokningar med CheckOut-Date <= dagens datum till inactive.
-
 ### CLEANUP
--	Felhantering.
 -	Update Guest ser ut som skit.
--   Ta bort felaktiga foreign keys.
 
 
 Console-Command

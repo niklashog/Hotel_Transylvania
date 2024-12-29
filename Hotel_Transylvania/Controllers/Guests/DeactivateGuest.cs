@@ -37,7 +37,7 @@ namespace Hotel_Transylvania.Menus.Guests
                 AnsiConsole.MarkupLine("[bold yellow]Deactivate Guest[/]");
 
                 string guestToDeactivate = AnsiConsole.Prompt(
-                    new TextPrompt<string>("Ange [yellow]Guest to deactivate: [/]:")
+                    new TextPrompt<string>("[yellow]Guest to deactivate: [/]:")
                         .ValidationErrorMessage("[red]Please enter an existing Guest Id[/]")
                         .Validate(input =>
                         {

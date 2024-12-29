@@ -136,12 +136,13 @@ namespace Hotel_Transylvania.Menus.Guests
             var currentGuestDetails = guestService.GetGuestById(guestToUpdate, dbContext);
 
             var updatedGuestDetails = new string[]
-{
+            {
                 firstNameInput,
                 surnameInput,
                 emailInput,
                 phoneInput ?? "---"
-};
+            };
+
             AnsiConsole.MarkupLine("\n[bold yellow]Summary:[/]");
             var table = new Table();
             table.AddColumn("[yellow]Guest detail[/]");
