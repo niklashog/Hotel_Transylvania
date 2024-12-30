@@ -1,4 +1,8 @@
 ﻿### WORK ITEMS
+
+-	Fixa ER Diagram i Draw.io
+-	Skriva Select, Join osv i SQL
+
 -	RoomType måste vara Enum? Just nu styr jag med Regex.
 
 -	När jag uppmanar att klicka Enter för att spara så vill jag även ge alternativet att
@@ -15,7 +19,6 @@
 -	En data validator som validerar datum, ålder, osv?
 
 -	Felsöka så att rum inte går att dubbelboka.
-
 
 Console-Command
 add-migration "Comment comment"
