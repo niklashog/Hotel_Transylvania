@@ -11,6 +11,7 @@ namespace Hotel_Transylvania.Menus.MenuExecution
     IUpdateReservationMenu updateReservation,
     IDeactivateReservation cancelReservation,
     IShowReservations showReservations,
+    IShowInactiveReservations showInactiveReservations,
     IMainMenu mainMenu) : IExecuteReservationsMenu
     {
         public void Execute(int index)
@@ -27,9 +28,12 @@ namespace Hotel_Transylvania.Menus.MenuExecution
                     showReservations.Execute();
                     break;
                 case 3:
-                    cancelReservation.Execute();
+                    showInactiveReservations.Execute();
                     break;
                 case 4:
+                    cancelReservation.Execute();
+                    break;
+                case 5:
                     mainMenu.Execute();
                     break;
                 default:

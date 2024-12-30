@@ -22,8 +22,8 @@ namespace Hotel_Transylvania.Menus
             Console.CursorVisible = false;
             string[] menuItems = {
                 "Make new reservation", "Update reservation",
-                "Show active reservations", "Cancel reservation",
-                "Back to main menu" };
+                "Show active reservations", "Show inactive reservations",
+                "Cancel reservation", "Back to main menu" };
 
             int selectedIndex = 0;
 

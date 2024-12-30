@@ -8,8 +8,6 @@
 
 -	Åldersgränser för bokning?
 
--	ReservationService. Läs kommentaren.
-
 -	Update room ska visa alla rum inte bara aktiva.
 -	Ska inte kunna ta bort en gäst eller ett rum som har en bokning.
 -	Kolla så att ett rum inte är bokat innan man ändrar status/details?
