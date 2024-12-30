@@ -14,7 +14,7 @@
 
 -	En data validator som validerar datum, ålder, osv?
 
--	Välja antal extra sängar vid bokning.
+-	Felsöka så att rum inte går att dubbelboka.
 
 
 Console-Command
