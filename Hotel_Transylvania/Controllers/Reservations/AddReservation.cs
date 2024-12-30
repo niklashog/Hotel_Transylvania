@@ -71,12 +71,16 @@ namespace Hotel_Transylvania.Controllers.Reservations
 
             Console.CursorVisible = true;
 
-            reservationService.DisplayAvailableRoomsForReservations(checkInDate, checkOutDate, dbContext);
-            
-            var activeRooms = reservationService.GetAvailableRooms(checkInDate, checkOutDate, dbContext);
-            var validRoomNumbers = activeRooms
-                .Select(r => r.RoomNumber)
+
+            var availableRooms = reservationService.GetAvailableRooms(checkInDate, checkOutDate, dbContext)
                 .ToList();
+
+            var validRoomNumbers = availableRooms
+                .Select(r => r.RoomNumber);
+
+            reservationService.DisplayAvailableRoomsForReservations(checkInDate, checkOutDate, availableRooms, dbContext);
+            
+
 
             Console.CursorVisible = true;
             AnsiConsole.MarkupLine("[bold yellow]Available rooms[/]");
@@ -101,7 +105,7 @@ namespace Hotel_Transylvania.Controllers.Reservations
                     );
 
             var additionalBeddingNumber = 0;
-            var chosenRoom = activeRooms
+            var chosenRoom = availableRooms
                 .Where(r => r.RoomNumber == int.Parse(roomNumberChoice))
                 .FirstOrDefault();
 

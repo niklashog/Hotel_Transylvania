@@ -30,8 +30,7 @@ namespace Hotel_Transylvania.Services
                 .ToList();
 
             var availableRooms = allRooms
-                .Where(r => !reservedRoomNumbers
-                .Contains(r.RoomNumber))
+                .Where(r => !reservedRoomNumbers.Contains(r.RoomNumber))
                 .ToList();
 
             return availableRooms;
@@ -58,7 +57,8 @@ namespace Hotel_Transylvania.Services
 
             return availableRooms;
         }
-        public void DisplayAvailableRoomsForReservations(DateTime checkinDate, DateTime checkoutDate, ApplicationDbContext dbContext)
+        public void DisplayAvailableRoomsForReservations(DateTime checkinDate, DateTime checkoutDate, 
+            List<Room> availableRooms, ApplicationDbContext dbContext)
         {
             var allRooms = dbContext.Rooms.ToList();
 
@@ -69,14 +69,6 @@ namespace Hotel_Transylvania.Services
             var reservedRoomNumbers = unavailableRooms
                 .Select(r => r.RoomNumber)
                 .Distinct()
-                .ToList();
-
-            var availableRooms = allRooms
-                .Where(r => !reservedRoomNumbers.Contains(r.RoomNumber))
-                .ToList();
-
-            var desiredAdditionalBeddingRequest = availableRooms
-                .Where(r => r.AdditionalBeddingNumber > 0)
                 .ToList();
 
             var table = new Table();
