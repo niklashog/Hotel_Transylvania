@@ -15,7 +15,9 @@ namespace Hotel_Transylvania.Services
     public class ReservationService : IReservationService
     {
 
-        public IEnumerable<Room> GetAvailableRooms(DateTime checkinDate, DateTime checkoutDate, ApplicationDbContext dbContext)
+        public IEnumerable<Room> GetAvailableRooms(DateTime checkinDate,
+            DateTime checkoutDate,
+            ApplicationDbContext dbContext)
         {
             var allRooms = dbContext.Rooms
                 .ToList();
@@ -36,8 +38,10 @@ namespace Hotel_Transylvania.Services
             return availableRooms;
         }
         public IEnumerable<Room> GetAvailableRoomsWithBedding(
-            DateTime checkinDate, DateTime checkoutDate, 
-            int beddingRequest, ApplicationDbContext dbContext)
+            DateTime checkinDate,
+            DateTime checkoutDate, 
+            int beddingRequest,
+            ApplicationDbContext dbContext)
         {
             var allRooms = dbContext.Rooms.ToList();
 
@@ -57,8 +61,11 @@ namespace Hotel_Transylvania.Services
 
             return availableRooms;
         }
-        public void DisplayAvailableRoomsForReservations(DateTime checkinDate, DateTime checkoutDate, 
-            List<Room> availableRooms, ApplicationDbContext dbContext)
+        public void DisplayAvailableRoomsForReservations(
+            DateTime checkinDate,
+            DateTime checkoutDate,
+            List<Room> availableRooms,
+            ApplicationDbContext dbContext)
         {
             var allRooms = dbContext.Rooms.ToList();
 
@@ -93,7 +100,10 @@ namespace Hotel_Transylvania.Services
             AnsiConsole.Write(table);
         }
         public void DisplayAvailableRoomsWithAdditionalBeddingRequest(
-            DateTime checkinDate, DateTime checkoutDate, int beddingRequest, ApplicationDbContext dbContext)
+            DateTime checkinDate, 
+            DateTime checkoutDate, 
+            int beddingRequest, 
+            ApplicationDbContext dbContext)
         {
             var allRooms = dbContext.Rooms.ToList();
 
@@ -133,9 +143,13 @@ namespace Hotel_Transylvania.Services
             AnsiConsole.MarkupLine("[yellow]Available Rooms[/]");
             AnsiConsole.Write(table);
         }
-        public void AddReservation(string guestIdString, 
-            DateTime checkinDate, DateTime checkoutDate,
-            string roomNumberString, int additionalBeddingNumber, ApplicationDbContext dbContext)
+        public void AddReservation(
+            string guestIdString, 
+            DateTime checkinDate, 
+            DateTime checkoutDate,
+            string roomNumberString, 
+            int additionalBeddingNumber, 
+            ApplicationDbContext dbContext)
         {
 
             var guestId = int.Parse(guestIdString);
@@ -178,7 +192,8 @@ namespace Hotel_Transylvania.Services
             }
         }
 
-        public void ShowReservations(ApplicationDbContext dbContext)
+        public void ShowReservations(
+            ApplicationDbContext dbContext)
         {
             var table = new Table();
             table.Border = TableBorder.Simple;
@@ -212,7 +227,8 @@ namespace Hotel_Transylvania.Services
             AnsiConsole.MarkupLine("[yellow]Active Reservations[/]");
             AnsiConsole.Write(table);
         }
-        public void ShowInactiveReservations(ApplicationDbContext dbContext)
+        public void ShowInactiveReservations(
+            ApplicationDbContext dbContext)
         {
             var table = new Table();
             table.Border = TableBorder.Simple;
@@ -248,7 +264,8 @@ namespace Hotel_Transylvania.Services
             AnsiConsole.Write(table);
         }
 
-        public void ShowReservationDetails(Reservation reservationToChange, 
+        public void ShowReservationDetails(
+            Reservation reservationToChange, 
             ApplicationDbContext dbContext)
         {
             var reservationMatch = dbContext.Reservations
@@ -291,9 +308,13 @@ namespace Hotel_Transylvania.Services
             AnsiConsole.Write(table);
         }
 
-        public void UpdateReservationDetails(Reservation reservation, 
-            int roomNumber, DateTime checkinDate, DateTime checkoutDate,
-            int extraBeds, ApplicationDbContext dbContext)
+        public void UpdateReservationDetails(
+            Reservation reservation, 
+            int roomNumber, 
+            DateTime checkinDate, 
+            DateTime checkoutDate,
+            int extraBeds, 
+            ApplicationDbContext dbContext)
         {
             reservation.RoomNumber = roomNumber;
             reservation.CheckinDate = checkinDate;
@@ -302,7 +323,8 @@ namespace Hotel_Transylvania.Services
 
             dbContext.SaveChanges();
         }
-        public void RemoveReservation(string reservationToRemoveString, 
+        public void RemoveReservation(
+            string reservationToRemoveString, 
             ApplicationDbContext dbContext)
         {
             var reservationToRemove = int.Parse(reservationToRemoveString);
@@ -324,7 +346,16 @@ namespace Hotel_Transylvania.Services
                 });
             dbContext.SaveChanges();
         }
-        public Reservation GetReservation(int findReservationById, 
+        public IEnumerable<Reservation> GetListOfAllReservations(
+            ApplicationDbContext dbContext)
+        {
+            var allReservations = dbContext.Reservations
+            .ToList();
+
+            return allReservations;
+        }
+        public Reservation GetReservation(
+            int findReservationById, 
             ApplicationDbContext dbContext)
         {
             var reservation = dbContext.Reservations
@@ -332,7 +363,9 @@ namespace Hotel_Transylvania.Services
 
             return reservation;
         }
-        public void UpdateNumberOfAdditionalBeds(int reservationId, int numberOfBeds, 
+        public void UpdateNumberOfAdditionalBeds(
+            int reservationId,
+            int numberOfBeds, 
             ApplicationDbContext dbContext)
         {
             var reservationToUpdate = dbContext.Reservations
@@ -342,7 +375,9 @@ namespace Hotel_Transylvania.Services
 
             dbContext.SaveChanges();
         }
-        public void UpdateReservedRoom(int reservationId, int roomNumber, 
+        public void UpdateReservedRoom(
+            int reservationId, 
+            int roomNumber, 
             ApplicationDbContext dbContext)
         {
             var reservationToUpdate = dbContext.Reservations
@@ -358,8 +393,10 @@ namespace Hotel_Transylvania.Services
                 dbContext.SaveChanges();
             }
         }
-        public void UpdateReservationDates(int reservationId, 
-            DateTime newCheckinDate, DateTime newCheckoutDate, 
+        public void UpdateReservationDates(
+            int reservationId, 
+            DateTime newCheckinDate, 
+            DateTime newCheckoutDate, 
             ApplicationDbContext dbContext)
         {
             var reservationToUpdate = dbContext.Reservations
@@ -377,7 +414,8 @@ namespace Hotel_Transylvania.Services
             }
         }
 
-        public void DeactivateReservationsByCheckoutDate(ApplicationDbContext dbContext)
+        public void DeactivateReservationsByCheckoutDate(
+            ApplicationDbContext dbContext)
         {
             var reservationsToDeactivate = dbContext.Reservations
                 .Where(r => r.IsReservationActive && r.CheckoutDate.Date <= DateTime.Today)

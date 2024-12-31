@@ -94,7 +94,7 @@ namespace Hotel_Transylvania.Menus.Rooms
             newRoom.RoomType = roomTypeInput;
             newRoom.RoomSize = Convert.ToInt32(roomSizeInput);
 
-            roomService.AddRoom(dbContext, newRoom);
+            roomService.AddRoom(newRoom, dbContext);
             Console.ReadKey();
         }
     }

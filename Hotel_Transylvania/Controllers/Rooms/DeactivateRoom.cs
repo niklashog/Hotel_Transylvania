@@ -6,11 +6,13 @@ using Hotel_Transylvania.Interfaces.ServicesInterfaces;
 using Hotel_Transylvania.Models;
 using Hotel_Transylvania.Services;
 using Spectre.Console;
+using System.Linq;
 
 namespace Hotel_Transylvania.Menus.Rooms
 {
     public class DeactivateRoom(
-        IRoomService roomService): IDeactivateRoom
+        IRoomService roomService,
+        IReservationService reservationService): IDeactivateRoom
     {
         public void Execute()
         {
@@ -34,6 +36,8 @@ namespace Hotel_Transylvania.Menus.Rooms
                 var validRoomNumbers = activeRooms
                     .Select(r => r.RoomNumber)
                     .ToList();
+
+                var listOfActiveReservations = reservationService.GetListOfAllReservations(dbContext);
 
                 Console.CursorVisible = true;
                 AnsiConsole.MarkupLine("[bold yellow]Deactivate Room[/]");
@@ -63,8 +67,7 @@ namespace Hotel_Transylvania.Menus.Rooms
 
                 if (confirm)
                 {
-                    AnsiConsole.MarkupLine($"[green]Success! Room is now inactive.[/]");
-                    roomService.RemoveRoom(roomToDeactivate, dbContext);
+                    roomService.RemoveRoom(roomToDeactivate, listOfActiveReservations, dbContext);
                 }
                 else
                 {

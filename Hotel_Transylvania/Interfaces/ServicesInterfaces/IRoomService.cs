@@ -10,7 +10,7 @@ namespace Hotel_Transylvania.Interfaces.ServicesInterfaces
 {
     public interface IRoomService
     {
-        public void AddRoom(ApplicationDbContext dbContext, Room room);
+        public void AddRoom(Room room, ApplicationDbContext dbContext);
 
         public IEnumerable<Room> GetAllRooms(ApplicationDbContext dbContext);
         public void DisplayAllRooms(ApplicationDbContext dbContext);
@@ -21,7 +21,7 @@ namespace Hotel_Transylvania.Interfaces.ServicesInterfaces
 
         public void UpdateRoomDetails(int roomIdInput, Room updatedRoomDetails, ApplicationDbContext dbContext);
 
-        public void RemoveRoom(int roomToDelete, ApplicationDbContext dbContext);
+        public void RemoveRoom(int roomToDelete, IEnumerable<Reservation> listOfActiveReservations, ApplicationDbContext dbContext);
         public void ReActivateRoom(int roomToReactivate, ApplicationDbContext dbContext);
         public IEnumerable<string> GetExistingRoomNumbersAsString(ApplicationDbContext dbContext);
 

@@ -30,6 +30,8 @@ namespace Hotel_Transylvania.Interfaces.ServicesInterfaces
         public void UpdateReservationDetails(Reservation reservation, int roomNumber, 
             DateTime checkinDate, DateTime checkoutDate, 
             int extraBeds, ApplicationDbContext dbContext);
+        public IEnumerable<Reservation> GetListOfAllReservations(
+    ApplicationDbContext dbContext);
         public Reservation GetReservation(int findReservationById, 
             ApplicationDbContext dbContext);
         public void RemoveReservation(string reservationToRemoveString,

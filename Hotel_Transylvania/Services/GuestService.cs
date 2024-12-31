@@ -166,24 +166,17 @@ namespace Hotel_Transylvania.Services
 
             var hasActiveReservation = guest.Reservations.Any(r => r.IsReservationActive);
 
-            if (guest == null)
+
+            if (hasActiveReservation)
             {
-                AnsiConsole.MarkupLine("[bold red]No guest found with that Id.[/]");
+                AnsiConsole.MarkupLine("[bold red]Cannot delete a customer with an active\t" +
+                "reservation.[/] \nRemove reservation first and try again.");
             }
             else
             {
-                if (hasActiveReservation == false)
-                {
-                    guest.IsGuestActive = false;
-                    dbContext.SaveChanges();
-                    AnsiConsole.MarkupLine("[bold green]Registered..[/]");
-                }
-                else
-                {
-                    AnsiConsole.MarkupLine("[bold red]Cannot delete a customer with an active\t" +
-                        "reservation.[/] Remove reservation first and try again.");
-                    Console.ReadKey();
-                }
+                guest.IsGuestActive = false;
+                dbContext.SaveChanges();
+                AnsiConsole.MarkupLine("[bold green]Registered..[/]");
             }
                 
         }

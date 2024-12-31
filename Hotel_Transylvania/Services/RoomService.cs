@@ -14,7 +14,9 @@ namespace Hotel_Transylvania.Services
 {
     public class RoomService : IRoomService
     {
-        public void AddRoom(ApplicationDbContext dbContext, Room room)
+        public void AddRoom(
+            Room room, 
+            ApplicationDbContext dbContext)
         {
                 var newRoom = room;
 
@@ -40,11 +42,13 @@ namespace Hotel_Transylvania.Services
                 dbContext.SaveChanges();
         }
 
-        public IEnumerable<Room> GetAllRooms(ApplicationDbContext dbContext)
+        public IEnumerable<Room> GetAllRooms(
+            ApplicationDbContext dbContext)
         {
                 return dbContext.Rooms;
         }
-        public void DisplayAllRooms(ApplicationDbContext dbContext)
+        public void DisplayAllRooms(
+            ApplicationDbContext dbContext)
         {
             var allRooms = dbContext.Rooms
                 .ToList();
@@ -78,7 +82,8 @@ namespace Hotel_Transylvania.Services
                 AnsiConsole.Write(table);
             }
         }
-        public void DisplayActiveRooms(ApplicationDbContext dbContext)
+        public void DisplayActiveRooms(
+            ApplicationDbContext dbContext)
         {
             var activeRooms = dbContext.Rooms
                 .Where(r => r.IsRoomActive)
@@ -113,7 +118,8 @@ namespace Hotel_Transylvania.Services
                 AnsiConsole.Write(table);
             }
         }
-        public void DisplayInactiveRooms(ApplicationDbContext dbContext)
+        public void DisplayInactiveRooms(
+            ApplicationDbContext dbContext)
         {
             var inactiveRooms = dbContext.Rooms
                 .Where(r => r.IsRoomActive == false)
@@ -149,7 +155,9 @@ namespace Hotel_Transylvania.Services
             }
         }
 
-        public void DisplaySingleRoom(int roomId, ApplicationDbContext dbContext)
+        public void DisplaySingleRoom(
+            int roomId, 
+            ApplicationDbContext dbContext)
         {
             var selectedRoom = dbContext.Rooms
                 .First(r => r.RoomNumber == roomId);
@@ -174,12 +182,16 @@ namespace Hotel_Transylvania.Services
             AnsiConsole.Write(table);
         }
 
-        public int CountAllRooms(ApplicationDbContext dbContext)
+        public int CountAllRooms(
+            ApplicationDbContext dbContext)
         {
                 return dbContext.Rooms.Count();
         }
 
-        public void UpdateRoomDetails(int roomIdInput, Room updatedRoomDetails, ApplicationDbContext dbContext)
+        public void UpdateRoomDetails(
+            int roomIdInput, 
+            Room updatedRoomDetails,
+            ApplicationDbContext dbContext)
         {
                 var roomToUpdate = dbContext.Rooms
                 .First(r => r.RoomNumber == roomIdInput);
@@ -190,16 +202,20 @@ namespace Hotel_Transylvania.Services
 
             if (roomToUpdate.RoomSize <= 14 || roomToUpdate.RoomType == "Single")
             {
-                AnsiConsole.MarkupLine("[bold red]Important note.[/] Per guest security reasons," +
+                AnsiConsole.MarkupLine("[bold red]Important note.[/] " +
+                    "Per guest security reasons," +
                     "this room is too small to accomodate any extra beds.");
             }
-            else if (roomToUpdate.RoomSize >= 15 && roomToUpdate.RoomSize <= 19 && (roomToUpdate.RoomType == "Double" || roomToUpdate.RoomType == "Suite"))
+            else if (roomToUpdate.RoomSize >= 15 && roomToUpdate.RoomSize <= 19 &&
+                (roomToUpdate.RoomType == "Double" || roomToUpdate.RoomType == "Suite"))
             {
                 roomToUpdate.AdditionalBeddingNumber = 1;
                 AnsiConsole.MarkupLine("If requested by guest," +
                         "room can accomodate [yellow]1[/] additonal bed.");
             }
-            else if (roomToUpdate.RoomSize >= 20 && (roomToUpdate.RoomType == "Double" || roomToUpdate.RoomType == "Suite"))
+            else if (roomToUpdate.RoomSize >= 20 &&
+                (roomToUpdate.RoomType == "Double" ||
+                roomToUpdate.RoomType == "Suite"))
             {
                 roomToUpdate.AdditionalBeddingNumber = 2;
                 AnsiConsole.MarkupLine("\nIf requested by guest, " +
@@ -208,22 +224,34 @@ namespace Hotel_Transylvania.Services
             dbContext.SaveChanges();
         }
 
-        public void RemoveRoom(int roomToDelete, ApplicationDbContext dbContext)
+        public void RemoveRoom(
+            int roomToDelete, 
+            IEnumerable<Reservation> listOfActiveReservations, 
+            ApplicationDbContext dbContext)
         {
-                var room = dbContext.Rooms
+            var room = dbContext.Rooms
+                .Include(r => r.Reservations)
+                .Where(r => r.IsRoomActive)
                 .FirstOrDefault(r => r.RoomNumber == roomToDelete);
 
-                if (room != null)
-                {
-                    room.IsRoomActive = false;
-                    dbContext.SaveChanges();
-                }
-                else
-                {
-                    AnsiConsole.MarkupLine("[bold red]No room found with that Id.[/]");
-                }
+            var hasActiveReservation = listOfActiveReservations
+                .Any(r => r.RoomNumber == roomToDelete);
+
+            if (hasActiveReservation)
+            {
+                AnsiConsole.MarkupLine("[bold red]Cannot delete a room with an active" +
+                "reservation.[/] \nRemove reservation first and try again.");
+            }
+            else
+            {
+                room.IsRoomActive = false;
+                dbContext.SaveChanges();
+                AnsiConsole.MarkupLine($"[green]Success! Room is now inactive.[/]");
+            }
         }
-        public void ReActivateRoom(int roomToReactivate, ApplicationDbContext dbContext)
+        public void ReActivateRoom(
+            int roomToReactivate, 
+            ApplicationDbContext dbContext)
         {
                 var room = dbContext.Rooms
                 .FirstOrDefault(g => g.RoomNumber == roomToReactivate);
@@ -237,7 +265,8 @@ namespace Hotel_Transylvania.Services
                     AnsiConsole.MarkupLine("[bold red]No room found with that Id.[/]");
                 }
         }
-        public IEnumerable<string> GetExistingRoomNumbersAsString(ApplicationDbContext dbContext)
+        public IEnumerable<string> GetExistingRoomNumbersAsString(
+            ApplicationDbContext dbContext)
         {
             var existingRoomNumbers = dbContext.Rooms
                 .Select(r => r.RoomNumber.ToString())
@@ -245,7 +274,8 @@ namespace Hotel_Transylvania.Services
 
             return existingRoomNumbers;
         }
-        public IEnumerable<Room> ListOfActiveRooms(ApplicationDbContext dbContext)
+        public IEnumerable<Room> ListOfActiveRooms(
+            ApplicationDbContext dbContext)
         {
             var listOfActiveRooms = dbContext.Rooms
                 .Where(g => g.IsRoomActive)
@@ -253,7 +283,8 @@ namespace Hotel_Transylvania.Services
 
             return listOfActiveRooms;
         }
-        public IEnumerable<Room> ListOfInctiveRooms(ApplicationDbContext dbContext)
+        public IEnumerable<Room> ListOfInctiveRooms(
+            ApplicationDbContext dbContext)
         {
             var listOfInctiveRooms = dbContext.Rooms
                 .Where(g => g.IsRoomActive == false)
