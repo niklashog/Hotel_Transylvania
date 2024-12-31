@@ -22,8 +22,10 @@ namespace Hotel_Transylvania.Services
 
             if (newRoom.RoomSize <= 14 || newRoom.RoomType == "Single")
             {
-                AnsiConsole.MarkupLine("[bold red]Important note.[/] Per guest security reasons," +
-                    "this room is too small to accomodate any extra beds.");
+                newRoom.AdditionalBeddingNumber = 0;
+                AnsiConsole.MarkupLine("[bold red]Important note.[/] " +
+                    "Per guest security reasons," +
+                    "this room cannot accomodate any extra beds.");
             }
             else if (newRoom.RoomSize >= 15 && newRoom.RoomSize <= 19 && (newRoom.RoomType == "Double" || newRoom.RoomType == "Suite"))
             {
@@ -205,7 +207,7 @@ namespace Hotel_Transylvania.Services
                 roomToUpdate.AdditionalBeddingNumber = 0;
                 AnsiConsole.MarkupLine("[bold red]Important note.[/] " +
                     "Per guest security reasons," +
-                    "this room is too small to accomodate any extra beds.");
+                    "this room cannot accomodate any extra beds.");
             }
 
             else if (roomToUpdate.RoomSize >= 15 && roomToUpdate.RoomSize <= 19 &&
