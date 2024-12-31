@@ -32,7 +32,7 @@ namespace Hotel_Transylvania.Menus.Guests
                         }
                         else
                         {
-                            return ValidationResult.Error("[red]Names cannot include numbers or special characters and can only be 20 characters long. Try again.[/]");
+                            return ValidationResult.Error("[red]Names cannot include numbers or special characters with a max length of 20 letters. Try again.[/]");
                         }
                     })
                     );
@@ -48,7 +48,7 @@ namespace Hotel_Transylvania.Menus.Guests
                         }
                         else
                         {
-                            return ValidationResult.Error("[red]Surnames cannot include numbers or special characters and can only be 50 characters long. Try again.[/]");
+                            return ValidationResult.Error("[red]Surnames cannot include numbers or special characters with a max length of 50 letters. Try again.[/]");
                         }
                     })
                     );
