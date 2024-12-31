@@ -26,7 +26,7 @@ namespace Hotel_Transylvania.Menus.Guests
                     .ValidationErrorMessage("[red]First Names can only consist of letters.[/]")
                     .Validate(input =>
                     {
-                        if (System.Text.RegularExpressions.Regex.IsMatch(input, @"^[\p{L}]{2,20}$"))
+                        if (System.Text.RegularExpressions.Regex.IsMatch(input, @"^[\p{L}]{2,20}(-[\p{L}]{1,17})?$"))
                         {
                             return ValidationResult.Success();
                         }
@@ -42,7 +42,7 @@ namespace Hotel_Transylvania.Menus.Guests
                     .ValidationErrorMessage("[red]Surnames can only consist of letters.[/]")
                     .Validate(input =>
                     {
-                        if (System.Text.RegularExpressions.Regex.IsMatch(input, @"^[\p{L}]{2,50}$"))
+                        if (System.Text.RegularExpressions.Regex.IsMatch(input, @"^[\p{L}]{2,20}(-[\p{L}]{1,47})?$"))
                         {
                             return ValidationResult.Success();
                         }
