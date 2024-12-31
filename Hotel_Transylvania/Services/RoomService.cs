@@ -200,12 +200,14 @@ namespace Hotel_Transylvania.Services
                 roomToUpdate.RoomType = updatedRoomDetails.RoomType;
                 roomToUpdate.RoomSize = updatedRoomDetails.RoomSize;
 
-            if (roomToUpdate.RoomSize <= 14 || roomToUpdate.RoomType == "Single")
+            if (roomToUpdate.RoomSize <= 14 || roomToUpdate.RoomType == "Single" && roomToUpdate.RoomSize > 14)
             {
+                roomToUpdate.AdditionalBeddingNumber = 0;
                 AnsiConsole.MarkupLine("[bold red]Important note.[/] " +
                     "Per guest security reasons," +
                     "this room is too small to accomodate any extra beds.");
             }
+
             else if (roomToUpdate.RoomSize >= 15 && roomToUpdate.RoomSize <= 19 &&
                 (roomToUpdate.RoomType == "Double" || roomToUpdate.RoomType == "Suite"))
             {
