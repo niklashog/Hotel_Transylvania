@@ -8,17 +8,12 @@
 -	När jag uppmanar att klicka Enter för att spara så vill jag även ge alternativet att
 	klicka backspace eller 'Esc' för att "backa utan att spara".
 
--	Meny på show reservations för att välja mellan aktiva och inaktiva bokningar.
-
 -	Åldersgränser för bokning?
 
+-	Inte ändra en bokning om checkin passerat?
 -	Update room ska visa alla rum inte bara aktiva.
 -	Ska inte kunna ta bort en gäst eller ett rum som har en bokning.
 -	Kolla så att ett rum inte är bokat innan man ändrar status/details?
-
--	En data validator som validerar datum, ålder, osv?
-
--	Felsöka så att rum inte går att dubbelboka.
 
 Console-Command
 add-migration "Comment comment"
@@ -81,9 +76,9 @@ RESERVATION
 Redovisning: Totalt finns det 5 saker som ska lämnas in:
 1.[]	(G) ER Diagram över din database
 2.[]	(VG) Ett dokument som beskriver hur du följt 3NF i dina tabeller
-3.[]	(G) En .sql fil med dina SQL Select osv. syntaxer
-4.[]	(VG) En .sql fil med dina SQL Join osv. syntaxer
-5.[]	(G) En .NET Core console Hotell app
+3.[•]	(G) En .sql fil med dina SQL Select osv. syntaxer
+4.[•]	(VG) En .sql fil med dina SQL Join osv. syntaxer
+5.[•]	(G) En .NET Core console Hotell app
 
 
 

@@ -44,6 +44,40 @@ namespace Hotel_Transylvania.Services
         {
                 return dbContext.Rooms;
         }
+        public void DisplayAllRooms(ApplicationDbContext dbContext)
+        {
+            var allRooms = dbContext.Rooms
+                .ToList();
+            if (allRooms.Count == 0)
+            {
+                AnsiConsole.MarkupLine($"[bold red]No rooms in the system.[/]\n" +
+                    $"Press any key to go back.");
+                return;
+            }
+            else
+            {
+                var table = new Table();
+                table.Border = TableBorder.Simple;
+
+                table.AddColumn("Room Number");
+                table.AddColumn("Room Type");
+                table.AddColumn("Room Size");
+                table.AddColumn("Additional bedding");
+
+                foreach (var room in allRooms)
+                {
+                    table.AddRow(
+                        room.RoomNumber.ToString(),
+                        room.RoomType.ToString(),
+                        $"{room.RoomSize}m²",
+                        $"{room.AdditionalBeddingNumber}"
+                    );
+                }
+
+                AnsiConsole.MarkupLine("[yellow]All Rooms[/]");
+                AnsiConsole.Write(table);
+            }
+        }
         public void DisplayActiveRooms(ApplicationDbContext dbContext)
         {
             var activeRooms = dbContext.Rooms

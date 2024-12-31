@@ -13,6 +13,7 @@ namespace Hotel_Transylvania.Interfaces.ServicesInterfaces
         public void AddRoom(ApplicationDbContext dbContext, Room room);
 
         public IEnumerable<Room> GetAllRooms(ApplicationDbContext dbContext);
+        public void DisplayAllRooms(ApplicationDbContext dbContext);
         public void DisplayActiveRooms(ApplicationDbContext dbContext);
         public void DisplayInactiveRooms(ApplicationDbContext dbContext);
         public void DisplaySingleRoom(int roomId, ApplicationDbContext dbContext);

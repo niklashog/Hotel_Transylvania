@@ -127,16 +127,28 @@ namespace Hotel_Transylvania.Data
                 {
                     FirstName = "Viktor",
                     Surname = "Gyökeres",
-                    Email = "victor.y.gok@hotmail.com",
+                    Email = "victor.gyokeres@guldbollen24.se",
                     Phone = "0705554443"
                 });
             if (!dbContext.Guests.Any(g => g.Id == 4))
                 dbContext.Guests.Add(new Guest
                 {
-                    FirstName = "Thomas",
-                    Surname = "Brolin",
-                    Email = "tompa.snurr@gest.nu",
-                    Phone = "0701122333"
+                    FirstName = "Claus",
+                    Surname = "Saint",
+                    Email = "santa@budbee.io",
+                    Phone = "+46701940010",
+                    Reservations = new List<Reservation>
+                    {
+                        new Reservation
+                        {
+                            RoomNumber = 301,
+                            NumberOfAdditionalBeds = 2,
+                            CheckinDate = new DateTime(2025, 12, 24),
+                            CheckoutDate = new DateTime(2025, 12, 26),
+                            TimeOfReservation = new DateTime(2024, 12, 24),
+                            IsReservationActive = true
+                        },
+                    }
                 });
             dbContext.SaveChanges();
         }

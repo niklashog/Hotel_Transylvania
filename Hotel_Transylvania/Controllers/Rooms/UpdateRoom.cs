@@ -22,7 +22,7 @@ namespace Hotel_Transylvania.Menus.Rooms
                 .ToList()
                 .Count >= 1)
             {
-                roomService.DisplayActiveRooms(dbContext);
+                roomService.DisplayAllRooms(dbContext);
 
                 var listOfAllRooms = roomService.GetAllRooms(dbContext)
                 .ToList();
