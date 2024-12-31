@@ -1,13 +1,8 @@
 ﻿using Hotel_Transylvania.Data;
-using Hotel_Transylvania.Factories;
-using Hotel_Transylvania.Interfaces.MenuInterfaces.GuestsInterfaces;
-using Hotel_Transylvania.Models;
-using System.Threading.Channels;
-using Hotel_Transylvania.Interfaces.ServicesInterfaces;
 using Hotel_Transylvania.Display;
+using Hotel_Transylvania.Interfaces.MenuInterfaces.GuestsInterfaces;
+using Hotel_Transylvania.Interfaces.ServicesInterfaces;
 using Spectre.Console;
-using Hotel_Transylvania.Services;
-using Microsoft.EntityFrameworkCore;
 
 namespace Hotel_Transylvania.Menus.Guests
 {
@@ -29,7 +24,7 @@ namespace Hotel_Transylvania.Menus.Guests
                 .Count >= 1)
             {
                 guestService.DisplayActiveGuests(dbContext);
-                
+
                 var activeGuests = guestService.ListOfActiveGuests(dbContext);
                 var validGuestIds = activeGuests
                     .Select(g => g.Id)
@@ -38,7 +33,7 @@ namespace Hotel_Transylvania.Menus.Guests
                 Console.CursorVisible = true;
                 AnsiConsole.MarkupLine("[bold yellow]Deactivate Guest[/]");
 
-                
+
 
                 string guestToDeactivate = AnsiConsole.Prompt(
                     new TextPrompt<string>("[yellow]Guest to deactivate: [/]:")

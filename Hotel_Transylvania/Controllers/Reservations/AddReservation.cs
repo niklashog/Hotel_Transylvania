@@ -1,16 +1,8 @@
-﻿using Hotel_Transylvania.Display;
+﻿using Hotel_Transylvania.Data;
+using Hotel_Transylvania.Display;
 using Hotel_Transylvania.Interfaces.CalendarsInterfaces;
-using Hotel_Transylvania.Interfaces.ServicesInterfaces;
-using Hotel_Transylvania.Interfaces.ToolsInterfaces;
-using Hotel_Transylvania.Models;
-using Hotel_Transylvania.Services;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Hotel_Transylvania.Interfaces.ControllerInterfaces.ReservationsInterfaces;
-using Hotel_Transylvania.Data;
+using Hotel_Transylvania.Interfaces.ServicesInterfaces;
 using Spectre.Console;
 
 namespace Hotel_Transylvania.Controllers.Reservations
@@ -79,7 +71,7 @@ namespace Hotel_Transylvania.Controllers.Reservations
                 .Select(r => r.RoomNumber);
 
             reservationService.DisplayAvailableRoomsForReservations(checkInDate, checkOutDate, availableRooms, dbContext);
-            
+
 
 
             Console.CursorVisible = true;

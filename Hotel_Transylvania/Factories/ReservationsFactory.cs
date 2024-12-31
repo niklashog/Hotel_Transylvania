@@ -1,19 +1,19 @@
 ﻿using Autofac;
+using Hotel_Transylvania.Calendars;
+using Hotel_Transylvania.Controllers.Reservations;
+using Hotel_Transylvania.Interfaces.CalendarsInterfaces;
+using Hotel_Transylvania.Interfaces.ControllerInterfaces.ReservationsInterfaces;
+using Hotel_Transylvania.Interfaces.MenuInterfaces;
 using Hotel_Transylvania.Interfaces.MenuInterfaces.MenuExecutionInterfaces;
 using Hotel_Transylvania.Interfaces.MenuInterfaces.MenuNavigationInterfaces;
 using Hotel_Transylvania.Interfaces.MenuInterfaces.ReservationsInterfaces;
+using Hotel_Transylvania.Interfaces.ServicesInterfaces;
+using Hotel_Transylvania.Menus;
 using Hotel_Transylvania.Menus.MenuExecution;
 using Hotel_Transylvania.Menus.MenuNavigation;
 using Hotel_Transylvania.Menus.Reservations;
 using Hotel_Transylvania.Models;
 using Hotel_Transylvania.Services;
-using Hotel_Transylvania.Interfaces.ServicesInterfaces;
-using Hotel_Transylvania.Menus;
-using Hotel_Transylvania.Interfaces.MenuInterfaces;
-using Hotel_Transylvania.Interfaces.CalendarsInterfaces;
-using Hotel_Transylvania.Controllers.Reservations;
-using Hotel_Transylvania.Calendars;
-using Hotel_Transylvania.Interfaces.ControllerInterfaces.ReservationsInterfaces;
 
 namespace Hotel_Transylvania.Factories
 {

@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-
-namespace Hotel_Transylvania.Models
+﻿namespace Hotel_Transylvania.Models
 {
     public class Room
     {

@@ -1,8 +1,7 @@
-﻿using Hotel_Transylvania.Interfaces.MenuInterfaces.GuestsInterfaces;
-using Hotel_Transylvania.Models;
-using Hotel_Transylvania.Interfaces.ServicesInterfaces;
+﻿using Hotel_Transylvania.Data;
 using Hotel_Transylvania.Display;
-using Hotel_Transylvania.Data;
+using Hotel_Transylvania.Interfaces.MenuInterfaces.GuestsInterfaces;
+using Hotel_Transylvania.Interfaces.ServicesInterfaces;
 
 namespace Hotel_Transylvania.Menus.Guests
 {

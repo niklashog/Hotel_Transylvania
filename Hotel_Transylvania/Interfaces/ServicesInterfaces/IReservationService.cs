@@ -1,10 +1,5 @@
 ﻿using Hotel_Transylvania.Data;
 using Hotel_Transylvania.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Hotel_Transylvania.Interfaces.ServicesInterfaces
 {
@@ -25,22 +20,22 @@ namespace Hotel_Transylvania.Interfaces.ServicesInterfaces
             ApplicationDbContext dbContext);
         public void ShowInactiveReservations(
             ApplicationDbContext dbContext);
-        public void ShowReservationDetails(Reservation reservationToChange, 
+        public void ShowReservationDetails(Reservation reservationToChange,
             ApplicationDbContext dbContext);
-        public void UpdateReservationDetails(Reservation reservation, int roomNumber, 
-            DateTime checkinDate, DateTime checkoutDate, 
+        public void UpdateReservationDetails(Reservation reservation, int roomNumber,
+            DateTime checkinDate, DateTime checkoutDate,
             int extraBeds, ApplicationDbContext dbContext);
         public IEnumerable<Reservation> GetListOfAllReservations(
     ApplicationDbContext dbContext);
-        public Reservation GetReservation(int findReservationById, 
+        public Reservation GetReservation(int findReservationById,
             ApplicationDbContext dbContext);
         public void RemoveReservation(string reservationToRemoveString,
             ApplicationDbContext dbContext);
-        public void UpdateNumberOfAdditionalBeds(int reservationId, int numberOfBeds, 
+        public void UpdateNumberOfAdditionalBeds(int reservationId, int numberOfBeds,
             ApplicationDbContext dbContext);
-        public void UpdateReservedRoom(int reservationId, int roomNumber, 
+        public void UpdateReservedRoom(int reservationId, int roomNumber,
             ApplicationDbContext dbContext);
-        public void UpdateReservationDates(int reservationId, 
+        public void UpdateReservationDates(int reservationId,
             DateTime newCheckinDate, DateTime newCheckoutDate,
             ApplicationDbContext dbContext);
         public void DeactivateReservationsByCheckoutDate(

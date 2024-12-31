@@ -1,13 +1,11 @@
 ﻿using Autofac;
 using Hotel_Transylvania.Interfaces;
-using Hotel_Transylvania.Menus.MenuExecution;
-using Hotel_Transylvania.Menus.MenuNavigation;
+using Hotel_Transylvania.Interfaces.MenuInterfaces;
 using Hotel_Transylvania.Interfaces.MenuInterfaces.MenuExecutionInterfaces;
 using Hotel_Transylvania.Interfaces.MenuInterfaces.MenuNavigationInterfaces;
-using Hotel_Transylvania.Display;
-using Hotel_Transylvania.Interfaces.CalendarsInterfaces;
-using Hotel_Transylvania.Interfaces.MenuInterfaces;
 using Hotel_Transylvania.Menus;
+using Hotel_Transylvania.Menus.MenuExecution;
+using Hotel_Transylvania.Menus.MenuNavigation;
 
 namespace Hotel_Transylvania.Factories
 {

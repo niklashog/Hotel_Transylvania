@@ -1,11 +1,7 @@
-﻿using Hotel_Transylvania.Factories;
-using Hotel_Transylvania.Interfaces;
-using Hotel_Transylvania.Interfaces.MenuInterfaces.GuestsInterfaces;
-using Hotel_Transylvania.Models;
-using Hotel_Transylvania.Data;
-using Hotel_Transylvania.Services;
-using Hotel_Transylvania.Interfaces.ServicesInterfaces;
+﻿using Hotel_Transylvania.Data;
 using Hotel_Transylvania.Display;
+using Hotel_Transylvania.Interfaces.MenuInterfaces.GuestsInterfaces;
+using Hotel_Transylvania.Interfaces.ServicesInterfaces;
 
 namespace Hotel_Transylvania.Menus.Guests
 {
@@ -16,7 +12,7 @@ namespace Hotel_Transylvania.Menus.Guests
         {
             Console.Clear();
             DisplayLogo.Paint();
-            
+
             using var dbContext = ApplicationDbContext.GetDbContext();
 
             guestService.DisplayInactiveGuests(dbContext);

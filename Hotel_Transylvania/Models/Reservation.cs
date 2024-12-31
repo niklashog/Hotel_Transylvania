@@ -1,7 +1,4 @@
-﻿
-using System.ComponentModel.DataAnnotations;
-
-namespace Hotel_Transylvania.Models
+﻿namespace Hotel_Transylvania.Models
 {
     public class Reservation
     {

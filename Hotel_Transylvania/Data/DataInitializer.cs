@@ -1,14 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Hotel_Transylvania.Data;
-using Hotel_Transylvania.Models;
-using Hotel_Transylvania.Factories;
-using Hotel_Transylvania.Services;
+﻿using Hotel_Transylvania.Models;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Configuration;
 
 namespace Hotel_Transylvania.Data
 {

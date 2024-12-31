@@ -1,13 +1,9 @@
-﻿using Hotel_Transylvania.Interfaces.MenuInterfaces.GuestsInterfaces;
+﻿using Hotel_Transylvania.Data;
 using Hotel_Transylvania.Display;
-using Hotel_Transylvania.Models;
-using Hotel_Transylvania.Services;
+using Hotel_Transylvania.Interfaces.MenuInterfaces.GuestsInterfaces;
 using Hotel_Transylvania.Interfaces.ServicesInterfaces;
-using Hotel_Transylvania.Data;
-using System.Text.RegularExpressions;
 using Spectre.Console;
-using System.Net;
-using System.Numerics;
+using System.Text.RegularExpressions;
 
 namespace Hotel_Transylvania.Menus.Guests
 {
@@ -168,7 +164,7 @@ namespace Hotel_Transylvania.Menus.Guests
             }
 
             Console.ReadKey();
-            
+
         }
     }
 }

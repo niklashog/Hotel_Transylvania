@@ -1,15 +1,8 @@
 ﻿using Hotel_Transylvania.Data;
-using Hotel_Transylvania.Interfaces.MenuInterfaces.GuestsInterfaces;
 using Hotel_Transylvania.Interfaces.ServicesInterfaces;
 using Hotel_Transylvania.Models;
 using Microsoft.EntityFrameworkCore;
 using Spectre.Console;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Numerics;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Hotel_Transylvania.Services
 {
@@ -17,13 +10,13 @@ namespace Hotel_Transylvania.Services
     {
         public void AddGuest(Guest guest, ApplicationDbContext dbContext)
         {
-                dbContext.Guests.Add(guest);
-                dbContext.SaveChanges();
+            dbContext.Guests.Add(guest);
+            dbContext.SaveChanges();
         }
 
         public IEnumerable<Guest> GetAllGuests(ApplicationDbContext dbContext)
         {
-                return dbContext.Guests;
+            return dbContext.Guests;
         }
         public void DisplayActiveGuests(ApplicationDbContext dbContext)
         {
@@ -60,7 +53,7 @@ namespace Hotel_Transylvania.Services
                         hasActiveReservation ? "*" : ""
                     );
                 }
-                
+
                 AnsiConsole.Write(table);
             }
         }
@@ -93,7 +86,7 @@ namespace Hotel_Transylvania.Services
                         $"{guest.Email}"
                     );
                 }
-                
+
                 AnsiConsole.Write(table);
             }
         }
@@ -121,10 +114,10 @@ namespace Hotel_Transylvania.Services
         }
         public Guest GetGuestById(int guestId, ApplicationDbContext dbContext)
         {
-                var selectedGuest = dbContext.Guests
-            .First(g => g.Id == guestId);
+            var selectedGuest = dbContext.Guests
+        .First(g => g.Id == guestId);
 
-                return selectedGuest;
+            return selectedGuest;
         }
         public List<Guest> ListOfActiveGuests(ApplicationDbContext dbContext)
         {
@@ -145,15 +138,15 @@ namespace Hotel_Transylvania.Services
 
         public void UpdateGuestDetails(int guestToEdit, string[] editedGuestDetails, ApplicationDbContext dbContext)
         {
-                var guestToUpdate = dbContext.Guests
-                .First(g => g.Id == guestToEdit);
+            var guestToUpdate = dbContext.Guests
+            .First(g => g.Id == guestToEdit);
 
-                guestToUpdate.FirstName = editedGuestDetails[0];
-                guestToUpdate.Surname = editedGuestDetails[1];
-                guestToUpdate.Email = editedGuestDetails[2];
-                guestToUpdate.Phone = editedGuestDetails[3] ?? "---";
+            guestToUpdate.FirstName = editedGuestDetails[0];
+            guestToUpdate.Surname = editedGuestDetails[1];
+            guestToUpdate.Email = editedGuestDetails[2];
+            guestToUpdate.Phone = editedGuestDetails[3] ?? "---";
 
-                dbContext.SaveChanges();
+            dbContext.SaveChanges();
         }
 
 
@@ -178,7 +171,7 @@ namespace Hotel_Transylvania.Services
                 dbContext.SaveChanges();
                 AnsiConsole.MarkupLine("[bold green]Registered..[/]");
             }
-                
+
         }
         public void ReActivateGuest(string guestIdToReactivate, ApplicationDbContext dbContext)
         {

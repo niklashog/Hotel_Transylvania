@@ -3,7 +3,6 @@ using Hotel_Transylvania.Display;
 using Hotel_Transylvania.Interfaces.MenuInterfaces.RoomsInterfaces;
 using Hotel_Transylvania.Interfaces.ServicesInterfaces;
 using Hotel_Transylvania.Models;
-using Hotel_Transylvania.Services;
 using Spectre.Console;
 
 namespace Hotel_Transylvania.Menus.Rooms
@@ -53,7 +52,7 @@ namespace Hotel_Transylvania.Menus.Rooms
                         );
 
                 var roomToUpdate = int.Parse(roomToUpdateString);
-                
+
                 Console.Clear();
                 DisplayLogo.Paint();
 
@@ -90,7 +89,7 @@ namespace Hotel_Transylvania.Menus.Rooms
                         }
                     })
                     );
-                
+
                 var newRoomNumber = roomToUpdate;
 
                 bool confirm = AnsiConsole.Confirm($"Do you want to leave the room number unchanged?");
@@ -165,7 +164,7 @@ namespace Hotel_Transylvania.Menus.Rooms
                 {
                     AnsiConsole.MarkupLine("[bold red]Cancelled. Details remain unchanged.[/]");
                 }
-                
+
                 Console.CursorVisible = false;
                 Console.ReadKey();
             }

@@ -4,14 +4,7 @@ using Hotel_Transylvania.Factories;
 using Hotel_Transylvania.Interfaces.MenuInterfaces.RoomsInterfaces;
 using Hotel_Transylvania.Interfaces.ServicesInterfaces;
 using Hotel_Transylvania.Models;
-using Hotel_Transylvania.Services;
-using Microsoft.EntityFrameworkCore.Query;
 using Spectre.Console;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Hotel_Transylvania.Menus.Rooms
 {
@@ -22,7 +15,7 @@ namespace Hotel_Transylvania.Menus.Rooms
         {
             var newRoom = MainFactory.Resolve<Room>();
             using var dbContext = ApplicationDbContext.GetDbContext();
-            
+
             var existingRoomNumbers = roomService.GetExistingRoomNumbersAsString(dbContext);
 
             Console.Clear();

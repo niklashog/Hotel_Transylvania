@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Channels;
-using System.Threading.Tasks;
-using Hotel_Transylvania.Data;
+﻿using Hotel_Transylvania.Data;
 using Hotel_Transylvania.Interfaces.ServicesInterfaces;
 using Hotel_Transylvania.Models;
 using Microsoft.EntityFrameworkCore;
@@ -39,7 +33,7 @@ namespace Hotel_Transylvania.Services
         }
         public IEnumerable<Room> GetAvailableRoomsWithBedding(
             DateTime checkinDate,
-            DateTime checkoutDate, 
+            DateTime checkoutDate,
             int beddingRequest,
             ApplicationDbContext dbContext)
         {
@@ -100,9 +94,9 @@ namespace Hotel_Transylvania.Services
             AnsiConsole.Write(table);
         }
         public void DisplayAvailableRoomsWithAdditionalBeddingRequest(
-            DateTime checkinDate, 
-            DateTime checkoutDate, 
-            int beddingRequest, 
+            DateTime checkinDate,
+            DateTime checkoutDate,
+            int beddingRequest,
             ApplicationDbContext dbContext)
         {
             var allRooms = dbContext.Rooms.ToList();
@@ -144,11 +138,11 @@ namespace Hotel_Transylvania.Services
             AnsiConsole.Write(table);
         }
         public void AddReservation(
-            string guestIdString, 
-            DateTime checkinDate, 
+            string guestIdString,
+            DateTime checkinDate,
             DateTime checkoutDate,
-            string roomNumberString, 
-            int additionalBeddingNumber, 
+            string roomNumberString,
+            int additionalBeddingNumber,
             ApplicationDbContext dbContext)
         {
 
@@ -265,7 +259,7 @@ namespace Hotel_Transylvania.Services
         }
 
         public void ShowReservationDetails(
-            Reservation reservationToChange, 
+            Reservation reservationToChange,
             ApplicationDbContext dbContext)
         {
             var reservationMatch = dbContext.Reservations
@@ -273,7 +267,7 @@ namespace Hotel_Transylvania.Services
                 .Include(r => r.Guests)
                 .Include(r => r.Rooms)
                 .ToList();
-            
+
             var table = new Table();
             table.Border = TableBorder.Simple;
 
@@ -309,11 +303,11 @@ namespace Hotel_Transylvania.Services
         }
 
         public void UpdateReservationDetails(
-            Reservation reservation, 
-            int roomNumber, 
-            DateTime checkinDate, 
+            Reservation reservation,
+            int roomNumber,
+            DateTime checkinDate,
             DateTime checkoutDate,
-            int extraBeds, 
+            int extraBeds,
             ApplicationDbContext dbContext)
         {
             reservation.RoomNumber = roomNumber;
@@ -324,7 +318,7 @@ namespace Hotel_Transylvania.Services
             dbContext.SaveChanges();
         }
         public void RemoveReservation(
-            string reservationToRemoveString, 
+            string reservationToRemoveString,
             ApplicationDbContext dbContext)
         {
             var reservationToRemove = int.Parse(reservationToRemoveString);
@@ -355,7 +349,7 @@ namespace Hotel_Transylvania.Services
             return allReservations;
         }
         public Reservation GetReservation(
-            int findReservationById, 
+            int findReservationById,
             ApplicationDbContext dbContext)
         {
             var reservation = dbContext.Reservations
@@ -365,7 +359,7 @@ namespace Hotel_Transylvania.Services
         }
         public void UpdateNumberOfAdditionalBeds(
             int reservationId,
-            int numberOfBeds, 
+            int numberOfBeds,
             ApplicationDbContext dbContext)
         {
             var reservationToUpdate = dbContext.Reservations
@@ -376,8 +370,8 @@ namespace Hotel_Transylvania.Services
             dbContext.SaveChanges();
         }
         public void UpdateReservedRoom(
-            int reservationId, 
-            int roomNumber, 
+            int reservationId,
+            int roomNumber,
             ApplicationDbContext dbContext)
         {
             var reservationToUpdate = dbContext.Reservations
@@ -394,9 +388,9 @@ namespace Hotel_Transylvania.Services
             }
         }
         public void UpdateReservationDates(
-            int reservationId, 
-            DateTime newCheckinDate, 
-            DateTime newCheckoutDate, 
+            int reservationId,
+            DateTime newCheckinDate,
+            DateTime newCheckoutDate,
             ApplicationDbContext dbContext)
         {
             var reservationToUpdate = dbContext.Reservations

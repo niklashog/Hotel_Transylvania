@@ -1,11 +1,8 @@
-﻿using Hotel_Transylvania.Factories;
-using Hotel_Transylvania.Interfaces.MenuInterfaces.GuestsInterfaces;
-using Hotel_Transylvania.Models;
-using Hotel_Transylvania.Data;
-using Hotel_Transylvania.Services;
-using Hotel_Transylvania.Interfaces.ServicesInterfaces;
+﻿using Hotel_Transylvania.Data;
 using Hotel_Transylvania.Display;
-using System.Text.RegularExpressions;
+using Hotel_Transylvania.Interfaces.MenuInterfaces.GuestsInterfaces;
+using Hotel_Transylvania.Interfaces.ServicesInterfaces;
+using Hotel_Transylvania.Models;
 using Spectre.Console;
 
 

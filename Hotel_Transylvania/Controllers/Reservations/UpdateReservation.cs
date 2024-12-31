@@ -3,11 +3,7 @@ using Hotel_Transylvania.Display;
 using Hotel_Transylvania.Interfaces.CalendarsInterfaces;
 using Hotel_Transylvania.Interfaces.MenuInterfaces.ReservationsInterfaces;
 using Hotel_Transylvania.Interfaces.ServicesInterfaces;
-using Hotel_Transylvania.Models;
-using Hotel_Transylvania.Services;
 using Spectre.Console;
-using System.Linq;
-using System.Xml;
 
 namespace Hotel_Transylvania.Menus.Reservations
 {
@@ -71,7 +67,7 @@ namespace Hotel_Transylvania.Menus.Reservations
                 var reservationToUpdateId = reservationToUpdate.Id;
                 var checkInDate = reservationToUpdate.CheckinDate;
                 var checkOutDate = reservationToUpdate.CheckoutDate;
-                
+
                 var currentNumberOfExtraBeds = reservationToUpdate
                     .NumberOfAdditionalBeds;
 
@@ -86,7 +82,7 @@ namespace Hotel_Transylvania.Menus.Reservations
                 {
                     AnsiConsole.MarkupLine($"Will extra beds still be needed?");
                     bool confirm = AnsiConsole.Confirm("Press 'y' for yes or 'n' for no.");
-                    
+
                     if (confirm)
                     {
                         string oneOrTwoBedsString = AnsiConsole.Prompt(
@@ -267,7 +263,7 @@ namespace Hotel_Transylvania.Menus.Reservations
                             if (!validReservationIds.Contains(reservationId))
                             {
                                 return ValidationResult.Error("[red]Reservation Id doesn't exist or isn't active.[/]");
-                               
+
                             }
 
                             return ValidationResult.Success();

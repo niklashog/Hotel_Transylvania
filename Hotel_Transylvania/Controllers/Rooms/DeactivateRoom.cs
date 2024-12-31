@@ -1,18 +1,14 @@
 ﻿using Hotel_Transylvania.Data;
 using Hotel_Transylvania.Display;
-using Hotel_Transylvania.Factories;
 using Hotel_Transylvania.Interfaces.MenuInterfaces.RoomsInterfaces;
 using Hotel_Transylvania.Interfaces.ServicesInterfaces;
-using Hotel_Transylvania.Models;
-using Hotel_Transylvania.Services;
 using Spectre.Console;
-using System.Linq;
 
 namespace Hotel_Transylvania.Menus.Rooms
 {
     public class DeactivateRoom(
         IRoomService roomService,
-        IReservationService reservationService): IDeactivateRoom
+        IReservationService reservationService) : IDeactivateRoom
     {
         public void Execute()
         {

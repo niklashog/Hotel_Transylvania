@@ -15,7 +15,7 @@ namespace Hotel_Transylvania.Menus.Reservations
             DisplayLogo.Paint();
 
             using var dbContext = ApplicationDbContext.GetDbContext();
-            
+
             reservationService.ShowReservations(dbContext);
 
             //reservationService.ShowInactiveReservations(dbContext);

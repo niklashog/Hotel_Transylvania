@@ -1,8 +1,5 @@
-﻿using Hotel_Transylvania.Data;
-using Hotel_Transylvania.Factories;
+﻿using Hotel_Transylvania.Factories;
 using Hotel_Transylvania.Interfaces;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Configuration;
 
 namespace Hotel_Transylvania
 {
