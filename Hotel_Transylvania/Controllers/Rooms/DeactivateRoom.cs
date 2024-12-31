@@ -37,7 +37,9 @@ namespace Hotel_Transylvania.Menus.Rooms
                     .Select(r => r.RoomNumber)
                     .ToList();
 
-                var listOfActiveReservations = reservationService.GetListOfAllReservations(dbContext);
+                var listOfActiveReservations = reservationService.GetListOfAllReservations(dbContext)
+                    .Where(r => r.IsReservationActive)
+                    .ToList();
 
                 Console.CursorVisible = true;
                 AnsiConsole.MarkupLine("[bold yellow]Deactivate Room[/]");

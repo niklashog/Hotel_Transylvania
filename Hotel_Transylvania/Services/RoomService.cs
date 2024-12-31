@@ -239,7 +239,7 @@ namespace Hotel_Transylvania.Services
 
             if (hasActiveReservation)
             {
-                AnsiConsole.MarkupLine("[bold red]Cannot delete a room with an active" +
+                AnsiConsole.MarkupLine("[bold red]Cannot delete a room with an active " +
                 "reservation.[/] \nRemove reservation first and try again.");
             }
             else
